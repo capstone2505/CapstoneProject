@@ -14,6 +14,8 @@ const Profile = ({ navigation }) => {
   return (
     <SafeAreaView resizeMode="cover" style={{ flex: 1, justifyContent: 'center' }}>
       {/* <Text style={{ marginTop: 30, alignSelf: 'center', fontSize: 30 }}>Profile</Text> */}
+      <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 20}}>Edit Profile</Text>
+
       <View style={{ alignItems: "center" }}>
         {/* <TouchableOpacity> */}
         <View style={styles.imgProfile}>
@@ -22,14 +24,6 @@ const Profile = ({ navigation }) => {
         {/* </TouchableOpacity> */}
       </View>
 
-      <View style={{ alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: '50%', borderRadius: 8, padding: 8, marginBottom: 25 }}>
-        <TouchableOpacity>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <AntDesign name='edit' color={'white'} size={20} />
-            <Text style={{color: 'white'}}> Edit Profile </Text>
-          </View>
-        </TouchableOpacity>
-      </View>
 
       <Text style={{ fontSize: 20, fontWeight: 'bold'}}>Account Info</Text>
       <View style={{ alignItems: 'center' , marginBottom: 50}}>
