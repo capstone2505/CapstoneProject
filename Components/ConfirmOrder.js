@@ -30,8 +30,6 @@ const ConfirmOrder = ({ navigation }) => {
                     <Text style={{ color: 'black', margin: 2, fontSize: 20 }}> Details </Text>
                     <Text style={{ color: 'black', margin: 2, fontSize: 20 }}> 3000 QR </Text>
                 </View>
-
-
                 <View style={{ backgroundColor: 'red', height: 60, width: 60 }}><Text>000000</Text></View>
             </View>
 
