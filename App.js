@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Profile from './Components/Profile';
+import EditProfile from './Components/EditProfile';
 export default function App() {
   return (
     <View style={styles.container}>
       <Text>Open </Text>
-      <Profile />
+      <EditProfile />
       <StatusBar style="auto" />
     </View>
   );

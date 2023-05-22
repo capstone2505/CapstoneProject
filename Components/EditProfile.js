@@ -1,5 +1,5 @@
 //Farah Aboudia 60093383
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -10,6 +10,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 //npm install react-native-vector-icons --save
 
 const Profile = ({ navigation }) => {
+
   return (
     <SafeAreaView resizeMode="cover" style={{ flex: 1, justifyContent: 'center' }}>
       {/* <Text style={{ marginTop: 30, alignSelf: 'center', fontSize: 30 }}>Profile</Text> */}
@@ -34,32 +35,35 @@ const Profile = ({ navigation }) => {
       <View style={{ alignItems: 'center' , marginBottom: 50}}>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
           <MaterialCommunityIcons name='account' color={'#998184'} size={20} />
-          <Text style={{color: '#998184'}}> Name : </Text>
+          <TextInput style={{color: '#998184'}} placeholder=' Name'/>
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
           <Fontisto name='email' color={'#998184'} size={20} />
-          <Text style={{color: '#998184'}}> Email: </Text>
+          <TextInput style={{color: '#998184'}} placeholder='  Email'/>
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
           <FontAwesome name='phone' color={'#998184'} size={20} />
-          <Text style={{color: '#998184'}}> Phone: </Text>
+          <TextInput style={{color: '#998184'}} placeholder='  Phone' />
         </View>
       </View>
 
       <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Address</Text>
-      <View style={[styles.txt, {marginBottom: 25}]}>
-        <Text style={{color: '#998184', margin: 5}}> City </Text>
-        <Text style={{color: '#998184', margin: 5}}> Street number </Text>
-        <Text style={{color: '#998184', margin: 5}}> Street name </Text>
-        <Text style={{color: '#998184', margin: 5}}> Building number </Text>
-
+      <View style={{ alignItems: 'center' , marginBottom: 50}}>
+        <View style={[styles.txt, { flexDirection: 'row' }]}>
+          <TextInput style={{color: '#998184'}} placeholder=' Street number'/>
+        </View>
+        <View style={[styles.txt, { flexDirection: 'row' }]}>
+          <TextInput style={{color: '#998184'}} placeholder=' Street Name'/>
+        </View>
+        <View style={[styles.txt, { flexDirection: 'row' }]}>
+          <TextInput style={{color: '#998184'}} placeholder=' Building Number' />
+        </View>
       </View>
 
       <View style={{ alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: '50%', borderRadius: 8, padding: 8 }}>
         <TouchableOpacity>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Entypo name='log-out' color={'white'} size={20} />
-            <Text style={{color: 'white'}}> SignOut </Text>
+            <Text style={{color: 'white', width: 200, textAlign: 'center'}}> Save </Text>
           </View>
         </TouchableOpacity>
       </View>
