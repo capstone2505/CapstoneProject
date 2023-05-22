@@ -11,7 +11,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.space} />
-      <Text style={styles.title}> > Card Payment</Text>
+      <Text style={styles.title}> Card Payment</Text>
       <View style={styles.content}>
         <View style={styles.space} />
         <Text style={styles.boldTextLarge}>Summary Payment</Text>
