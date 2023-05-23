@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-
+import MyCart from './Components/MyCart';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open </Text>
+      <MyCart />
       <StatusBar style="auto" />
     </View>
   );
