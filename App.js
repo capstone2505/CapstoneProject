@@ -4,7 +4,6 @@ import MyCart from './Components/MyCart';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open </Text>
       <MyCart />
       <StatusBar style="auto" />
     </View>

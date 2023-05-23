@@ -1,16 +1,12 @@
 //Farah Aboudia 60093383
 import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { RadioButton } from 'react-native-paper';
-//npm install react-native-paper
-//https://callstack.github.io/react-native-paper/3.0/radio-button.html
 
 const MyCart = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
             <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 20 }}>My Cart</Text>
-
             <View style={[styles.txt, { marginBottom: 30, flexDirection: 'row', backgroundColor: '#f5f5f5' }]}>
                 <View style={{ backgroundColor: 'pink', height: 60, width: 60 }}><Text>000000</Text></View>
                 <View>
@@ -39,12 +35,21 @@ const MyCart = ({ navigation }) => {
                 </View>
             </View>
 
-            <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 350, height: 50, borderRadius: 8, padding: 8 }}>
-                <TouchableOpacity>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Go to Payment </Text>
-                    </View>
-                </TouchableOpacity>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-around'}}>
+                <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
+                    <TouchableOpacity>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}>Add More</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
+                    <TouchableOpacity>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Checkout </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
         </SafeAreaView>
     );
@@ -67,6 +72,5 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 8,
         margin: 6,
-        // backgroundColor: '#F7EBED',
     },
 })
