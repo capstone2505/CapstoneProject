@@ -1,58 +1,77 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Switch } from 'react-native';
+import { StatusBar, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-export default function App() {
-  const [saveCardDetails, setSaveCardDetails] = useState(false);
+export default function AboutUs() {
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  const [showFullAboutText, setShowFullAboutText] = useState(false);
 
-  const handleSaveCardDetailsToggle = () => {
-    setSaveCardDetails(!saveCardDetails);
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
   };
 
+  const toggleAboutText = () => {
+    setShowFullAboutText(!showFullAboutText);
+  };
+
+  const descriptionText = `Catering 360 is a connecting point between restaurants and customers, serving customer appetite with quality items and timely services...     So, it will solve the shortage of catering services in one application. it is easy to order and manage to your event across our app.`;
+
+  const aboutText = `At Catering 360, what sets us apart from other catering services is providing a truly comprehensive experience. We don't just provide food; we provide a complete catering solution that includes menu planning, food preparation, delivery, setup, and cleanup. This means that you can sit back and relax, knowing that everything is taken care of from start to finish.`;
+
   return (
+    
     <View style={styles.container}>
-      <View style={styles.space} />
-      <Text style={styles.title}> Card Payment</Text>
+      <View style={styles.header}></View>
       <View style={styles.content}>
-        <View style={styles.space} />
-        <Text style={styles.boldTextLarge}>Summary Payment</Text>
-        <View style={styles.paymentDetails}>
-          <Text style={styles.subtitle}>Sub-total: 5000 QR</Text>
-          <Text style={styles.subtitle}>Discount: 0%</Text>
-          <View style={styles.divider} />
-          <Text style={styles.subtitle}>Total Amount: 5000 QR</Text>
+        <View style={styles.backgroundContainer}>
+          <Image
+            style={styles.circleImage}
+            source={require('./assets/about11.jpeg')}
+          />
+          <View />
         </View>
-        <Text style={styles.boldTextLarge}>Card Details</Text>
-        <View style={styles.cardDetails}>
-          <Text style={styles.label}>Card Number</Text>
-          <TextInput style={styles.input} placeholder="Card Number" />
-          <Text style={styles.label}>Card expiry date</Text>
-          <View style={styles.expiryContainer}>
-            <TextInput style={[styles.input, styles.expiryInput]} placeholder="MM" />
-            <TextInput style={[styles.input, styles.expiryInput]} placeholder="YY" />
-          </View>
-          <Text style={styles.label}>Card Verification Value</Text>
-          <TextInput style={styles.input} placeholder="CVV" />
-          <View style={styles.checkboxContainer}>
-            <Switch
-              trackColor={{ false: '#767577', true: '#81b0ff' }}
-              thumbColor={saveCardDetails ? '#f5dd4b' : '#f4f3f4'}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={handleSaveCardDetailsToggle}
-              value={saveCardDetails}
-            />
-            <Text style={styles.checkboxText}>For faster and more secure checkout save your card details</Text>
-          </View>
-        </View>
-        <View style={styles.space} />
-        <View style={styles.imageContainer}>
-          <Image source={require('./assets/payment.png')} style={styles.image} resizeMode="contain" />
-        </View>
-        <TouchableOpacity style={styles.button} onPress={() => {}}>
-          <Text style={styles.buttonText}>Pay now</Text>
-        </TouchableOpacity>
-        <View style={styles.space} />
+        <Text style={styles.aboutUsText}>ABOUT US</Text>
+        <Text
+          style={[
+            styles.descriptionText,
+            showFullDescription ? styles.fullDescription : styles.previewDescription,
+          ]}
+        >
+          {descriptionText}
+        </Text>
+        {!showFullDescription && (
+          <TouchableOpacity onPress={toggleDescription}>
+            <Text style={styles.seeMoreText}>See more...</Text>
+          </TouchableOpacity>
+        )}
+        {showFullDescription && (
+          <TouchableOpacity onPress={toggleDescription}>
+            <Text style={styles.seeMoreText}>See less</Text>
+          </TouchableOpacity>
+        )}
+        <Image
+          style={styles.rectangleImage}
+          source={require('./assets/about2.jpeg')}
+        />
+        <Text
+          style={[
+            styles.aboutText,
+            showFullAboutText ? styles.fullAboutText : styles.previewAboutText,
+          ]}
+        >
+          {aboutText}
+        </Text>
+        {!showFullAboutText && (
+          <TouchableOpacity onPress={toggleAboutText}>
+            <Text style={styles.seeMoreText}>See more...</Text>
+          </TouchableOpacity>
+        )}
+        {showFullAboutText && (
+          <TouchableOpacity onPress={toggleAboutText}>
+            <Text style={styles.seeMoreText}>See less</Text>
+          </TouchableOpacity>
+        )}
       </View>
-      <View style={styles.space} />
+      <StatusBar style="auto" />
     </View>
   );
 }
@@ -60,87 +79,63 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 20,
+    // backgroundColor: '#F7EBED',
   },
-  space: {
-    height: 20,
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginTop: 25
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
   },
   content: {
     flex: 1,
-  },
-  boldTextLarge: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginTop: 10,
-  },
-  paymentDetails: {
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  subtitle: {
-    marginBottom: 10,
-  },
-  divider: {
-    borderBottomWidth: 1,
-    borderBottomColor: 'gray',
-    marginBottom: 10,
-  },
-  cardDetails: {
-    marginTop: 10,
-  },
-  label: {
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-  },
-  expiryContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  expiryInput: {
-    width: '45%',
-  },
-  checkboxContainer: {
-    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
-  },
-  checkboxText: {
-    marginLeft: 10,
-  },
-  imageContainer: {
-    flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
+    paddingHorizontal: 16,
   },
-  image: {
-    width: '100%',
-    height: '100%',
-  },
-  button: {
-    backgroundColor: '#998184',
-    borderRadius: 10,
-    paddingVertical: 12,
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
+  aboutUsText: {
+    fontSize: 24,
     fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  backgroundContainer: {
+    marginBottom: 16,
+  },
+  circleImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 100,
+  },
+  descriptionText: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  fullDescription: {
+    maxHeight: '100%',
+  },
+  previewDescription: {
+    maxHeight: 60,
+  },
+  seeMoreText: {
+    color: '#403637',
+    textDecorationLine: 'underline',
+    marginBottom: 8,
+    fontWeight: 'bold',
+  },
+  rectangleImage: {
+    width: '100%',
+    height: 200,
+    marginBottom: 16,
+  },
+  aboutText: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  fullAboutText: {
+    maxHeight: '100%',
+  },
+  previewAboutText: {
+    maxHeight: 60,
   },
 });
