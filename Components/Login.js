@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, Pressable, StyleSheet, Image, ImageBackground, SafeAreaView } from 'react-native'
+import { View, Text, TextInput, Pressable, StyleSheet, Image, ImageBackground, SafeAreaView, TouchableOpacity } from 'react-native'
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from './Config';
 import SignUp from './SignUp'
+import Feather from 'react-native-vector-icons/Feather';
+
 
 
 export default function Login({ navigation }) {
@@ -29,12 +31,40 @@ export default function Login({ navigation }) {
             justifyContent: 'center', backgroundColor:'white'}}>
    
             <Image style={{width:250,height:200,borderRadius:30,marginTop:20}} source={require("../assets/Images2/choose.png")}></Image>
-            <Text>By Logining in you are agreeing our...
-                Term and privacy policy</Text>
+            <Text>By Logining in you are agreeing our...</Text>
+              <Text style={{color:'blue'}}>Term and privacy policy</Text>  
             <View style={[styles.card, styles.shadowProp]}>
-               <TextInput placeholder='USERNAME'style={{borderWidth:2,borderRadius:20,padding:20,width:200}}></TextInput>
-               <TextInput placeholder='PASSWORD'style={{borderWidth:2,borderRadius:20,padding:20,marginTop:5,width:200}}></TextInput>
+               <TextInput placeholder='USERNAME'style={{borderWidth:2,borderRadius:20,padding:20,width:200,borderStyle:'dashed',margin:5}}></TextInput>
+               <TextInput placeholder='PASSWORD'style={{borderWidth:2,borderRadius:20,padding:20,marginTop:5,width:200,borderStyle:'dashed',margin:5}}></TextInput>
+                   <TouchableOpacity
+          style={{
+            alignItems:'flex-end',
+            backgroundColor:'#998184',
+            borderWidth:2,
+            borderRadius:20,
+            margin:15
+          }}
+    
+        >
+          <Text style={{ color: 'white',alignSelf:'center',margin:10,width:140,paddingLeft:35,height:30,fontSize:20}} > <Feather name="log-in" size={15
+        } color='white' />Login</Text>
+        </TouchableOpacity>
+        <Text>No user account?</Text>
+         <TouchableOpacity
+          style={{
+            alignItems:'flex-end',
+            backgroundColor:'#998184',
+            borderWidth:2,
+            borderRadius:20,
+            margin:15
+          }}
+    
+        >
+          <Text style={{ color: 'white',alignSelf:'center',margin:10,width:140,paddingLeft:35,height:30,fontSize:20}} > <Text />Sign Up</Text>
+        </TouchableOpacity>
+
             </View>
+            
             </SafeAreaView>
   
     

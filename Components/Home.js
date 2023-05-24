@@ -27,6 +27,7 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
     </View>
     </View>
+    <View><Image style={{width:435,height:150,alignSelf:'center'}} source={require("../assets/Images2/homepage.png")}></Image></View>
     <View >
     <Image style={{width:425,height:150,alignSelf:'center'}} source={require("../assets/Images2/start_order.jpg")}></Image>
     </View>
