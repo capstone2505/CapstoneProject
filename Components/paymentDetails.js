@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Switch } from 'react-native';
 
-export default function App() {
+export default function paymentDetails() {
   const [saveCardDetails, setSaveCardDetails] = useState(false);
 
   const handleSaveCardDetailsToggle = () => {

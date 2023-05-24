@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, SafeAreaView } from 'react-native';
 
-export default function App() {
+export default function ContactUS() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>

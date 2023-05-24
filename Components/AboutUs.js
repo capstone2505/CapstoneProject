@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StatusBar, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-export default function App() {
+export default function AboutUs() {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [showFullAboutText, setShowFullAboutText] = useState(false);
 
