@@ -18,11 +18,13 @@ const Home = ({ navigation }) => {
       <View style={{width:80,height:40 ,backgroundColor:'rosybrown',borderRadius:40,marginLeft:340}}>
       <TouchableOpacity
           style={{
-            alignItems:'flex-end'
+            alignItems:'flex-end',
+            
+            
           }}
     
         >
-          <Text style={{ color: 'white',alignSelf:'center',margin:10}} > <Feather name="log-in" size={15
+          <Text style={{ color: 'white',alignSelf:'center',margin:10,fontSize:15}} > <Feather name="log-in" size={15
         } color='white' />Login</Text>
         </TouchableOpacity>
     </View>
