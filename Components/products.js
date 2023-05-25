@@ -1,27 +1,25 @@
-import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView } from 'react-native';
 import { Searchbar } from "react-native-paper";
+import React, { useState, useEffect } from "react";
 
 export default function products() {
+
+  const [resturants, setResturants] = useState([
+    { resId: 1, resName: 'Burj Al Hamam', address: 'The Pearl' },
+    { resId: 2, resName: 'Meat Moot', address: 'Lusail' },
+    { resId: 3, resName: 'Al Nahham', address: 'Banana Island' }
+  ])
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.topImageContainer}>
-          <Image source={require('./assets/productheader.jpeg')} style={styles.topImage} />
+          <Image source={require('../assets/Images2/productheader.jpeg')} style={styles.topImage} />
         </View>
-
-        {/* Search box */}
-        {/* <View style={styles.searchBox}>
-          <Text style={styles.searchText}>Search</Text>
-        </View> */}
 
         <View style={{ flexDirection: 'row', margin: 6, justifyContent: 'center', padding: 10, alignItems: 'space-between' }}>
           <Searchbar
             placeholder="Search"
-            onChangeText={handleSearch}
-            value={search}
-            autoCorrect={false}
             style={{
               backgroundColor: '#F9F5EB',
               borderRadius: 10,
@@ -32,87 +30,24 @@ export default function products() {
               color: '#333333',
             }}
           />
-          <FontAwesome name='sort' size={40} style={{ margin: 6 }} color={'#F9F5EB'}
-            onPress={() => setModalVisible(true)} />
         </View>
 
         {/* First row */}
         <View style={styles.rowContainer}>
-          <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 1</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
+          {
+            resturants.map((index, item) => {
+              <View style={styles.squareContainer}>
+                <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+                <Text style={styles.imageName}>Image 1</Text>
+                <TouchableOpacity style={styles.button}>
+                  <Text style={styles.buttonText}>View Packaging</Text>
+                </TouchableOpacity>
+              </View>
+            })
+          }
 
-          <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 2</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
         </View>
 
-        {/* Second row */}
-        <View style={styles.rowContainer}>
-          <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 3</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 4</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Third row */}
-        <View style={styles.rowContainer}>
-          <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 5</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 6</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Fourth row */}
-        <View style={styles.rowContainer}>
-          <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 7</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 8</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Additional rows go here */}
       </ScrollView>
       <StatusBar style="auto" />
     </SafeAreaView>
