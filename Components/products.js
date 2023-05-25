@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaVi
 import { Searchbar } from "react-native-paper";
 import React, { useState, useEffect } from "react";
 
-export default function products() {
+export default function Products() {
 
   const [resturants, setResturants] = useState([
     { resId: 1, resName: 'Burj Al Hamam', address: 'The Pearl' },
@@ -33,20 +33,19 @@ export default function products() {
         </View>
 
         {/* First row */}
-        <View style={styles.rowContainer}>
-          {
-            resturants.map((index, item) => {
-              <View style={styles.squareContainer}>
+        {
+          resturants.map((index, item) => {
+            <View style={styles.rowContainer}>
+              <View key={item} style={styles.squareContainer}>
                 <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
-                <Text style={styles.imageName}>Image 1</Text>
+                <Text style={styles.imageName}>{item.resName}</Text>
                 <TouchableOpacity style={styles.button}>
                   <Text style={styles.buttonText}>View Packaging</Text>
                 </TouchableOpacity>
               </View>
-            })
-          }
-
-        </View>
+            </View>
+          })
+        }
 
       </ScrollView>
       <StatusBar style="auto" />
@@ -81,7 +80,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 10,
     marginBottom: 10,
-
   },
   searchText: {
     fontSize: 16,
