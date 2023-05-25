@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView } from 'react-native';
 
-export default function App() {
+export default function products() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>

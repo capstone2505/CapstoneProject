@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+
+import products  from '../Components/products'
+import MyCart from '../Components/MyCart'
 import Home from '../Components/Home'
 import Login from '../Components/Login'
 import SignUp from '../Components/SignUp';
@@ -34,8 +37,8 @@ export default function TabNavigation() {
             <MaterialCommunityIcons name="draw" color={color} size={size} />
           ),
         }} />
-        <Tab.Screen name="ConfirmOrder" component={ConfirmOrder} options={{
-          tabBarLabel: 'ConfirmOrder',
+        <Tab.Screen name="MyCart" component={MyCart} options={{
+          tabBarLabel: 'MyCart',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="draw" color={color} size={size} />
           ),
