@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView } from 'react-native';
+import { Searchbar } from "react-native-paper";
 
 export default function products() {
   return (
@@ -11,8 +12,28 @@ export default function products() {
         </View>
 
         {/* Search box */}
-        <View style={styles.searchBox}>
+        {/* <View style={styles.searchBox}>
           <Text style={styles.searchText}>Search</Text>
+        </View> */}
+
+        <View style={{ flexDirection: 'row', margin: 6, justifyContent: 'center', padding: 10, alignItems: 'space-between' }}>
+          <Searchbar
+            placeholder="Search"
+            onChangeText={handleSearch}
+            value={search}
+            autoCorrect={false}
+            style={{
+              backgroundColor: '#F9F5EB',
+              borderRadius: 10,
+              paddingHorizontal: 5,
+              height: 50,
+              width: "90%",
+              fontSize: 16,
+              color: '#333333',
+            }}
+          />
+          <FontAwesome name='sort' size={40} style={{ margin: 6 }} color={'#F9F5EB'}
+            onPress={() => setModalVisible(true)} />
         </View>
 
         {/* First row */}
@@ -125,7 +146,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 10,
     marginBottom: 10,
-    
+
   },
   searchText: {
     fontSize: 16,
@@ -158,7 +179,7 @@ const styles = StyleSheet.create({
   imageName: {
     fontSize: 14,
     marginBottom: 3,
-    
+
   },
   button: {
     backgroundColor: '#998184',
