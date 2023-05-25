@@ -7,7 +7,7 @@ export default function products() {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.topImageContainer}>
-          <Image source={require('./assets/productheader.jpeg')} style={styles.topImage} />
+          <Image source={require('../assets/Images2/productheader.jpeg')} style={styles.topImage} />
         </View>
 
         {/* Search box */}
@@ -18,7 +18,7 @@ export default function products() {
         {/* First row */}
         <View style={styles.rowContainer}>
           <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
             <Text style={styles.imageName}>Image 1</Text>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>View Packaging</Text>
@@ -26,7 +26,7 @@ export default function products() {
           </View>
 
           <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
             <Text style={styles.imageName}>Image 2</Text>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>View Packaging</Text>
@@ -37,7 +37,7 @@ export default function products() {
         {/* Second row */}
         <View style={styles.rowContainer}>
           <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
             <Text style={styles.imageName}>Image 3</Text>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>View Packaging</Text>
@@ -45,7 +45,7 @@ export default function products() {
           </View>
 
           <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
             <Text style={styles.imageName}>Image 4</Text>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>View Packaging</Text>
@@ -56,7 +56,7 @@ export default function products() {
         {/* Third row */}
         <View style={styles.rowContainer}>
           <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
             <Text style={styles.imageName}>Image 5</Text>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>View Packaging</Text>
@@ -64,7 +64,7 @@ export default function products() {
           </View>
 
           <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
             <Text style={styles.imageName}>Image 6</Text>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>View Packaging</Text>
@@ -75,7 +75,7 @@ export default function products() {
         {/* Fourth row */}
         <View style={styles.rowContainer}>
           <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
             <Text style={styles.imageName}>Image 7</Text>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>View Packaging</Text>
@@ -83,7 +83,7 @@ export default function products() {
           </View>
 
           <View style={styles.squareContainer}>
-            <Image source={require('./assets/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
             <Text style={styles.imageName}>Image 8</Text>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>View Packaging</Text>

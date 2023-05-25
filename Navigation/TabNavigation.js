@@ -43,6 +43,13 @@ export default function TabNavigation() {
             <MaterialCommunityIcons name="draw" color={color} size={size} />
           ),
         }} />
+        
+         <Tab.Screen name="products" component={products} options={{
+          tabBarLabel: 'products',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="AppstoreAddOutlined" color={color} size={size} />
+          ),
+        }} />
 
        
   
