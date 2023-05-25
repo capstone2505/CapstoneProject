@@ -8,8 +8,7 @@ import Home from './Components/Home'
 import Login from './Components/Login'
 import SignUp from './Components/SignUp';
 import ConfirmOrder from './Components/ConfirmOrder';
-import Products from './Components/Products';
-import OrderedPlaced from './Components/OrderedPlaced'
+import PackageDetails from './Components/PackageDetails'
 
 // import Try from './Components/Try'
 //installation for nav - npm install @react-navigation/native
@@ -18,10 +17,9 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="OrderedPlaced" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='OrderedPlaced' component={OrderedPlaced} />
+      <Stack.Navigator initialRouteName="PackageDetails" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='PackageDetails' component={PackageDetails} />
 
-      <Stack.Screen name='Products' component={Products} />
 
       <Stack.Screen name='Home' component={TabNavigation} />
         <Stack.Screen name='Login' component={Login} />

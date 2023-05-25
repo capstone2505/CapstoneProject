@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context'
 // import { TextInput } from 'react-native-gesture-handler';
 
-const ItemDetails = ({ navigation, route }) => {
+const PackageDetails = ({ navigation, route }) => {
   const [quantity, setQuantity] = useState(1);
   const handleQuantityIncrease = () => {
     setQuantity(quantity + 1);
@@ -105,14 +105,12 @@ const ItemDetails = ({ navigation, route }) => {
             </TouchableOpacity>
           </View>
         </View>
-
-
       </ScrollView >
     </SafeAreaView>
   )
 }
 
-export default ItemDetails
+export default PackageDetails
 
 const styles = StyleSheet.create({
   container: {
