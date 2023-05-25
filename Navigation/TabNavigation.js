@@ -6,6 +6,7 @@ import Login from '../Components/Login'
 import SignUp from '../Components/SignUp';
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import ConfirmOrder from '../Components/ConfirmOrder';
 const Tab = createBottomTabNavigator();
 
 
@@ -33,7 +34,12 @@ export default function TabNavigation() {
             <MaterialCommunityIcons name="draw" color={color} size={size} />
           ),
         }} />
-        
+        <Tab.Screen name="ConfirmOrder" component={ConfirmOrder} options={{
+          tabBarLabel: 'ConfirmOrder',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="draw" color={color} size={size} />
+          ),
+        }} />
 
        
   
