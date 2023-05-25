@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, TouchableOpaci
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export default function App() {
+export default function Offers() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
