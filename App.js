@@ -20,7 +20,7 @@ import ConfirmOrder from './Components/ConfirmOrder'
 import PaymentDetails from './Components/PaymentDetails'
 import OrderedPlaced from './Components/OrderedPlaced'
 
-// import Try from './Components/Try'
+// import Try from './Components/Try' ggggg
 //installation for nav - npm install @react-navigation/native
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator();
