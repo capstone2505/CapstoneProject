@@ -1,16 +1,26 @@
 import React from 'react';
 import { StatusBar, StyleSheet, View, Image, SafeAreaView } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 export default function TrackOrder() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-      <MaterialCommunityIcons name="home" color={'red'} size={50} />
+        <Image style={styles.home} source={require('../assets/Images2/home.png')} />
       </View>
-      {/* <View style={styles.content}>
-        <Image style={styles.track} source={require('../assets/Images2/Track.png')} />
+      <View style={styles.content}>
+        <Image style={styles.track1} source={require('../assets/Images2/Track1.png')} />
+      </View>
+       {/* <View style={styles.content}>
+        <Image style={styles.ordered} source={require('./assets/images2/Ordered.png')} />
+      </View>
+      <View style={styles.content}>
+        <Image style={styles.onTheway} source={require('./assets/images2/onTheway.png')} />
+      </View>
+      <View style={styles.content}>
+        <Image style={styles.delivered} source={require('./assets/images2/Delivered.png')} />
       </View> */}
+      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
@@ -23,31 +33,30 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'flex-start',
     padding: 16,
-
   },
   home: {
+    width: '15%',
+    height: 50,
+    marginBottom: 10,
+  },
+  track1: {
+    width: '40%',
+    height: 100,
+    marginBottom: 5,
+  },
+  ordered: {
     width: '100%',
     height: 200,
-    marginBottom: 18,
+    marginBottom: 10,
   },
-  track: {
+  onTheway: {
     width: '100%',
-    height: 600,
-    marginBottom: 18,
+    height: 200,
+    marginBottom: 10,
   },
-  sendButton: {
-    backgroundColor: '#998184',
-    borderRadius: 10,
-    paddingVertical: 16,
-    paddingHorizontal: 32,
-    marginTop: 8,
-    width:182,
-    height: 54,
-  },
-  sendButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: 'white',
+  delivered: {
+    width: '104%',
+    height: 200,
+    marginBottom: 10,
   },
 });
