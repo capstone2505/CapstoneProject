@@ -48,6 +48,9 @@ const PackageDetails = ({ navigation, route }) => {
 
           </View>
 
+
+
+
           <View style={{ flexDirection: 'row', }}>
             <View style={{ width: 220 }}>
               <Text style={{ margin: 6, paddingTop: 10 }}>25 Person</Text>
@@ -67,6 +70,10 @@ const PackageDetails = ({ navigation, route }) => {
               <Text>QR</Text>
             </View>
           </View>
+
+
+
+          
 
         </View>
 

@@ -19,6 +19,9 @@ import MyCart from './Components/MyCart'
 import ConfirmOrder from './Components/ConfirmOrder'
 import PaymentDetails from './Components/PaymentDetails'
 import OrderedPlaced from './Components/OrderedPlaced'
+import TrackOrder from './Components/TrackOrder'
+
+
 
 // import Try from './Components/Try'
 //installation for nav - npm install @react-navigation/native
@@ -43,6 +46,8 @@ export default function App() {
           <Stack.Screen name='ConfirmOrder' component={ConfirmOrder} />
           <Stack.Screen name='PaymentDetails' component={PaymentDetails} />
           <Stack.Screen name='OrderedPlaced' component={OrderedPlaced} />
+          <Stack.Screen name='TrackOrder' component={TrackOrder} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
