@@ -1,19 +1,34 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView } from 'react-native';
+import { Searchbar } from "react-native-paper";
 
-export default function products() {
+// npm install react-native-paper
+export default function Products() {
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.topImageContainer}>
+        <Image source={require('../assets/Images2/productheader.jpeg')} style={styles.topImage} />
+      </View>
       <ScrollView>
-        <View style={styles.topImageContainer}>
-          <Image source={require('../assets/Images2/productheader.jpeg')} style={styles.topImage} />
-        </View>
 
         {/* Search box */}
-        <View style={styles.searchBox}>
-          <Text style={styles.searchText}>Search</Text>
-        </View>
+        <Searchbar
+          placeholder="Search"
+          // onChangeText={handleSearch}
+          // value={search}
+          autoCorrect={false}
+          style={{
+            backgroundColor: '#D9D9D9',
+            borderRadius: 10,
+            paddingHorizontal: 5,
+            height: 50,
+            width: "90%",
+            fontSize: 16,
+            color: '#333333',
+            margin: 20
+          }}
+        />
 
         {/* First row */}
         <View style={styles.rowContainer}>
@@ -125,7 +140,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 10,
     marginBottom: 10,
-    
+
   },
   searchText: {
     fontSize: 16,
@@ -158,16 +173,17 @@ const styles = StyleSheet.create({
   imageName: {
     fontSize: 14,
     marginBottom: 3,
-    
+
   },
   button: {
     backgroundColor: '#998184',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 5,
+    marginBottom: 10
   },
   buttonText: {
-    fontSize: 10,
+    fontSize: 15,
     color: 'white',
   },
 });
