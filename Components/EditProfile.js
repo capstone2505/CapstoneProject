@@ -32,8 +32,8 @@ const Profile = ({ navigation }) => {
           <TextInput style={{color: 'black'}} placeholder=' Name'/>
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
-          <Fontisto name='email' color={'black'} size={20} />
-          <TextInput style={{color: 'black'}} placeholder='Email'/>
+        <Fontisto name='email' color={'black'} size={20} />
+        <TextInput style={{color: 'black'}} placeholder=' Email'/>
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
           <FontAwesome name='phone' color={'black'} size={20} />

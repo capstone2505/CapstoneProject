@@ -1,16 +1,18 @@
 import { StyleSheet, Text, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Zocial from 'react-native-vector-icons/Zocial';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import ItemDetails from '../Components/PackageDetails';
-import Products  from '../Components/products'
+import Products  from '../Components/Products'
 import MyCart from '../Components/MyCart'
 import Home from '../Components/Home'
 import Login from '../Components/Login'
 import SignUp from '../Components/SignUp';
+import Profile from '../Components/EditProfile';
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ConfirmOrder from '../Components/ConfirmOrder';
+import PackageDetails from '../Components/PackageDetails';
 const Tab = createBottomTabNavigator();
 
 
@@ -27,10 +29,10 @@ export default function TabNavigation() {
           ),
         }} />
 
-<Tab.Screen name="products" component={products} options={{
+<Tab.Screen name="Products" component={Products} options={{
           tabBarLabel: 'products',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="grid" color={color} size={size} />
+            <Ionicons name="ios-grid" color={color} size={size} />
           ),
         }} />
       
@@ -43,11 +45,11 @@ export default function TabNavigation() {
         
          
 
-      
-        <Tab.Screen name="ItemDetails" component={ItemDetails} options={{
-          tabBarLabel: 'ItemDetails',
+    
+          <Tab.Screen name="Profile" component={Profile} options={{
+          tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="grid" color={color} size={size} />
+            <MaterialCommunityIcons name="account" color={color} size={size} />
           ),
         }} />
 

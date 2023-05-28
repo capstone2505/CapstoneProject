@@ -7,7 +7,7 @@ import TabNavigation from './Navigation/TabNavigation';
 import Home from './Components/Home'
 import Login from './Components/Login'
 import SignUp from './Components/SignUp';
-import Products from './Components/products';
+import Products from './Components/Products';
 import ItemDetails from './Components/PackageDetails';
 import ContactUs from './Components/ContactUs';
 import AboutUs from './Components/AboutUs'
@@ -30,7 +30,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="EditProfile" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Home' component={TabNavigation} />
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='SignUp' component={SignUp} />
