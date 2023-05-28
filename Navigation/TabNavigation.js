@@ -2,8 +2,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Zocial from 'react-native-vector-icons/Zocial';
 
-import ItemDetails from '../Components/ItemDetails';
-import products  from '../Components/products'
+import ItemDetails from '../Components/PackageDetails';
+import products  from '../Components/Products'
 import MyCart from '../Components/MyCart'
 import Home from '../Components/Home'
 import Login from '../Components/Login'

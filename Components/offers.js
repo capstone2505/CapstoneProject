@@ -7,14 +7,16 @@ const windowHeight = Dimensions.get('window').height;
 export default function Offers() {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
         <View style={styles.topImageContainer}>
-          <Image source={require('./assets/offers.jpeg')} style={styles.topImage} />
+          <Image source={require('../assets/Images2/p.jpeg')} style={styles.topImage} />
         </View>
+
+        <ScrollView>
         <View style={styles.offerContainer}>
+
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('./assets/p.jpeg')} style={styles.offerImage} />
+              <Image source={require('../assets/Images2/p.jpeg')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>15% discount</Text>
@@ -25,9 +27,10 @@ export default function Offers() {
               </TouchableOpacity>
             </View>
           </View>
+
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('./assets/p.jpeg')} style={styles.offerImage} />
+              <Image source={require('../assets/Images2/p.jpeg')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>20% discount</Text>
@@ -40,7 +43,7 @@ export default function Offers() {
           </View>
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('./assets/p.jpeg')} style={styles.offerImage} />
+              <Image source={require('../assets/Images2/p.jpeg')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>10% discount</Text>
@@ -50,11 +53,11 @@ export default function Offers() {
                 <Text style={styles.buttonText}>Click Here</Text>
               </TouchableOpacity>
             </View>
-            
+
           </View>
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('./assets/p.jpeg')} style={styles.offerImage} />
+              <Image source={require('../assets/Images2/p.jpeg')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>5% discount</Text>
@@ -108,7 +111,7 @@ const styles = StyleSheet.create({
     width: 130,
     height: 130,
     borderRadius: 10,
-    
+
   },
   detailsContainer: {
     flex: 1,
