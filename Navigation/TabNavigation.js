@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Zocial from 'react-native-vector-icons/Zocial';
 
-
+import ItemDetails from '../Components/ItemDetails';
 import products  from '../Components/products'
 import MyCart from '../Components/MyCart'
 import Home from '../Components/Home'
@@ -40,14 +41,22 @@ export default function TabNavigation() {
         <Tab.Screen name="MyCart" component={MyCart} options={{
           tabBarLabel: 'MyCart',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="draw" color={color} size={size} />
+            <Zocial name="cart" color={color} size={size} />
           ),
         }} />
         
          <Tab.Screen name="products" component={products} options={{
           tabBarLabel: 'products',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="AppstoreAddOutlined" color={color} size={size} />
+            <MaterialCommunityIcons name="grid" color={color} size={size} />
+          ),
+        }} />
+
+      
+        <Tab.Screen name="ItemDetails" component={ItemDetails} options={{
+          tabBarLabel: 'ItemDetails',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="grid" color={color} size={size} />
           ),
         }} />
 
