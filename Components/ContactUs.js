@@ -1,7 +1,7 @@
 import React from 'react';
-import { StatusBar, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, SafeAreaView, Pressable } from 'react-native';
 
-export default function ContactUa() {
+const ContactUa =({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -28,14 +28,18 @@ export default function ContactUa() {
           <Text style={styles.labelText}>Message:</Text>
           <TextInput style={[styles.input, styles.textArea]} multiline={true} numberOfLines={4} />
         </View>
-        <TouchableOpacity style={styles.sendButton}>
-          <Text style={styles.sendButtonText}>Send</Text>
-        </TouchableOpacity>
+        <View style={styles.sendButton}>
+          <Pressable onPress={() => navigation.navigate("Home")}>
+          
+            <Text style={styles.sendButtonText}>Send</Text>
+          </Pressable>
+        </View>
       </View>
       <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
+export default ContactUa
 
 const styles = StyleSheet.create({
   container: {

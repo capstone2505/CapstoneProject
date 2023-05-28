@@ -52,7 +52,7 @@ export default function Login({ navigation }) {
           <Feather name="log-in" size={15} color='white' />Login</Text>
         </TouchableOpacity>
         <Text style={{marginTop: 25, marginBottom: 8}}>No user account?</Text>
-        <TouchableOpacity
+        <View
           style={{
             alignItems: 'flex-end',
             backgroundColor: '#998184',
@@ -62,8 +62,10 @@ export default function Login({ navigation }) {
           }}
 
         >
+          <Pressable  onPress={() => navigation.navigate("SignUp")}>
           <Text style={{ color: 'white', alignSelf: 'center', margin: 10, width: 140, paddingLeft: 35, height: 30, fontSize: 20 }} > <Text />Sign Up</Text>
-        </TouchableOpacity>
+          </Pressable>
+        </View>
 
       </View>
 

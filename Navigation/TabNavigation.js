@@ -10,10 +10,12 @@ import Login from '../Components/Login'
 import SignUp from '../Components/SignUp';
 import Profile from '../Components/EditProfile';
 import AboutUs from '../Components/AboutUs';
+import Packages from '../Components/Packages';
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ConfirmOrder from '../Components/ConfirmOrder';
 import PackageDetails from '../Components/PackageDetails';
+
 const Tab = createBottomTabNavigator();
 
 
@@ -23,6 +25,7 @@ const Tab = createBottomTabNavigator();
 export default function TabNavigation() {
     return (
       <Tab.Navigator>
+        {/* Home page  */}
         <Tab.Screen name="Home" component={Home} options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
@@ -30,29 +33,31 @@ export default function TabNavigation() {
           ),
         }} />
 
-<Tab.Screen name="Products" component={Products} options={{
+        {/* Products page */}
+        <Tab.Screen name="Products" component={Products} options={{
           tabBarLabel: 'products',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="ios-grid" color={color} size={size} />
           ),
         }} />
-      
+
+        {/* MyCart page */}
         <Tab.Screen name="MyCart" component={MyCart} options={{
           tabBarLabel: 'MyCart',
           tabBarIcon: ({ color, size }) => (
             <Zocial name="cart" color={color} size={size} />
           ),
         }} />
-        
-         
 
-    
+        {/* Profile page */}
           <Tab.Screen name="Profile" component={Profile} options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
           ),
         }} />
+
+        {/* AboutUs page */}
         <Tab.Screen name="AboutUs" component={AboutUs} options={{
           tabBarLabel: 'AboutUs',
           tabBarIcon: ({ color, size }) => (
@@ -60,9 +65,8 @@ export default function TabNavigation() {
           ),
         }} />
 
-       
   
-  
+
         {/* <Tab.Screen name="Try" component={Try} /> */}
       </Tab.Navigator>
     )

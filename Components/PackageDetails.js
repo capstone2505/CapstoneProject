@@ -1,5 +1,5 @@
 import {
-  StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, TextInput
+  StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, TextInput ,Pressable
 } from 'react-native'
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -164,11 +164,13 @@ const PackageDetails = ({ navigation, route }) => {
             <Text> 3000QR </Text>
           </View>
           <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
-            <TouchableOpacity>
+            
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Pressable  onPress={() => navigation.navigate("MyCart")}>
                 <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add to Cart </Text>
+                </Pressable>
               </View>
-            </TouchableOpacity>
+            
           </View>
         </View>
 

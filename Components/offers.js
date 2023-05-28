@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, TouchableOpacity, Dimensions ,Pressable} from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export default function Offers() {
+export default function Offers({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.topImageContainer}>
@@ -22,9 +22,11 @@ export default function Offers() {
               <Text style={styles.discountText}>15% discount</Text>
               <Text style={styles.orderText}>Ordering More</Text>
               <Text style={styles.priceText}>2300 QR</Text>
-              <TouchableOpacity style={styles.button}>
+              <View style={styles.button}>
+              <Pressable  onPress={() => navigation.navigate("Packages")}>
                 <Text style={styles.buttonText}>Click Here</Text>
-              </TouchableOpacity>
+                </Pressable>
+              </View>
             </View>
           </View>
 
@@ -36,9 +38,11 @@ export default function Offers() {
               <Text style={styles.discountText}>20% discount</Text>
               <Text style={styles.orderText}>Ordering More</Text>
               <Text style={styles.priceText}>3000 QR</Text>
-              <TouchableOpacity style={styles.button}>
+              <View style={styles.button}>
+              <Pressable  onPress={() => navigation.navigate("Packages")}>
                 <Text style={styles.buttonText}>Click Here</Text>
-              </TouchableOpacity>
+                </Pressable>
+              </View>
             </View>
           </View>
           <View style={styles.offerItem}>
@@ -49,9 +53,11 @@ export default function Offers() {
               <Text style={styles.discountText}>10% discount</Text>
               <Text style={styles.orderText}>Ordering More</Text>
               <Text style={styles.priceText}>2000 QR</Text>
-              <TouchableOpacity style={styles.button}>
+              <View style={styles.button}>
+              <Pressable  onPress={() => navigation.navigate("Packages")}>
                 <Text style={styles.buttonText}>Click Here</Text>
-              </TouchableOpacity>
+                </Pressable>
+              </View>
             </View>
 
           </View>
