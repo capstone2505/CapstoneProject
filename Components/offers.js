@@ -8,7 +8,7 @@ export default function Offers() {
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.topImageContainer}>
-          <Image source={require('../assets/Images2/p.jpeg')} style={styles.topImage} />
+          <Image source={require('../assets/Images2/Offersheader.png')} style={styles.topImage} />
         </View>
 
         <ScrollView>
@@ -30,7 +30,7 @@ export default function Offers() {
 
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('../assets/Images2/p.jpeg')} style={styles.offerImage} />
+              <Image source={require('../assets/Images2/charger.webp')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>20% discount</Text>
@@ -43,7 +43,7 @@ export default function Offers() {
           </View>
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('../assets/Images2/p.jpeg')} style={styles.offerImage} />
+              <Image source={require('../assets/Images2/42.png')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>10% discount</Text>
@@ -57,7 +57,7 @@ export default function Offers() {
           </View>
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('../assets/Images2/p.jpeg')} style={styles.offerImage} />
+              <Image source={require('../assets/Images2/volume.webp')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>5% discount</Text>
@@ -103,9 +103,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     elevation: 4,
     padding: 8,
+    
+    
   },
   imageContainer: {
     flex: 1,
+    marginLeft:30
   },
   offerImage: {
     width: 130,
@@ -115,8 +118,11 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 1,
-    marginLeft: 10,
+    //marginLeft: 20,
     justifyContent: 'center',
+    marginRight:40,
+    marginTop:10
+
   },
   discountText: {
     fontWeight: 'bold',
