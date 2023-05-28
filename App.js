@@ -11,6 +11,8 @@ import ConfirmOrder from './Components/ConfirmOrder';
 import products from './Components/products';
 import ItemDetails from './Components/ItemDetails';
 import ContactUs from './Components/ContactUs';
+import AboutUs from './Components/AboutUs'
+
 // import Try from './Components/Try'
 //installation for nav - npm install @react-navigation/native
 const Stack = createNativeStackNavigator()
@@ -26,6 +28,8 @@ export default function App() {
           <Stack.Screen name='products' component={products} />
           <Stack.Screen name='ItemDetails' component={ItemDetails} />
           <Stack.Screen name='ContactUs' component={ContactUs} />
+          <Stack.Screen name='AboutUs' component={TabNavigation} />
+
         {/* <Stack.Screen name='Try' component={Try} /> */}
       </Stack.Navigator>
     </NavigationContainer>
