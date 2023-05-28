@@ -25,32 +25,32 @@ const Profile = ({ navigation }) => {
       </View>
 
 
-      <Text style={{ fontSize: 20, fontWeight: 'bold'}}>Account Info</Text>
+      <Text style={{paddingLeft: 25, fontSize: 20, fontWeight: 'bold'}}>Account Info</Text>
       <View style={{ alignItems: 'center' , marginBottom: 50}}>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
-          <MaterialCommunityIcons name='account' color={'#998184'} size={20} />
-          <TextInput style={{color: '#998184'}} placeholder=' Name'/>
+          <MaterialCommunityIcons name='account' color={'black'} size={20} />
+          <TextInput style={{color: 'black'}} placeholder=' Name'/>
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
-          <Fontisto name='email' color={'#998184'} size={20} />
-          <TextInput style={{color: '#998184'}} placeholder='  Email'/>
+        <Fontisto name='email' color={'black'} size={20} />
+        <TextInput style={{color: 'black'}} placeholder=' Email'/>
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
-          <FontAwesome name='phone' color={'#998184'} size={20} />
-          <TextInput style={{color: '#998184'}} placeholder='  Phone' />
+          <FontAwesome name='phone' color={'black'} size={20} />
+          <TextInput style={{color: 'blackfdf'}} placeholder='  Phone' />
         </View>
       </View>
 
-      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Address</Text>
+      <Text style={{ paddingLeft: 25 , fontSize: 20, fontWeight: 'bold' }}>Address</Text>
       <View style={{ alignItems: 'center' , marginBottom: 50}}>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
-          <TextInput style={{color: '#998184'}} placeholder=' Street number'/>
+          <TextInput style={{color: '#6B5E5E'}} placeholder=' Street number'/>
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
-          <TextInput style={{color: '#998184'}} placeholder=' Street Name'/>
+          <TextInput style={{color: '#6B5E5E'}} placeholder=' Street Name'/>
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
-          <TextInput style={{color: '#998184'}} placeholder=' Building Number' />
+          <TextInput style={{color: '#6B5E5E'}} placeholder=' Building Number' />
         </View>
       </View>
 
@@ -84,6 +84,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     margin: 6,
-    backgroundColor: '#F7EBED',
+    backgroundColor: '#CCAFB4',
   },
 })

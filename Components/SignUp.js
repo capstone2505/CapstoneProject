@@ -31,15 +31,16 @@ const SignUp = ({ navigation }) => {
           style={{
             alignItems:'center',
             backgroundColor:'#998184',
-            borderWidth:1,
+            // borderWidth:1,
             borderRadius:10,
             marginRight:5,
             width:300,
             marginLeft:68,
+            marginTop: 25
           }}
     
         >
-          <Text style={{ color: 'white',alignSelf:'center',margin:10,width:140,paddingLeft:35,height:30,fontSize:20,}} > <Text />SIGN UP</Text>
+          <Text style={{textAlign: 'center', color: 'white',margin:10,width:140,height:30,fontSize:20}}> SIGN UP</Text>
         </TouchableOpacity>
     </View>
     
