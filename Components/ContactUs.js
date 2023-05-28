@@ -1,14 +1,14 @@
 import React from 'react';
 import { StatusBar, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, SafeAreaView } from 'react-native';
 
-export default function App() {
+export default function ContactUa() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.contactUsText}>{"< Contact Us"}</Text>
       </View>
       <View style={styles.content}>
-        <Image style={styles.logo} source={require('./assets/co.jpeg')} />
+        <Image style={styles.logo} source={require('../assets/Images2/co.jpeg')} />
         <View style={styles.contactInfoContainer}>
           <Text style={styles.contactInfoText}>Qatar - 44477888 - 360Catering@gmail.com</Text>
         </View>
