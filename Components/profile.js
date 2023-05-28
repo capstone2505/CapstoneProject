@@ -28,16 +28,16 @@ const Profile = ({ navigation }) => {
       <Text style={{paddingLeft: 25, fontSize: 20, fontWeight: 'bold'}}>Account Info</Text>
       <View style={{ alignItems: 'center' , marginBottom: 50}}>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
-          <MaterialCommunityIcons name='account' color={'black'} size={20} />
-          <TextInput style={{color: 'black'}} placeholder=' Name'/>
+          <MaterialCommunityIcons name='account' color={'#6B5E5E'} size={20} />
+          <TextInput style={{color: '#6B5E5E'}} placeholder=' Name'/>
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
-          <Fontisto name='email' color={'black'} size={20} />
-          <TextInput style={{color: 'black'}} placeholder='Email'/>
+          <Fontisto name='email' color={'#6B5E5E'} size={20} />
+          <TextInput style={{color: '#6B5E5E'}} placeholder='  Email'/>
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
-          <FontAwesome name='phone' color={'black'} size={20} />
-          <TextInput style={{color: 'blackfdf'}} placeholder='  Phone' />
+          <FontAwesome name='phone' color={'#6B5E5E'} size={20} />
+          <TextInput style={{color: '#6B5E5E'}} placeholder='  Phone' />
         </View>
       </View>
 
@@ -84,6 +84,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     margin: 6,
-    backgroundColor: '#CCAFB4',
+    backgroundColor: '#F7EBED',
   },
 })

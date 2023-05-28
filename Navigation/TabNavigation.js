@@ -3,7 +3,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Zocial from 'react-native-vector-icons/Zocial';
 
 import ItemDetails from '../Components/PackageDetails';
-import products  from '../Components/Products'
+import Products  from '../Components/products'
 import MyCart from '../Components/MyCart'
 import Home from '../Components/Home'
 import Login from '../Components/Login'
