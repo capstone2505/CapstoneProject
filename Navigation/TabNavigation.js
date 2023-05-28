@@ -26,18 +26,14 @@ export default function TabNavigation() {
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
         }} />
-        <Tab.Screen name="Login" component={Login} options={{
-          tabBarLabel: 'Login',
+
+<Tab.Screen name="products" component={products} options={{
+          tabBarLabel: 'products',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="login" color={color} size={size} />
+            <MaterialCommunityIcons name="grid" color={color} size={size} />
           ),
         }} />
-        <Tab.Screen name="SignUp" component={SignUp} options={{
-          tabBarLabel: 'SignUp',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="draw" color={color} size={size} />
-          ),
-        }} />
+      
         <Tab.Screen name="MyCart" component={MyCart} options={{
           tabBarLabel: 'MyCart',
           tabBarIcon: ({ color, size }) => (
@@ -45,12 +41,7 @@ export default function TabNavigation() {
           ),
         }} />
         
-         <Tab.Screen name="products" component={products} options={{
-          tabBarLabel: 'products',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="grid" color={color} size={size} />
-          ),
-        }} />
+         
 
       
         <Tab.Screen name="ItemDetails" component={ItemDetails} options={{
