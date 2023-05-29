@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar, StyleSheet, View, Image, SafeAreaView } from 'react-native';
 
 
-export default function TrackOrder() {
+export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -11,15 +11,15 @@ export default function TrackOrder() {
       <View style={styles.content}>
         <Image style={styles.track1} source={require('../assets/Images2/Track1.png')} />
       </View>
-       {/* <View style={styles.content}>
-        <Image style={styles.ordered} source={require('./assets/images2/Ordered.png')} />
+       <View style={styles.content}>
+        <Image style={styles.ordered} source={require('../assets/Images2/Ordered.png')} />
       </View>
       <View style={styles.content}>
-        <Image style={styles.onTheway} source={require('./assets/images2/onTheway.png')} />
+        <Image style={styles.onTheway} source={require('../assets/Images2/onTheway.png')} />
       </View>
       <View style={styles.content}>
-        <Image style={styles.delivered} source={require('./assets/images2/Delivered.png')} />
-      </View> */}
+        <Image style={styles.delivered} source={require('../assets/Images2/Delivered.png')} />
+      </View>
       <StatusBar style="auto" />
     </SafeAreaView>
   );

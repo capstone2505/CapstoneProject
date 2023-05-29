@@ -1,4 +1,3 @@
-//Farah Aboudia 60093383
 import {
   StyleSheet, Text, View, TouchableOpacity, Image, ScrollView,TextInput
 } from 'react-native'
@@ -67,7 +66,7 @@ const PackageDetails = ({ navigation, route }) => {
               <Text>5000 </Text>
               <Text>QR</Text>
             </View>
-          </View>
+          </View>        
 
         </View>
 

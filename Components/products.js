@@ -1,52 +1,112 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView } from 'react-native';
 import { Searchbar } from "react-native-paper";
-import React, { useState, useEffect } from "react";
 
+// npm install react-native-paper
 export default function Products() {
-
-  const [resturants, setResturants] = useState([
-    { resId: 1, resName: 'Burj Al Hamam', address: 'The Pearl' },
-    { resId: 2, resName: 'Meat Moot', address: 'Lusail' },
-    { resId: 3, resName: 'Al Nahham', address: 'Banana Island' }
-  ])
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.topImageContainer}>
+        <Image source={require('../assets/Images2/productheader.jpeg')} style={styles.topImage} />
+      </View>
       <ScrollView>
-        <View style={styles.topImageContainer}>
-          <Image source={require('../assets/Images2/productheader.jpeg')} style={styles.topImage} />
-        </View>
 
-        <View style={{ flexDirection: 'row', margin: 6, justifyContent: 'center', padding: 10, alignItems: 'space-between' }}>
-          <Searchbar
-            placeholder="Search"
-            style={{
-              backgroundColor: '#F9F5EB',
-              borderRadius: 10,
-              paddingHorizontal: 5,
-              height: 50,
-              width: "90%",
-              fontSize: 16,
-              color: '#333333',
-            }}
-          />
-        </View>
+        {/* Search box */}
+        <Searchbar
+          placeholder="Search"
+          // onChangeText={handleSearch}
+          // value={search}
+          autoCorrect={false}
+          style={{
+            backgroundColor: '#D9D9D9',
+            borderRadius: 10,
+            paddingHorizontal: 5,
+            height: 50,
+            width: "90%",
+            fontSize: 16,
+            color: '#333333',
+            margin: 20
+          }}
+        />
 
         {/* First row */}
-        {
-          resturants.map((index, item) => {
-            <View style={styles.rowContainer}>
-              <View key={item} style={styles.squareContainer}>
-                <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
-                <Text style={styles.imageName}>{item.resName}</Text>
-                <TouchableOpacity style={styles.button}>
-                  <Text style={styles.buttonText}>View Packaging</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          })
-        }
+        <View style={styles.rowContainer}>
+          <View style={styles.squareContainer}>
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Text style={styles.imageName}>Image 1</Text>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>View Packaging</Text>
+            </TouchableOpacity>
+          </View>
 
+          <View style={styles.squareContainer}>
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Text style={styles.imageName}>Image 2</Text>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>View Packaging</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Second row */}
+        <View style={styles.rowContainer}>
+          <View style={styles.squareContainer}>
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Text style={styles.imageName}>Image 3</Text>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>View Packaging</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.squareContainer}>
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Text style={styles.imageName}>Image 4</Text>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>View Packaging</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Third row */}
+        <View style={styles.rowContainer}>
+          <View style={styles.squareContainer}>
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Text style={styles.imageName}>Image 5</Text>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>View Packaging</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.squareContainer}>
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Text style={styles.imageName}>Image 6</Text>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>View Packaging</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Fourth row */}
+        <View style={styles.rowContainer}>
+          <View style={styles.squareContainer}>
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Text style={styles.imageName}>Image 7</Text>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>View Packaging</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.squareContainer}>
+            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Text style={styles.imageName}>Image 8</Text>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>View Packaging</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Additional rows go here */}
       </ScrollView>
       <StatusBar style="auto" />
     </SafeAreaView>
@@ -80,6 +140,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 10,
     marginBottom: 10,
+
   },
   searchText: {
     fontSize: 16,
@@ -119,9 +180,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 5,
+    marginBottom: 10
   },
   buttonText: {
-    fontSize: 10,
+    fontSize: 15,
     color: 'white',
   },
 });

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Switch } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Switch, SafeAreaView } from 'react-native';
 
-export default function App() {
+export default function PaymentDetails() {
   const [saveCardDetails, setSaveCardDetails] = useState(false);
 
   const handleSaveCardDetailsToggle = () => {
@@ -9,19 +9,33 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.space} />
+    <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white', alignItems: 'center', }}>
       <Text style={styles.title}>Card Payment</Text>
-      <View style={styles.content}>
-        <View style={styles.space} />
-        <Text style={styles.boldTextLarge}>Summary Payment</Text>
-        <View style={styles.paymentDetails}>
-          <Text style={styles.subtitle}>Sub-total: 5000 QR</Text>
-          <Text style={styles.subtitle}>Discount: 0%</Text>
-          <View style={styles.divider} />
-          <Text style={styles.subtitle}>Total Amount: 5000 QR</Text>
+
+      <View style={{ margin: 15, width: 400 }}>
+        <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 5, marginLeft: 5 }}>Summary Payment</Text>
+        <View style={[{ flexDirection: 'row', justifyContent: 'space-between', marginLeft: 15 }]}>
+          <View style={[{ width: 320, margin: 3, flexDirection: 'row', justifyContent: 'space-between' }]}>
+            <Text style={{ fontSize: 15 }}>Sub-Total</Text>
+            <Text style={{ fontSize: 15 }}>5000QR</Text>
+          </View>
         </View>
-        <Text style={styles.boldTextLarge}>Card Details</Text>
+        <View style={[{ marginBottom: 3, flexDirection: 'row', justifyContent: 'space-between' }]}>
+          <View style={[{ width: 320, flexDirection: 'row', justifyContent: 'space-between', marginLeft: 15 }]}>
+            <Text style={{ margin: 5, fontSize: 15 }}>Discount</Text>
+            <Text style={{ margin: 5, fontSize: 15 }}>0%</Text>
+          </View>
+        </View>
+        <View style={[{ marginBottom: 3, flexDirection: 'row', justifyContent: 'space-between', borderTopWidth: 1, borderColor: '#d3d3d3', width: 350, marginLeft: 10 }]}>
+          <View style={[{ width: 320, flexDirection: 'row', justifyContent: 'space-between', marginLeft: 15 }]}>
+            <Text style={{ margin: 5, fontSize: 15 }}>Total Amount</Text>
+            <Text style={{ margin: 5, fontSize: 15 }}>5000QR</Text>
+          </View>
+        </View>
+      </View>
+
+      <View style={{ margin: 15, width: 400, marginTop: 0 }}>
+        <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 5, marginLeft: 5 }}>Card Details</Text>
         <View style={styles.cardDetails}>
           <Text style={styles.label}>Card Number</Text>
           <TextInput style={styles.input} placeholder="Card Number" />
@@ -30,8 +44,17 @@ export default function App() {
             <TextInput style={[styles.input, styles.expiryInput]} placeholder="MM" />
             <TextInput style={[styles.input, styles.expiryInput]} placeholder="YY" />
           </View>
-          <Text style={styles.label}>Card Verification Value</Text>
-          <TextInput style={styles.input} placeholder="CVV" />
+          <View style={{flexDirection: 'row'}}>
+            <View>
+              <Text style={styles.label}>Card Verification Value</Text>
+              <TextInput style={styles.input} placeholder="CVV" />
+            </View>
+            <View>
+              <Image style={{ width: 250, height: 100, alignSelf: 'center' }} source={require("../assets/Images2/CVV.png")}></Image>
+            </View>
+
+          </View>
+
           <View style={styles.checkboxContainer}>
             <Switch
               trackColor={{ false: '#767577', true: '#81b0ff' }}
@@ -43,17 +66,17 @@ export default function App() {
             <Text style={styles.checkboxText}>For faster and more secure checkout save your card details</Text>
           </View>
         </View>
-        <View style={styles.space} />
-        <View style={styles.imageContainer}>
-          <Image source={require('./assets/payment.png')} style={styles.image} resizeMode="contain" />
-        </View>
-        <TouchableOpacity style={styles.button} onPress={() => {}}>
-          <Text style={styles.buttonText}>Pay now</Text>
-        </TouchableOpacity>
-        <View style={styles.space} />
       </View>
-      <View style={styles.space} />
-    </View>
+
+      <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
+            <TouchableOpacity>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Pay Now </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+    </SafeAreaView>
   );
 }
 
@@ -93,6 +116,8 @@ const styles = StyleSheet.create({
   },
   cardDetails: {
     marginTop: 10,
+    marginLeft: 15,
+    width: 370,
   },
   label: {
     fontWeight: 'bold',
@@ -102,9 +127,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'gray',
     borderRadius: 5,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
     marginBottom: 10,
+    padding: 9,
+    margin: 5
   },
   expiryContainer: {
     flexDirection: 'row',
@@ -120,6 +145,8 @@ const styles = StyleSheet.create({
   },
   checkboxText: {
     marginLeft: 10,
+    width: 320,
+    marginTop: 10
   },
   imageContainer: {
     flex: 1,
