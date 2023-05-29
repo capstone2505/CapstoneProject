@@ -8,7 +8,7 @@ export default function Offers({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.topImageContainer}>
-          <Image source={require('../assets/Images2/Offersheader.png')} style={styles.topImage} />
+          <Image source={require('../assets/Images/offers.png')} style={styles.topImage} />
         </View>
 
         <ScrollView>
@@ -16,7 +16,7 @@ export default function Offers({navigation}) {
 
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('../assets/Images2/p.jpeg')} style={styles.offerImage} />
+              <Image source={require('../assets/Images/pows.png')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>15% discount</Text>
@@ -32,7 +32,7 @@ export default function Offers({navigation}) {
 
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('../assets/Images2/charger.webp')} style={styles.offerImage} />
+              <Image source={require('../assets/Images/charger.png')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>20% discount</Text>
@@ -47,7 +47,7 @@ export default function Offers({navigation}) {
           </View>
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('../assets/Images2/42.png')} style={styles.offerImage} />
+              <Image source={require('../assets/Images/exit55.png')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>10% discount</Text>
@@ -63,7 +63,7 @@ export default function Offers({navigation}) {
           </View>
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('../assets/Images2/volume.webp')} style={styles.offerImage} />
+              <Image source={require('../assets/Images/rose.png')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>5% discount</Text>

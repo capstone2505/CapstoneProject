@@ -8,7 +8,7 @@ const SignUp = ({ navigation }) => {
     <SafeAreaView style={{backgroundColor:'white',width:500,height:1200}}>
     <View>
       
-      <Image style={{width:400,height:200,borderRadius:30}} source={require("../assets/Images2/choose.png")}></Image>
+      <Image style={{width:400,height:200,borderRadius:30}} source={require("../assets/Images/choose.png")} />
     </View>
     <View>
       <Text style={{fontSize:25,marginLeft:10,marginBottom:10}}> Create account</Text>
@@ -28,6 +28,7 @@ const SignUp = ({ navigation }) => {
     </View>
     <View>
           <TouchableOpacity
+          onPress={() => navigation.navigate("Login")} 
           style={{
             alignItems:'center',
             backgroundColor:'#998184',

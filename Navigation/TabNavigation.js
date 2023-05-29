@@ -3,7 +3,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Zocial from 'react-native-vector-icons/Zocial';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 //jjjj
-import Products  from '../Components/Products'
+import Products  from '../Components/products'
 import MyCart from '../Components/MyCart'
 import Home from '../Components/Home'
 import Login from '../Components/Login'
@@ -17,10 +17,6 @@ import ConfirmOrder from '../Components/ConfirmOrder';
 import PackageDetails from '../Components/PackageDetails';
 
 const Tab = createBottomTabNavigator();
-
-
-
-
 
 export default function TabNavigation() {
     return (

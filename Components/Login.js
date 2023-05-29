@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, Pressable, StyleSheet, Image, ImageBackground, SafeAreaView, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, Pressable, StyleSheet, Image, SafeAreaView, TouchableOpacity } from 'react-native'
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from './Config';
 import SignUp from './SignUp'
@@ -32,7 +32,7 @@ export default function Login({ navigation }) {
       justifyContent: 'center', backgroundColor: 'white'
     }}>
 
-      <Image style={{ width: 250, height: 200, borderRadius: 30, marginTop: 20 }} source={require("../assets/Images2/choose.png")}></Image>
+      <Image style={{ width: 250, height: 200, borderRadius: 30, marginTop: 20 }} source={require("../assets/Images/choose.png")}/>
       <Text>By Logining in you are agreeing our...</Text>
       <Text style={{ color: 'blue' }}>Term and privacy policy</Text>
       <View style={[styles.card, styles.shadowProp]}>

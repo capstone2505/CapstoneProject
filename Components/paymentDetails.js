@@ -45,9 +45,9 @@ export default function PaymentDetails() {
         </View>
         <View style={styles.space} />
         <View style={styles.imageContainer}>
-          {/* <Image source={require('../assets/Images2/payment.png')} style={styles.image} resizeMode="contain" /> */}
+          <Image source={require('../assets/Images/payment.png')} style={styles.image} resizeMode="contain" />
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => {}}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("OrderedPlaced")}>
           <Text style={styles.buttonText}>Pay now</Text>
         </TouchableOpacity>
         <View style={styles.space} />

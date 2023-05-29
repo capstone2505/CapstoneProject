@@ -16,7 +16,7 @@ export default function OrderedPlaced({navigation}) {
         <Text style={styles.x}>{"X"}</Text>
       </View>
       {/* <View style={styles.content}> */}
-        <Image style={styles.thankYou} source={require('../assets/Images2/ThankYou.png')} />
+        <Image style={styles.thankYou} source={require('../assets/Images/ThankYou.png')} />
         {/* <TouchableOpacity style={styles.trackButton}>
           <Text style={styles.trackButtonText}>Track Order</Text>
         </TouchableOpacity> */}
