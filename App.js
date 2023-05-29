@@ -7,7 +7,7 @@ import TabNavigation from './Navigation/TabNavigation';
 import Home from './Components/Home'
 import Login from './Components/Login'
 import SignUp from './Components/SignUp';
-import Products from './Components/Products';
+import Products from './Components/products';
 import ContactUs from './Components/ContactUs';
 import AboutUs from './Components/AboutUs'
 import EditProfile from './Components/EditProfile'
@@ -19,7 +19,6 @@ import ConfirmOrder from './Components/ConfirmOrder'
 import PaymentDetails from './Components/PaymentDetails'
 import OrderedPlaced from './Components/OrderedPlaced'
 import TrackOrder from './Components/TrackOrder'
-
 
 
 // import Try from './Components/Try'
