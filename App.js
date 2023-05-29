@@ -11,7 +11,7 @@ import Products from './Components/products';
 import ContactUs from './Components/ContactUs';
 import AboutUs from './Components/AboutUs'
 import EditProfile from './Components/EditProfile'
-import Offers from './Components/Offers'
+import Offers from './Components/offers'
 import Packages from './Components/Packages'
 import PackageDetails from './Components/PackageDetails'
 import MyCart from './Components/MyCart'
@@ -27,7 +27,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Packages" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Home' component={TabNavigation} />
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='SignUp' component={SignUp} />
