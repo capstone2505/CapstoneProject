@@ -1,15 +1,15 @@
 import React from 'react';
-import { View, ScrollView, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView } from 'react-native'
+import { View, ScrollView, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView , Pressable} from 'react-native'
 
 
 
-export default function Packages() {
+export default function Packages({navigation}) {
     return (
         <SafeAreaView style={styles.container}>
 
                 <Text style={{marginTop: 30,  fontSize: 30, fontWeight: 'bold' , textAlign:'center', alignItems: 'center'}}> Charger Packages</Text>
                 <View style={{ backgroundColor: 'white', width: 500, height: 1500, alignContent: 'center', marginTop: 10 }}>
-                    <Image style={{ width: 180, height: 180, borderRadius: 20, marginLeft: 120 }} source={require('../assets/Images/charger.png')} />
+                    <Image style={{ width: 180, height: 180, borderRadius: 20, marginLeft: 120 }} source={require('../assets/Images2/charger.webp')} />
                     <ScrollView>
 
                     <View style={[styles.card, styles.shadowProp]}>
@@ -20,11 +20,11 @@ export default function Packages() {
                             <View style={{ width: 220 }}>
                                 <Text style={{ margin: 3, paddingTop: 10 }}>25 Person</Text>
                                 <Text style={{ margin: 3 }}>50 Cup</Text>
-                                <TouchableOpacity>
+                                <Pressable onPress={() => navigation.navigate("PackageDetails")}>
                                     <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
                                         Read more ...
                                     </Text>
-                                </TouchableOpacity>
+                                </Pressable>
                             </View>
                             <View style={{
                                 width: 90,
@@ -50,11 +50,11 @@ export default function Packages() {
                             <View style={{ width: 220 }}>
                                 <Text style={{ margin: 3, paddingTop: 10 }}>50 Person</Text>
                                 <Text style={{ margin: 3 }}>100 Cup</Text>
-                                <TouchableOpacity>
+                                <Pressable onPress={() => navigation.navigate("PackageDetails")}>
                                     <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
                                         Read more ...
                                     </Text>
-                                </TouchableOpacity>
+                                </Pressable>
 
                             </View>
                             <View style={{
@@ -80,11 +80,11 @@ export default function Packages() {
                             <View style={{ width: 220 }}>
                                 <Text style={{ margin: 3, paddingTop: 10 }}>75 Person</Text>
                                 <Text style={{ margin: 3 }}>150 Cup</Text>
-                                <TouchableOpacity>
+                                <Pressable onPress={() => navigation.navigate("PackageDetails")}>
                                     <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
                                         Read more ...
                                     </Text>
-                                </TouchableOpacity>
+                                </Pressable>
 
                             </View>
                             <View style={{
@@ -110,11 +110,11 @@ export default function Packages() {
                             <View style={{ width: 220 }}>
                                 <Text style={{ margin: 3, paddingTop: 10 }}>100 Person</Text>
                                 <Text style={{ margin: 3 }}>200 Cup</Text>
-                                <TouchableOpacity>
+                                <Pressable onPress={() => navigation.navigate("PackageDetails")}>
                                     <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
                                         Read more ...
                                     </Text>
-                                </TouchableOpacity>
+                                </Pressable>
 
                             </View>
                             <View style={{
