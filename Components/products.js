@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaVi
 import { Searchbar } from "react-native-paper";
 
 // npm install react-native-paper
-export default function Products() {
+const Products = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topImageContainer}>
@@ -112,6 +112,9 @@ export default function Products() {
     </SafeAreaView>
   );
 }
+
+export default Products
+
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;

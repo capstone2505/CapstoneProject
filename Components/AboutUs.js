@@ -25,7 +25,7 @@ export default function AboutUs() {
         <View style={styles.backgroundContainer}>
           <Image
             style={styles.circleImage}
-            source={require('../assets/Images2/about11.jpeg')}
+            source={require('../assets/Images/logo.png')}
           />
           <View />
         </View>
@@ -50,7 +50,7 @@ export default function AboutUs() {
         )}
         <Image
           style={styles.rectangleImage}
-          source={require('../assets/Images2/about2.jpeg')}
+          source={require('../assets/Images/aboutus.png')}
         />
         <Text
           style={[
