@@ -24,6 +24,7 @@ const Profile = ({ navigation }) => {
         {/* </TouchableOpacity> */}
       </View>
 
+
       <Text style={{paddingLeft: 25, fontSize: 20, fontWeight: 'bold'}}>Account Info</Text>
       <View style={{ alignItems: 'center' , marginBottom: 50}}>
         <View style={[styles.txt, { flexDirection: 'row' }]}>

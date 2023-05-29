@@ -1,14 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, TouchableOpacity, Dimensions ,Pressable} from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export default function Offers() {
+export default function Offers({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.topImageContainer}>
-          <Image source={require('../assets/Images/offers.png')} style={styles.topImage} />
+          <Image source={require('../assets/Images2/Offersheader.png')} style={styles.topImage} />
         </View>
 
         <ScrollView>
@@ -16,48 +16,54 @@ export default function Offers() {
 
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('../assets/Images/exit55.png')} style={styles.offerImage} />
+              <Image source={require('../assets/Images2/p.jpeg')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>15% discount</Text>
               <Text style={styles.orderText}>Ordering More</Text>
               <Text style={styles.priceText}>2300 QR</Text>
-              <TouchableOpacity style={styles.button}>
+              <View style={styles.button}>
+              <Pressable  onPress={() => navigation.navigate("Packages")}>
                 <Text style={styles.buttonText}>Click Here</Text>
-              </TouchableOpacity>
+                </Pressable>
+              </View>
             </View>
           </View>
 
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('../assets/Images/charger.png')} style={styles.offerImage} />
+              <Image source={require('../assets/Images2/charger.webp')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>20% discount</Text>
               <Text style={styles.orderText}>Ordering More</Text>
               <Text style={styles.priceText}>3000 QR</Text>
-              <TouchableOpacity style={styles.button}>
+              <View style={styles.button}>
+              <Pressable  onPress={() => navigation.navigate("Packages")}>
                 <Text style={styles.buttonText}>Click Here</Text>
-              </TouchableOpacity>
+                </Pressable>
+              </View>
             </View>
           </View>
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('../assets/Images/salt.png')} style={styles.offerImage} />
+              <Image source={require('../assets/Images2/42.png')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>10% discount</Text>
               <Text style={styles.orderText}>Ordering More</Text>
               <Text style={styles.priceText}>2000 QR</Text>
-              <TouchableOpacity style={styles.button}>
+              <View style={styles.button}>
+              <Pressable  onPress={() => navigation.navigate("Packages")}>
                 <Text style={styles.buttonText}>Click Here</Text>
-              </TouchableOpacity>
+                </Pressable>
+              </View>
             </View>
 
           </View>
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('../assets/Images/honu.png')} style={styles.offerImage} />
+              <Image source={require('../assets/Images2/volume.webp')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>5% discount</Text>

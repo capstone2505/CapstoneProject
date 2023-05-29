@@ -1,5 +1,5 @@
 //Farah Aboudia 60093383
-import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView ,Pressable} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { RadioButton } from 'react-native-paper';
 //npm install react-native-paper
@@ -75,11 +75,11 @@ const ConfirmOrder = ({ navigation }) => {
             </View>
 
             <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 350, height: 50, borderRadius: 8, padding: 8 }}>
-                <TouchableOpacity>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Pressable onPress={() => navigation.navigate("Home")}>
                         <Text style={{ color: 'white' , marginTop: 5, fontSize: 20}}> Go to Payment </Text>
-                    </View>
-                </TouchableOpacity>
+                </Pressable>
+            </View>
             </View>
         </SafeAreaView>
     );
