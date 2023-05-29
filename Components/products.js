@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView ,Pressable} from 'react-native';
 import { Searchbar } from "react-native-paper";
 
 // npm install react-native-paper
@@ -35,9 +35,9 @@ export default function Products() {
           <View style={styles.squareContainer}>
             <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
             <Text style={styles.imageName}>Image 1</Text>
-            <TouchableOpacity style={styles.button}>
+            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
               <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
 
           <View style={styles.squareContainer}>

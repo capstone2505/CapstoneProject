@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Switch } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Switch ,Pressable} from 'react-native';
 
 export default function PaymentDetails() {
   const [saveCardDetails, setSaveCardDetails] = useState(false);
@@ -47,9 +47,9 @@ export default function PaymentDetails() {
         <View style={styles.imageContainer}>
           {/* <Image source={require('../assets/Images2/payment.png')} style={styles.image} resizeMode="contain" /> */}
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => {}}>
+        <Pressable onPress={() => navigation.navigate("ConfirmOrder")}>
           <Text style={styles.buttonText}>Pay now</Text>
-        </TouchableOpacity>
+        </Pressable>
         <View style={styles.space} />
       </View>
       <View style={styles.space} />
