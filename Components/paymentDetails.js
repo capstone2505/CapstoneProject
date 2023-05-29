@@ -50,7 +50,7 @@ export default function PaymentDetails() {
               <TextInput style={styles.input} placeholder="CVV" />
             </View>
             <View>
-              <Image style={{ width: 250, height: 100, alignSelf: 'center' }} source={require("../assets/Images2/CVV.png")}></Image>
+              <Image style={{ width: 250, height: 100, alignSelf: 'center' }} source={require("../assets/Images/cvv.png")}/>
             </View>
 
           </View>

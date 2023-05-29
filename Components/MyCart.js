@@ -8,11 +8,10 @@ const MyCart = ({ navigation }) => {
             <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'left', marginBottom: 20 }}>My Cart</Text>
 
             <View style={[styles.txt, { marginBottom: 5, flexDirection: 'row', backgroundColor: '#f5f5f5', width: 390, marginLeft: 10, marginRight: 20 }]}>
-                <Image style={{ width: 100, height: 100, borderRadius: 20, }} source={require('../assets/Images2/charger.webp')} />
+                <Image style={{ width: 100, height: 100, borderRadius: 20, }} source={require('../assets/Images/charger.png')} />
                 <View>
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={{ fontSize: 15, fontWeight: 'bold', textAlign: 'left', marginBottom: 5, padding: 2, borderRadius: 20, width: 150, paddingLeft: 10, marginTop: 3 }}>Package 1</Text>
-
                         <View style={styles.quantityContainer}>
                             <TouchableOpacity style={styles.quantityButton}>
                                 <Text style={styles.quantityButtonText}>-</Text>

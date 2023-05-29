@@ -9,7 +9,7 @@ export default function Packages() {
 
                 <Text style={{marginTop: 30,  fontSize: 30, fontWeight: 'bold' , textAlign:'center', alignItems: 'center'}}> Charger Packages</Text>
                 <View style={{ backgroundColor: 'white', width: 500, height: 1500, alignContent: 'center', marginTop: 10 }}>
-                    <Image style={{ width: 180, height: 180, borderRadius: 20, marginLeft: 120 }} source={require('../assets/Images2/charger.webp')} />
+                    <Image style={{ width: 180, height: 180, borderRadius: 20, marginLeft: 120 }} source={require('../assets/Images/charger.png')} />
                     <ScrollView>
 
                     <View style={[styles.card, styles.shadowProp]}>

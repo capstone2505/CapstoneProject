@@ -19,7 +19,7 @@ const PackageDetails = ({ navigation, route }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
 
-        <Image source={require("../assets/icon.png")} style={styles.image} />
+        <Image source={require('../assets/Images/charger.png')}style={styles.image} />
 
         <View style={{ 
     //           shadowColor: '#c0c0c0',
