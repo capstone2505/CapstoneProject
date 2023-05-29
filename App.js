@@ -29,7 +29,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SignUp" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Packages" screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Home' component={TabNavigation} />
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='SignUp' component={SignUp} />

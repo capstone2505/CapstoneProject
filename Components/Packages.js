@@ -85,6 +85,7 @@ export default function Packages({navigation}) {
                                         Read more ...
                                     </Text>
                                 </Pressable>
+
                             </View>
                             <View style={{
                                 width: 90,

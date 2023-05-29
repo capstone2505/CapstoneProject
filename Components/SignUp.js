@@ -1,4 +1,4 @@
-import { View, Text ,Image,SafeAreaView, TextInput,StyleSheet,TouchableOpacity, ScrollView ,Pressable} from 'react-native'
+import { View, Text ,Image,SafeAreaView, TextInput,StyleSheet,TouchableOpacity, ScrollView} from 'react-native'
 import React from 'react'
 
 
@@ -27,8 +27,7 @@ const SignUp = ({ navigation }) => {
       
     </View>
     <View>
-    <Pressable onPress={() => navigation.navigate("Login")}
-        
+          <TouchableOpacity
           style={{
             alignItems:'center',
             backgroundColor:'#998184',
@@ -42,7 +41,7 @@ const SignUp = ({ navigation }) => {
     
         >
           <Text style={{textAlign: 'center', color: 'white',margin:10,width:140,height:30,fontSize:20}}> SIGN UP</Text>
-        </Pressable>
+        </TouchableOpacity>
     </View>
     
     </SafeAreaView>
