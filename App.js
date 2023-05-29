@@ -1,74 +1,56 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import TabNavigation from './Navigation/TabNavigation';
+import Home from './Components/Home'
+import Login from './Components/Login'
+import SignUp from './Components/SignUp';
+import Products from './Components/products';
+import ContactUs from './Components/ContactUs';
+import AboutUs from './Components/AboutUs'
+import EditProfile from './Components/EditProfile'
+import Offers from './Components/offers'
+import Packages from './Components/Packages'
+import PackageDetails from './Components/PackageDetails'
+import MyCart from './Components/MyCart'
+import ConfirmOrder from './Components/ConfirmOrder'
+import PaymentDetails from './Components/paymentDetails'
+import OrderedPlaced from './Components/OrderedPlaced'
+import TrackOrder from './Components/TrackOrder'
+import Profile from './Components/EditProfile';
+import Checkout from './Components/Checkout';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
+
+// import Try from './Components/Try'
+//installation for nav - npm install @react-navigation/native
+const Stack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator();
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.topImageContainer}>
-          <Image source={require('./assets/offers.jpeg')} style={styles.topImage} />
-        </View>
-        <View style={styles.offerContainer}>
-          <View style={styles.offerItem}>
-            <View style={styles.imageContainer}>
-              <Image source={require('./assets/p.jpeg')} style={styles.offerImage} />
-            </View>
-            <View style={styles.detailsContainer}>
-              <Text style={styles.discountText}>15% discount</Text>
-              <Text style={styles.orderText}>Ordering More</Text>
-              <Text style={styles.priceText}>2300 QR</Text>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Click Here</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.offerItem}>
-            <View style={styles.imageContainer}>
-              <Image source={require('./assets/p.jpeg')} style={styles.offerImage} />
-            </View>
-            <View style={styles.detailsContainer}>
-              <Text style={styles.discountText}>20% discount</Text>
-              <Text style={styles.orderText}>Ordering More</Text>
-              <Text style={styles.priceText}>3000 QR</Text>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Click Here</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.offerItem}>
-            <View style={styles.imageContainer}>
-              <Image source={require('./assets/p.jpeg')} style={styles.offerImage} />
-            </View>
-            <View style={styles.detailsContainer}>
-              <Text style={styles.discountText}>10% discount</Text>
-              <Text style={styles.orderText}>Ordering More</Text>
-              <Text style={styles.priceText}>2000 QR</Text>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Click Here</Text>
-              </TouchableOpacity>
-            </View>
-            
-          </View>
-          <View style={styles.offerItem}>
-            <View style={styles.imageContainer}>
-              <Image source={require('./assets/p.jpeg')} style={styles.offerImage} />
-            </View>
-            <View style={styles.detailsContainer}>
-              <Text style={styles.discountText}>5% discount</Text>
-              <Text style={styles.orderText}>Order More</Text>
-              <Text style={styles.priceText}>2500 QR</Text>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Click Here</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          {/* Repeat the code for other offer items */}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='Home' component={TabNavigation} />
+        <Stack.Screen name='Login' component={Login} />
+        <Stack.Screen name='SignUp' component={SignUp} />
+          <Stack.Screen name='Products' component={Products} />
+          <Stack.Screen name='ContactUs' component={ContactUs} />
+          <Stack.Screen name='AboutUs' component={AboutUs} />
+          <Stack.Screen name='EditProfile' component={EditProfile} />
+          <Stack.Screen name='Offers' component={Offers} />
+          <Stack.Screen name='Packages' component={Packages} />
+          <Stack.Screen name='PackageDetails' component={PackageDetails} />
+          <Stack.Screen name='MyCart' component={MyCart} />
+          <Stack.Screen name='ConfirmOrder' component={ConfirmOrder} />
+          <Stack.Screen name='PaymentDetails' component={PaymentDetails} />
+          <Stack.Screen name='OrderedPlaced' component={OrderedPlaced} />
+          <Stack.Screen name='TrackOrder' component={TrackOrder} />
+          <Stack.Screen name='Profile' component={Profile} />
+          <Stack.Screen name='Checkout' component={Checkout} />         
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -79,69 +61,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  topImageContainer: {
-    marginTop: 10,
-    alignItems: 'center',
-  },
-  topImage: {
-    width: windowWidth,
-    height: 200,
-    resizeMode: 'cover',
-  },
-  offerContainer: {
-    marginTop: 10,
-    alignItems: 'center',
-  },
-  offerItem: {
-    flexDirection: 'row',
-    width: windowWidth,
-    borderRadius: 10,
-    // marginBottom: 5,
-    backgroundColor: '#fff',
-    elevation: 4,
-    padding: 8,
-  },
-  imageContainer: {
-    flex: 1,
-  },
-  offerImage: {
-    width: 130,
-    height: 130,
-    borderRadius: 10,
-    
-  },
-  detailsContainer: {
-    flex: 1,
-    marginLeft: 10,
-    justifyContent: 'center',
-  },
-  discountText: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  orderText: {
-    marginTop: 5,
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  priceText: {
-    marginTop: 5,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  button: {
-    marginTop: 10,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 10,
-    borderStyle: 'dashed',
-    backgroundColor: '#fff',
-  },
-  buttonText: {
-    textAlign: 'center',
-  },
 });
+

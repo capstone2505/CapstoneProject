@@ -25,7 +25,7 @@ export default function AboutUs() {
         <View style={styles.backgroundContainer}>
           <Image
             style={styles.circleImage}
-            source={require('./assets/about11.jpeg')}
+            source={require('../assets/Images/logo.png')}
           />
           <View />
         </View>
@@ -50,7 +50,7 @@ export default function AboutUs() {
         )}
         <Image
           style={styles.rectangleImage}
-          source={require('./assets/about2.jpeg')}
+          source={require('../assets/Images/aboutus.png')}
         />
         <Text
           style={[
@@ -71,7 +71,6 @@ export default function AboutUs() {
           </TouchableOpacity>
         )}
       </View>
-      <StatusBar style="auto" />
     </View>
   );
 }
@@ -79,7 +78,6 @@ export default function AboutUs() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#F7EBED',
   },
   header: {
     flexDirection: 'row',
