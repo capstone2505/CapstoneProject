@@ -1,8 +1,7 @@
 import {
-  StyleSheet, Text, View, TouchableOpacity, Image, ScrollView,TextInput
+  StyleSheet, Text, View, TouchableOpacity, Image, ScrollView,TextInput, SafeAreaView
 } from 'react-native'
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context'
 // import { TextInput } from 'react-native-gesture-handler';
 
 const PackageDetails = ({ navigation, route }) => {

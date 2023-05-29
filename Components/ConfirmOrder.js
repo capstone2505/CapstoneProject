@@ -1,5 +1,5 @@
 //Farah Aboudia 60093383
-import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { RadioButton } from 'react-native-paper';
 //npm install react-native-paper
