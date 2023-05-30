@@ -11,6 +11,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const Profile = ({ navigation }) => {
 
+  const name = 'farah';
+  const capitalizedFirstChar = name.charAt(0).toUpperCase() + name.slice(1);
+
+  // console.log(capitalizedFirstChar[0]); //F
   return (
     <SafeAreaView resizeMode="cover" style={{ flex: 1, justifyContent: 'center' }}>
       {/* <Text style={{ marginTop: 30, alignSelf: 'center', fontSize: 30 }}>Profile</Text> */}
