@@ -11,6 +11,7 @@ import Products from './Components/products';
 import ContactUs from './Components/ContactUs';
 import AboutUs from './Components/AboutUs'
 import EditProfile from './Components/EditProfile'
+import Profile from './Components/profile'
 import Offers from './Components/offers'
 import Packages from './Components/Packages'
 import PackageDetails from './Components/PackageDetails'
@@ -19,7 +20,7 @@ import ConfirmOrder from './Components/ConfirmOrder'
 import PaymentDetails from './Components/paymentDetails'
 import OrderedPlaced from './Components/OrderedPlaced'
 import TrackOrder from './Components/TrackOrder'
-import Profile from './Components/EditProfile';
+// import Profile from './Components/EditProfile';
 import Checkout from './Components/Checkout';
 import Home2 from './Components/Home2';
 import TabNavigation2 from './Navigation/TabNavigation2';

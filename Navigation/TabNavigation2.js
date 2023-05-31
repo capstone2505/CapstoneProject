@@ -8,7 +8,7 @@ import MyCart from '../Components/MyCart'
 import Home from '../Components/Home'
 import Login from '../Components/Login'
 import SignUp from '../Components/SignUp';
-import Profile from '../Components/EditProfile';
+import Profile from '../Components/profile';
 import AboutUs from '../Components/AboutUs';
 import Packages from '../Components/Packages';
 import React from 'react'
@@ -47,7 +47,7 @@ export default function TabNavigation2() {
         }} />
 
         {/* Profile page */}
-          <Tab.Screen name="Profile" component={Profile} options={{
+          <Tab.Screen name="profile" component={Profile} options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
