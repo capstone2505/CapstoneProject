@@ -1,7 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView } from 'react-native';
-import { Searchbar } from "react-native-paper";
 
 // npm install react-native-paper
 export default function Products() {
@@ -13,6 +12,7 @@ export default function Products() {
       <ScrollView>
 
         {/* Search box */}
+<<<<<<< HEAD
         <Searchbar
           placeholder="Search"
           // onChangeText={handleSearch}
@@ -29,6 +29,11 @@ export default function Products() {
             margin: 20
           }}
         />
+=======
+        <View style={styles.searchBox}>
+          <Text style={styles.searchText}>Search</Text>
+        </View>
+>>>>>>> parent of 77847598 (make changes in products)
 
         {/* First row */}
         <View style={styles.rowContainer}>
@@ -140,7 +145,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 10,
     marginBottom: 10,
-
+    
   },
   searchText: {
     fontSize: 16,
@@ -173,7 +178,7 @@ const styles = StyleSheet.create({
   imageName: {
     fontSize: 14,
     marginBottom: 3,
-
+    
   },
   button: {
     backgroundColor: '#998184',
