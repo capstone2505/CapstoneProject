@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, Image, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, Modal, TextInput, Dimensions } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Card } from '@rneui/themed';
+import { useNavigation } from '@react-navigation/native';
 
-const Home = ({ navigation }) => {
+const Home = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
+  const navigation = useNavigation();
 
   const handleChatIconPress = () => {
     setModalVisible(true);
@@ -16,9 +19,25 @@ const Home = ({ navigation }) => {
       const newMessage = { type: 'user', text: inputText };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       setInputText('');
-      // Simulating an automatic response
+
       setTimeout(() => {
-        const autoResponse = { type: 'app', text: 'Welcome to our chat! How can we assist you?' };
+        let autoResponse;
+
+        switch (inputText.toLowerCase()) {
+          case 'hello':
+            autoResponse = { type: 'app', text: 'Welcome to our chat! How can we assist you?' };
+            break;
+          case 'thank you':
+            autoResponse = { type: 'app', text: 'Thank you for asking. We will try to help you.' };
+            break;
+          case '':
+            autoResponse = { type: 'app', text: 'Could you please explain in more details?' };
+            break;
+          default:
+            autoResponse = { type: 'app', text: 'We received your question. You will have a response as soon as possible.' };
+            break;
+        }
+
         setMessages((prevMessages) => [...prevMessages, autoResponse]);
       }, 500);
     }
@@ -30,13 +49,38 @@ const Home = ({ navigation }) => {
     setInputText('');
   };
 
+  const [sliderCards, setSliderCards] = useState([
+    require("../assets/Images/homepage.png"),
+    require("../assets/Images/aboutus.png"),
+    require("../assets/Images/homepage.png"),
+    require("../assets/Images/offers2.png"),
+    require("../assets/Images/homepage.png"),
+    require("../assets/Images/saltbooth.png")
+  ]);
+  const randomCards = sliderCards.sort(() => Math.random() - 0.5);
+  const [flag, setFlag] = useState(true);
+  const [path, setPath] = useState(randomCards[0]);
+
+  useEffect(() => {
+    if (!flag) return;
+    let interval = setInterval(() => {
+      let random = Math.floor(Math.random() * 6);
+      setPath(randomCards[random]);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleOffersButtonPress = () => {
+    navigation.navigate('Offers');
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView>
         <SafeAreaView style={{ backgroundColor: 'white', height: 1500 }}>
           <View>
             <Image style={{ width: 150, height: 150, alignSelf: 'center' }} source={require("../assets/Images/logo.png")} />
-            <View style={{ width: 80, height: 40, backgroundColor: 'rosybrown', borderRadius: 40, marginLeft: 340 }}>
+            <View style={{ width: 80, height: 40, backgroundColor: 'rosybrown', borderRadius: 40, marginLeft: 340, marginBottom: 15 }}>
               <Pressable onPress={() => navigation.navigate("Login")} style={{ alignItems: 'flex-end' }}>
                 <Text style={{ color: 'white', alignSelf: 'center', margin: 10, fontSize: 15 }} >
                   <MaterialCommunityIcons name="login" size={15} color='white' /> Login
@@ -44,8 +88,8 @@ const Home = ({ navigation }) => {
               </Pressable>
             </View>
           </View>
-          <View><Image style={{ width: 435, height: 150, alignSelf: 'center' }} source={require("../assets/Images2/homepage.png")} /></View>
-          <View >
+          <Card.Image style={{ padding: 0, width: 435, height: 150, alignSelf: 'center' }} source={path} />
+          <View>
             <Image style={{ width: 425, height: 150, alignSelf: 'center' }} source={require("../assets/Images2/start_order.jpg")} />
           </View>
           <View style={{ flexDirection: 'row' }}>
@@ -54,7 +98,7 @@ const Home = ({ navigation }) => {
             <Image style={{ width: 105, height: 100, alignSelf: 'center', margin: 15, borderRadius: 20 }} source={require("../assets/Images2/cheatB.jpeg")} />
           </View>
           <View style={{ backgroundColor: 'lavenderblush', borderRadius: 20, width: 350, height: 30, alignSelf: 'center' }}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleOffersButtonPress}>
               <Text style={{ padding: 5, alignSelf: 'center', fontWeight: 'bold', color: 'red' }}>
                 Click Here To Check Out Our Offers <MaterialCommunityIcons name="arrow-right-bold" size={15} />
               </Text>
@@ -144,7 +188,6 @@ const styles = StyleSheet.create({
     color: 'brown',
     fontWeight: 'bold',
     textAlign: 'center',
-    // backgroundColor:'lavenderblush',
     marginBottom: 10,
     textAlign: 'center',
   },
@@ -210,7 +253,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     right: 20,
-    // backgroundColor: 'lavenderblush',
     backgroundColor: 'pink',
     borderRadius: 30,
     padding: 8,
