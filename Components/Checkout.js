@@ -85,8 +85,6 @@ export default function App() {
             </View>
 
             <Text style={{ color: 'red', fontSize: 20 }}>Select Event Date and Time</Text>
-
-
         </SafeAreaView>
     );
 }

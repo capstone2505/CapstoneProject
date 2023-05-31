@@ -11,12 +11,13 @@ import Products from './Components/products';
 import ContactUs from './Components/ContactUs';
 import AboutUs from './Components/AboutUs'
 import EditProfile from './Components/EditProfile'
+import Profile from './Components/profile'
 import Offers from './Components/offers'
 import Packages from './Components/Packages'
 import PackageDetails from './Components/PackageDetails'
 import MyCart from './Components/MyCart'
 import ConfirmOrder from './Components/ConfirmOrder'
-import PaymentDetails from './Components/PaymentDetails'
+import PaymentDetails from './Components/paymentDetails'
 import OrderedPlaced from './Components/OrderedPlaced'
 import TrackOrder from './Components/TrackOrder'
 
@@ -28,7 +29,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="PaymentDetails" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Profile" screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Home' component={TabNavigation} />
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='SignUp' component={SignUp} />
@@ -36,6 +37,7 @@ export default function App() {
           <Stack.Screen name='ContactUs' component={ContactUs} />
           <Stack.Screen name='AboutUs' component={AboutUs} />
           <Stack.Screen name='EditProfile' component={EditProfile} />
+          <Stack.Screen name='Profile' component={Profile} />
           <Stack.Screen name='Offers' component={Offers} />
           <Stack.Screen name='Packages' component={Packages} />
           <Stack.Screen name='PackageDetails' component={PackageDetails} />
