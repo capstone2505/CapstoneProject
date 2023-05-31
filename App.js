@@ -21,6 +21,8 @@ import OrderedPlaced from './Components/OrderedPlaced'
 import TrackOrder from './Components/TrackOrder'
 import Profile from './Components/EditProfile';
 import Checkout from './Components/Checkout';
+import Home2 from './Components/Home2';
+import TabNavigation2 from './Navigation/TabNavigation2';
 
 
 
@@ -33,6 +35,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Home' component={TabNavigation} />
+      <Stack.Screen name='Home2' component={TabNavigation2} />
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='SignUp' component={SignUp} />
           <Stack.Screen name='Products' component={Products} />
