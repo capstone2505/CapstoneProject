@@ -30,9 +30,6 @@ export default function Products() {
           }}
         />
 =======
-        <View style={styles.searchBox}>
-          <Text style={styles.searchText}>Search</Text>
-        </View>
 >>>>>>> parent of 77847598 (make changes in products)
 
         {/* First row */}
