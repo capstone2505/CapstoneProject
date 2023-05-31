@@ -1,5 +1,5 @@
-import { View, Text, Pressable, Image, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, Pressable, Image, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, Modal } from 'react-native';
+import React, { useState } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -8,6 +8,12 @@ import Feather from 'react-native-vector-icons/Feather';
 
 
 const Home = ({ navigation }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleChatIconPress = () => {
+    setModalVisible(true);
+  };
+
   return (
     <ScrollView>
       <SafeAreaView style={{ backgroundColor: 'white', height: 1500 }}>
@@ -41,27 +47,65 @@ const Home = ({ navigation }) => {
           <View style={{ width: 230, height: 200, backgroundColor: 'lavenderblush', borderRadius: 10, margin: 20 }}>
             <View style={{ alignSelf: 'center', margin: 55 }}>
               <Text style={{ color: 'rosybrown', fontWeight: 'bold', fontSize: 20 }}> CATERING FOR YOU</Text>
-              <Text style={{ color: 'rosybrown' }}> food services that create good opportunties</Text>
+              <Text style={{ color: 'rosybrown' }}> food services that create good opportunities</Text>
 
             </View>
-            <MaterialCommunityIcons name="chat-processing-outline" size={35
-            } color='black' style={{ marginLeft: 196 }} />
+            <TouchableOpacity onPress={handleChatIconPress} style={{ marginLeft: 196 }}>
+              <MaterialCommunityIcons name="chat-processing-outline" size={35} color='black' />
+            </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>
+
+      {/* Modal for Chat */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            {/* Chat content goes here */}
+            <Text style={styles.modalText}>This is the live chat!</Text>
+            <TouchableOpacity style={styles.modalCloseButton} onPress={() => setModalVisible(false)}>
+              <Text style={styles.modalCloseButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
-  )
+  );
 }
 
-export default Home
-
-
+export default Home;
 
 const styles = StyleSheet.create({
-  container: {
+  modalContainer: {
     flex: 1,
-    backgroundColor: 'pink',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+  },
+  modalText: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  modalCloseButton: {
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 5,
+    alignSelf: 'flex-end',
+  },
+  modalCloseButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
