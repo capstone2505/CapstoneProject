@@ -8,6 +8,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 //npm install react-native-vector-icons --save
+
 //DB work
 import { auth, db } from './Config';
 import { getDocs, collection, query, where, updateDoc } from "firebase/firestore";
