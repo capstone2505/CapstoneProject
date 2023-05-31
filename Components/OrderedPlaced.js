@@ -9,24 +9,26 @@ import Constants from 'expo-constants';
 // or any pure javascript modules available in npm
 // import { Card } from 'react-native-paper';
 
-export default function OrderedPlaced() {
+export default function OrderedPlaced({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.x}>{"X"}</Text>
       </View>
       {/* <View style={styles.content}> */}
-        <Image style={styles.thankYou} source={require('../assets/Images2/ThankYou.png')} />
+        <Image style={styles.thankYou} source={require('../assets/Images/ThankYou.png')} />
         {/* <TouchableOpacity style={styles.trackButton}>
           <Text style={styles.trackButtonText}>Track Order</Text>
         </TouchableOpacity> */}
       {/* </View> */}
       <View style={{ marginBottom: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
-            <TouchableOpacity>
+            
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Pressable  onPress={() => navigation.navigate("TrackOrder")}>
                 <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Track Order </Text>
+                </Pressable>
               </View>
-            </TouchableOpacity>
+            
           </View>
       <StatusBar style="auto" />
     </SafeAreaView>
