@@ -17,8 +17,7 @@ import { doc, setDoc, getDocs, collection, query, where } from "firebase/firesto
 
 const Profile = ({ navigation }) => {
 
-
-  const [profile, setProfile] = useState()
+  const [profile, setProfile] = useState(null)
   let user = auth?.currentUser?.email;
   console.log(user);
 
@@ -36,6 +35,7 @@ const Profile = ({ navigation }) => {
       profiles.push(doc.data());
     });
     setProfile(profiles); // Set the first profile in the array
+    console.log();
   }
 
   return (
