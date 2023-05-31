@@ -2,6 +2,8 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView } from 'react-native';
 
+import { Searchbar } from 'react-native-paper';
+
 // npm install react-native-paper
 export default function Products() {
   return (
