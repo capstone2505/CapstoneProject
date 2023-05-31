@@ -1,5 +1,5 @@
 //Farah Aboudia 60093383
-import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView, TextInput } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, TextInput ,Pressable} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -9,7 +9,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 //npm install react-native-vector-icons --save
 
-const Profile = ({ navigation }) => {
+const EditProfile = ({ navigation }) => {
 
   return (
     <SafeAreaView resizeMode="cover" style={{ flex: 1, justifyContent: 'center' }}>
@@ -55,17 +55,19 @@ const Profile = ({ navigation }) => {
       </View>
 
       <View style={{ alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: '50%', borderRadius: 8, padding: 8 }}>
-        <TouchableOpacity>
+      
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Pressable  onPress={() => navigation.navigate("Profile")}>
             <Text style={{color: 'white', width: 200, textAlign: 'center'}}> Save </Text>
+            </Pressable>
           </View>
-        </TouchableOpacity>
+
       </View>
     </SafeAreaView>
   );
 }
 
-export default Profile
+export default EditProfile
 
 const styles = StyleSheet.create({
   imgProfile: {

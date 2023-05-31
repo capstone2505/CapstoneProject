@@ -8,19 +8,13 @@ import Feather from 'react-native-vector-icons/Feather';
 
 
 
-const Home = ({ navigation }) => {
+const Home2 = ({ navigation }) => {
   return (
     <ScrollView>
       <SafeAreaView style={{ backgroundColor: 'white', height: 1500 }}>
         <View>
           <Image style={{ width: 150, height: 150, alignSelf: 'center' }} source={require("../assets/Images/logo.png")} />
-          <View style={{ width: 80, height: 40, backgroundColor: 'rosybrown', borderRadius: 40, marginLeft: 340 }}>
-            <Pressable  onPress={() => navigation.navigate("Login")}    style={{
-                alignItems: 'flex-end',
-              }}>
-                <Text style={{ color: 'white', alignSelf: 'center', margin: 10, fontSize: 15 }} > <Feather name="log-in" size={15} color='white' /> Login </Text>
-                </Pressable>
-          </View>
+        
         </View>
         <View><Image style={{ width: 435, height: 150, alignSelf: 'center' }} source={require("../assets/Images2/homepage.png")}></Image></View>
         <View >
@@ -54,7 +48,7 @@ const Home = ({ navigation }) => {
   )
 }
 
-export default Home
+export default Home2
 
 
 
