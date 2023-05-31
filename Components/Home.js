@@ -7,7 +7,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 
 
-
 const Home = ({ navigation }) => {
   return (
     <ScrollView>
