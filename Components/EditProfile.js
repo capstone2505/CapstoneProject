@@ -77,7 +77,7 @@ const EditProfile = ({ navigation, route }) => {
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
           <FontAwesome name='phone' color={'#998184'} size={20} />
-          <TextInput style={{ color: 'blackfdf' }} placeholder={' ' + route.params.contact} 
+          <TextInput style={{ color: 'black' }} placeholder={' ' + route.params.contact} 
            value={contact} onChangeText={(txt) => setContact(txt)}
           />
         </View>

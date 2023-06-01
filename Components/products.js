@@ -14,7 +14,6 @@ export default function Products() {
       <ScrollView>
 
         {/* Search box */}
-<<<<<<< HEAD
         <Searchbar
           placeholder="Search"
           // onChangeText={handleSearch}
@@ -31,8 +30,6 @@ export default function Products() {
             margin: 20
           }}
         />
-=======
->>>>>>> parent of 77847598 (make changes in products)
 
         {/* First row */}
         <View style={styles.rowContainer}>
