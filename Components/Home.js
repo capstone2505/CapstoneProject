@@ -23,19 +23,14 @@ const Home = () => {
       setTimeout(() => {
         let autoResponse;
 
-        switch (inputText.toLowerCase()) {
-          case 'hello':
-            autoResponse = { type: 'app', text: 'Welcome to our chat! How can we assist you?' };
-            break;
-          case 'thank you':
-            autoResponse = { type: 'app', text: 'Thank you for asking. We will try to help you.' };
-            break;
-          case '':
-            autoResponse = { type: 'app', text: 'Could you please explain in more details?' };
-            break;
-          default:
-            autoResponse = { type: 'app', text: 'We received your question. You will have a response as soon as possible.' };
-            break;
+        if (inputText.toLowerCase().includes('hello')) {
+          autoResponse = { type: 'app', text: 'Welcome to our chat! How can we assist you?' };
+        } else if (inputText.toLowerCase().includes('issue') || inputText.toLowerCase().includes('problem')) {
+          autoResponse = { type: 'app', text: 'Could you please explain in more details?' };
+        } else if (/^\d+$/.test(inputText)) {
+          autoResponse = { type: 'app', text: 'Thank you for providing us your phone number. Please wait for our response via call or message.' };
+        } else {
+          autoResponse = { type: 'app', text: 'Thank you for contacting us. We received your question and will respond as soon as possible.' };
         }
 
         setMessages((prevMessages) => [...prevMessages, autoResponse]);
