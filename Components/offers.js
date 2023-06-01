@@ -1,60 +1,69 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, TouchableOpacity, Dimensions ,Pressable} from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export default function Offers() {
+export default function Offers({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
         <View style={styles.topImageContainer}>
-          <Image source={require('./assets/offers.jpeg')} style={styles.topImage} />
+          <Image source={require('../assets/Images/offers.png')} style={styles.topImage} />
         </View>
+
+        <ScrollView>
         <View style={styles.offerContainer}>
+
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('./assets/p.jpeg')} style={styles.offerImage} />
+              <Image source={require('../assets/Images/pows.png')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>15% discount</Text>
               <Text style={styles.orderText}>Ordering More</Text>
               <Text style={styles.priceText}>2300 QR</Text>
-              <TouchableOpacity style={styles.button}>
+              <View style={styles.button}>
+              <Pressable  onPress={() => navigation.navigate("Packages")}>
                 <Text style={styles.buttonText}>Click Here</Text>
-              </TouchableOpacity>
+                </Pressable>
+              </View>
             </View>
           </View>
+
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('./assets/p.jpeg')} style={styles.offerImage} />
+              <Image source={require('../assets/Images/charger.png')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>20% discount</Text>
               <Text style={styles.orderText}>Ordering More</Text>
               <Text style={styles.priceText}>3000 QR</Text>
-              <TouchableOpacity style={styles.button}>
+              <View style={styles.button}>
+              <Pressable  onPress={() => navigation.navigate("Packages")}>
                 <Text style={styles.buttonText}>Click Here</Text>
-              </TouchableOpacity>
+                </Pressable>
+              </View>
             </View>
           </View>
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('./assets/p.jpeg')} style={styles.offerImage} />
+              <Image source={require('../assets/Images/exit55.png')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>10% discount</Text>
               <Text style={styles.orderText}>Ordering More</Text>
               <Text style={styles.priceText}>2000 QR</Text>
-              <TouchableOpacity style={styles.button}>
+              <View style={styles.button}>
+              <Pressable  onPress={() => navigation.navigate("Packages")}>
                 <Text style={styles.buttonText}>Click Here</Text>
-              </TouchableOpacity>
+                </Pressable>
+              </View>
             </View>
-            
+
           </View>
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
-              <Image source={require('./assets/p.jpeg')} style={styles.offerImage} />
+              <Image source={require('../assets/Images/rose.png')} style={styles.offerImage} />
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>5% discount</Text>
@@ -100,20 +109,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     elevation: 4,
     padding: 8,
+    
+    
   },
   imageContainer: {
     flex: 1,
+    marginLeft:30
   },
   offerImage: {
     width: 130,
     height: 130,
     borderRadius: 10,
-    
+
   },
   detailsContainer: {
     flex: 1,
-    marginLeft: 10,
+    //marginLeft: 20,
     justifyContent: 'center',
+    marginRight:40,
+    marginTop:10
+
   },
   discountText: {
     fontWeight: 'bold',

@@ -1,5 +1,5 @@
 //Farah Aboudia 60093383
-import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView, TextInput } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, TextInput, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -9,63 +9,105 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 //npm install react-native-vector-icons --save
 
-const Profile = ({ navigation }) => {
+//DB work
+import { auth, db } from './Config';
+import { getDocs, collection, query, where, updateDoc } from "firebase/firestore";
+
+const EditProfile = ({ navigation, route }) => {
+
+  const [name, setName] = useState()
+  const [contact, setContact] = useState()
+  const [profile, setProfile] = useState()
+
+  let user = auth?.currentUser?.email;
+  console.log(user);
+
+  // useEffect(() => {
+  //   readAllWhere();
+  // }, [user]);
+
+  const readAllWhere = async () => {
+    const q = query(collection(db, "user"), where("email", "==", route.params.email));
+    const docs = await getDocs(q);
+    const profiles = [];
+    docs.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+      profiles.push(doc.data());
+      console.log(profiles);
+    });
+    setProfile(profiles); // Set the first profile in the array
+  }
+  console.log(profile);
+
+  const update = async (e) => {
+    // Update the fileName field
+    const docRef = query(collection(db, "user"), where("email", "==", e));
+    await updateDoc(docRef, { name: name , contact: contact})
+      .then(() => { console.log('fileName updated') })
+      .catch((error) => { console.log(error.message) })
+  }
+
+  const save = (e) => {
+    update(e)
+    navigation.navigate("Profile")
+    readAllWhere()
+
+  }
 
   return (
-    <SafeAreaView resizeMode="cover" style={{ flex: 1, justifyContent: 'center' }}>
-      {/* <Text style={{ marginTop: 30, alignSelf: 'center', fontSize: 30 }}>Profile</Text> */}
-      <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 20}}>Edit Profile</Text>
-
+    <SafeAreaView resizeMode="cover" style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white' }}>
+      <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 20 }}>Edit Profile</Text>
       <View style={{ alignItems: "center" }}>
-        {/* <TouchableOpacity> */}
         <View style={styles.imgProfile}>
-          <Text>55555</Text>
+          <Text style={{ fontSize: 40 }}>{(route.params.email.charAt(0).toUpperCase() + route.params.email.slice(1))[0]}</Text>
         </View>
-        {/* </TouchableOpacity> */}
       </View>
 
-
-      <Text style={{ fontSize: 20, fontWeight: 'bold'}}>Account Info</Text>
-      <View style={{ alignItems: 'center' , marginBottom: 50}}>
+      <Text style={{ paddingLeft: 25, fontSize: 20, fontWeight: 'bold' }}>Account Info</Text>
+      <View style={{ alignItems: 'center', marginBottom: 50 }}>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
           <MaterialCommunityIcons name='account' color={'#998184'} size={20} />
-          <TextInput style={{color: '#998184'}} placeholder=' Name'/>
+          <TextInput style={{ color: 'black' , marginRight: 5}} placeholder={' ' + route.params.name} 
+           value={name} onChangeText={(txt) => setName(txt)}
+          />
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
           <Fontisto name='email' color={'#998184'} size={20} />
-          <TextInput style={{color: '#998184'}} placeholder='  Email'/>
+          <Text style={{ color: 'black' }}>{'  ' + route.params.email}</Text>
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
           <FontAwesome name='phone' color={'#998184'} size={20} />
-          <TextInput style={{color: '#998184'}} placeholder='  Phone' />
+          <TextInput style={{ color: 'blackfdf' }} placeholder={' ' + route.params.contact} 
+           value={contact} onChangeText={(txt) => setContact(txt)}
+          />
         </View>
       </View>
 
-      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Address</Text>
-      <View style={{ alignItems: 'center' , marginBottom: 50}}>
+      <Text style={{ paddingLeft: 25, fontSize: 20, fontWeight: 'bold' }}>Address</Text>
+      <View style={{ alignItems: 'center', marginBottom: 50 }}>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
-          <TextInput style={{color: '#998184'}} placeholder=' Street number'/>
+          <TextInput style={{ color: '#6B5E5E' }} placeholder=' Street number' />
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
-          <TextInput style={{color: '#998184'}} placeholder=' Street Name'/>
+          <TextInput style={{ color: '#6B5E5E' }} placeholder=' Street Name' />
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
-          <TextInput style={{color: '#998184'}} placeholder=' Building Number' />
+          <TextInput style={{ color: '#6B5E5E' }} placeholder=' Building Number' />
         </View>
       </View>
 
       <View style={{ alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: '50%', borderRadius: 8, padding: 8 }}>
-        <TouchableOpacity>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={{color: 'white', width: 200, textAlign: 'center'}}> Save </Text>
-          </View>
-        </TouchableOpacity>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Pressable onPress={() =>save(route.params.email)} >
+            <Text style={{ color: 'white', width: 200, textAlign: 'center' }}> Save </Text>
+          </Pressable>
+        </View>
       </View>
     </SafeAreaView>
   );
 }
 
-export default Profile
+export default EditProfile
 
 const styles = StyleSheet.create({
   imgProfile: {
@@ -78,8 +120,6 @@ const styles = StyleSheet.create({
     marginBottom: 30
   },
   txt: {
-    // borderColor: 'green',
-    // borderWidth: 1,
     width: 350,
     padding: 10,
     borderRadius: 8,

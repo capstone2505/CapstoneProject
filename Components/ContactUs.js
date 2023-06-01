@@ -1,14 +1,14 @@
 import React from 'react';
-import { StatusBar, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, SafeAreaView, Pressable } from 'react-native';
 
-export default function ContactUa() {
+const ContactUa =({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.contactUsText}>{"< Contact Us"}</Text>
       </View>
       <View style={styles.content}>
-        <Image style={styles.logo} source={require('../assets/Images2/co.jpeg')} />
+        <Image style={styles.logo} source={require('../assets/Images/contact.png')} />
         <View style={styles.contactInfoContainer}>
           <Text style={styles.contactInfoText}>Qatar - 44477888 - 360Catering@gmail.com</Text>
         </View>
@@ -28,14 +28,18 @@ export default function ContactUa() {
           <Text style={styles.labelText}>Message:</Text>
           <TextInput style={[styles.input, styles.textArea]} multiline={true} numberOfLines={4} />
         </View>
-        <TouchableOpacity style={styles.sendButton}>
-          <Text style={styles.sendButtonText}>Send</Text>
-        </TouchableOpacity>
+        <View style={styles.sendButton}>
+          <Pressable onPress={() => navigation.navigate("Home")}>
+          
+            <Text style={styles.sendButtonText}>Send</Text>
+          </Pressable>
+        </View>
       </View>
       <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
+export default ContactUa
 
 const styles = StyleSheet.create({
   container: {
