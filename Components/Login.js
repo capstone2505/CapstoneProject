@@ -13,10 +13,10 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState()
   const [signedIn, setSignedIn] = useState(false)
 
-  const [emailError, setEmailError] = useState("")
+  const [emailError, setEmailError] = useState()
   const [emailFocused, setEmailFocused] = useState(false);
 
-  const [passwordError, setPasswordlError] = useState("")
+  const [passwordError, setPasswordlError] = useState()
   const [passwordFocused, setPasswordFocused] = useState(false);
 
 
