@@ -42,7 +42,7 @@ export default function App() {
           <Stack.Screen name='Products' component={Products} />
           <Stack.Screen name='ContactUs' component={ContactUs} />
           <Stack.Screen name='AboutUs' component={AboutUs} />
-          <Stack.Screen name='EditProfile' component={EditProfile} />
+          <Stack.Screen name='EditProfile' component={EditProfile} options={{ headerShown: true }}/>
           <Stack.Screen name='Offers' component={Offers} />
           <Stack.Screen name='Packages' component={Packages} />
           <Stack.Screen name='PackageDetails' component={PackageDetails} />
