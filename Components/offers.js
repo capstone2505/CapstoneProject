@@ -7,17 +7,25 @@ const windowHeight = Dimensions.get('window').height;
 export default function Offers({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
+        <Pressable onPress={() => navigation.navigate('Home2')}>
+              <Text style={{ color: '#231154', textAlign: "center", fontWeight: 'bold' ,marginRight:320}}> ← Home </Text>
+         </Pressable>
         <View style={styles.topImageContainer}>
           <Image source={require('../assets/Images/offers.png')} style={styles.topImage} />
         </View>
 
         <ScrollView>
+       
         <View style={styles.offerContainer}>
-
+         
           <View style={styles.offerItem}>
             <View style={styles.imageContainer}>
               <Image source={require('../assets/Images/pows.png')} style={styles.offerImage} />
             </View>
+           
+           
+            
+            
             <View style={styles.detailsContainer}>
               <Text style={styles.discountText}>15% discount</Text>
               <Text style={styles.orderText}>Ordering More</Text>
