@@ -15,14 +15,15 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ConfirmOrder from '../Components/ConfirmOrder';
 import PackageDetails from '../Components/PackageDetails';
+import Home2 from '../Components/Home2';
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigation() {
+export default function TabNavigation2() {
     return (
       <Tab.Navigator>
         {/* Home page  */}
-        <Tab.Screen name="Home" component={Home} options={{
+        <Tab.Screen name="Home" component={Home2} options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
@@ -46,7 +47,7 @@ export default function TabNavigation() {
         }} />
 
         {/* Profile page */}
-          <Tab.Screen name="Profile" component={Profile} options={{
+          <Tab.Screen name="profile" component={Profile} options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
