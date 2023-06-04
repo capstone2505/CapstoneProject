@@ -1,22 +1,71 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView, Pressable } from 'react-native';
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View, Image, Dimensions, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { Searchbar } from "react-native-paper";
 
+import { db } from "./Config";
+import { getDocs, collection } from "firebase/firestore";
+
 // npm install react-native-paper
+
+const images = [
+  { name: 'charger.png', path: require("../assets/Images/charger.png") },
+  { name: 'cheatBurger.png', path: require("../assets/Images/cheatBurger.png") },
+  { name: 'salt.png', path: require("../assets/Images/salt.png") },
+  { name: 'rose.png', path: require("../assets/Images/rose.png") },
+  { name: 'pows.png', path: require("../assets/Images/pows.png") },
+  { name: 'origin.png', path: require("../assets/Images/origin.png") },
+  { name: 'pows.png', path: require("../assets/Images/pows.png") },
+  { name: 'honu.png', path: require("../assets/Images/honu.png") },
+  { name: 'exit55.png', path: require("../assets/Images/exit55.png") },
+]
+
 export default function Products({ navigation }) {
+
+  const [allData, setAllData] = useState([]);
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    readAll();
+  }, []);
+
+  const readAll = async () => {
+    const docs = await getDocs(collection(db, "products"));
+    let temp = [];
+    docs.forEach(async (doc) => {
+      let product = doc.data();
+      temp.push(product);
+      setData(temp);
+    });
+    console.log(data);
+    setAllData(temp);
+  };
+
+  const handleSearch = (value) => {
+    setSearch(value);
+    if (value.length === 0) {
+      setData(allData);
+    }
+    const filteredData = allData.filter((item) =>
+      item.name.toLowerCase().includes(value.toLowerCase())
+    );
+    if (filteredData.length === 0) {
+      setData([]);
+    } else {
+      setData(filteredData);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topImageContainer}>
-        <Image source={require('../assets/Images2/productheader.jpeg')} style={styles.topImage} />
+        <Image source={require('../assets/Images/productheader.png')} style={styles.topImage} />
       </View>
       <ScrollView>
-
-        {/* Search box */}
         <Searchbar
           placeholder="Search"
-          // onChangeText={handleSearch}
-          // value={search}
+          onChangeText={handleSearch}
+          value={search}
           autoCorrect={false}
           style={{
             backgroundColor: '#D9D9D9',
@@ -29,90 +78,32 @@ export default function Products({ navigation }) {
             margin: 20
           }}
         />
-
-        {/* First row */}
         <View style={styles.rowContainer}>
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
-            <Text style={styles.imageName}>Image 1</Text>
-            {/* <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity> */}
-
-            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
-              <Text style={styles.buttonText}> View Packaging </Text>
-            </Pressable>
-          </View>
-
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
-            <Text style={styles.imageName}>Image 2</Text>
-            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
-              <Text style={styles.buttonText}> View Packaging </Text>
-            </Pressable>
-          </View>
+          {data.map((item, index) => {
+            const path = images.find((img) => img.name === item.image);
+            const icon = path ? path.path : null;
+            return (
+              <View key={index} style={styles.squareContainer}>
+                <Image source={icon} style={styles.image} />
+                <Text style={styles.imageName}>{item.name}</Text>
+                {/* <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}> */}
+                <TouchableOpacity onPress={() =>
+                  navigation.navigate({
+                    name: "Packages",
+                    params: {
+                      name: item.name,
+                      image: item.image,
+                      package: item.packages,
+                    },
+                  })} style={[styles.button]}>
+                  <Text style={styles.buttonText}>View Packaging</Text>
+                </TouchableOpacity>
+                {/* </Pressable> */}
+              </View>
+            );
+          })}
         </View>
-
-        {/* Second row */}
-        <View style={styles.rowContainer}>
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
-            <Text style={styles.imageName}>Image 3</Text>
-            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
-              <Text style={styles.buttonText}> View Packaging </Text>
-            </Pressable>
-          </View>
-
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
-            <Text style={styles.imageName}>Image 4</Text>
-            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
-              <Text style={styles.buttonText}> View Packaging </Text>
-            </Pressable>
-          </View>
-        </View>
-
-        {/* Third row */}
-        <View style={styles.rowContainer}>
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
-            <Text style={styles.imageName}>Image 5</Text>
-            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
-              <Text style={styles.buttonText}> View Packaging </Text>
-            </Pressable>
-          </View>
-
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
-            <Text style={styles.imageName}>Image 6</Text>
-            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
-              <Text style={styles.buttonText}> View Packaging </Text>
-            </Pressable>
-          </View>
-        </View>
-
-        {/* Fourth row */}
-        <View style={styles.rowContainer}>
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
-            <Text style={styles.imageName}>Image 7</Text>
-            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
-              <Text style={styles.buttonText}> View Packaging </Text>
-            </Pressable>
-          </View>
-
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
-            <Text style={styles.imageName}>Image 8</Text>
-            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
-              <Text style={styles.buttonText}> View Packaging </Text>
-            </Pressable>
-          </View>
-        </View>
-
-        {/* Additional rows go here */}
       </ScrollView>
-      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
@@ -144,22 +135,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 10,
     marginBottom: 10,
-
   },
   searchText: {
     fontSize: 16,
   },
   rowContainer: {
+    justifyContent: 'center',
     flexDirection: 'row',
-    marginBottom: 15,
+    marginBottom: 5,
+    flexWrap: 'wrap',
   },
   squareContainer: {
-    flex: 1,
     backgroundColor: '#F7EBED',
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 10,
     borderWidth: 1,
     borderColor: '#998184',
     shadowColor: '#998184',
@@ -167,6 +157,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 4,
     aspectRatio: 1,
+    width: 160,
+    margin: 6
   },
   image: {
     width: '60%',
