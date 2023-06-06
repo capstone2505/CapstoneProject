@@ -4,7 +4,7 @@ import { SelectCountry } from 'react-native-element-dropdown';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { auth, db } from './Config';
 
 const Checkout = ({ navigation }) => {
 
@@ -76,6 +76,38 @@ const Checkout = ({ navigation }) => {
     hidePicker();
   };
 
+  ///////////// db work /////////////
+  const [profile, setProfile] = useState()
+  let user = auth?.currentUser?.email;
+  console.log(user);
+
+  // const checkout = [
+  //     {
+  //         userEmail: 'try@gmail.com',
+  //         address: { streetNumber: 22, buildingNumber: 12, StreetName: 'Al Daayen', city: 'Al Rayyan' },
+  //         contact: { email: 'try@gmail.com', phone: 000000 }, date: '', time: ''
+  //     }
+  // ]
+
+  const set = async () => {
+      const docRef = doc(db, "checkout")
+      // console.log(email, password, name, age, address);
+      await setDoc(docRef, {
+          userEmail: user,
+          address: { streetNumber, buildingNumber, streetName, city },
+          contactInfo: { email, phone },
+          date: selectedDate,
+          time: selectedDate.toLocaleDateString(),
+      })
+          .then(() => { console.log('data submitted') })
+          .catch((error) => { console.log(error.message) })
+      handleRegister()
+  }
+
+  const save = () => {
+      set()
+      navigation.navigate("ConfirmOrder")
+  }
 
   const [contact, setContact] = useState()
   const [email, setEmail] = useState()
@@ -94,6 +126,7 @@ const Checkout = ({ navigation }) => {
             onChangeText={(txt) => setStreetNumber(txt)}
           />
         </View>
+        
         <View style={[styles.txt, { flexDirection: 'row', marginBottom: 0 }]}>
           <TextInput style={{ color: 'black' }}
             placeholder="  Street Name"
@@ -146,6 +179,7 @@ const Checkout = ({ navigation }) => {
             value={contact}
             onChangeText={(txt) => setContact(txt)}
           />
+          
         </View>
       </View>
 
