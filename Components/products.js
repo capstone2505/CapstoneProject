@@ -56,6 +56,8 @@ export default function Products({ navigation }) {
     }
   };
 
+// console.log('All Products');
+//   console.log(data.map( (item, index) => {console.log(item[3]);}));
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topImageContainer}>

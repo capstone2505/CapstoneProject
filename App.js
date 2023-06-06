@@ -34,7 +34,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="products" screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Home' component={TabNavigation} />
       <Stack.Screen name='Home2' component={TabNavigation2} />
         <Stack.Screen name='Login' component={Login} />
