@@ -39,7 +39,15 @@ export default function Login({ navigation }) {
         setEmailError('');
         setEmailFocused(false);
     }
-    else if (invaildMassage === 'auth/invalid-email') {
+
+
+    if (password === '' && email === ''){
+      setPasswordlError('Enter your password!!');
+      setEmailError('Enter your email!!');
+      //setEmailFocused(true);
+
+    }
+    if (invaildMassage === 'auth/invalid-email') {
         setEmailError('invalid-email!!');
         setEmailFocused(true);
         setPasswordlError('');
@@ -57,7 +65,8 @@ export default function Login({ navigation }) {
         setPasswordlError('');
         setPasswordFocused(false);
     }
-    else if (invaildMassage === 'auth/wrong-password') {
+   if (invaildMassage === 'auth/wrong-password') {
+    console.log("hiii from password")
         setPasswordlError('Wrong-Password!!');
         setPasswordFocused(true);
         setEmailError('');
@@ -69,6 +78,9 @@ export default function Login({ navigation }) {
         setEmailError('');
         setEmailFocused(false);
         
+    }
+    else {
+      return false;
     }
 };
 
@@ -83,7 +95,7 @@ export default function Login({ navigation }) {
               console.log(error.message);
               setSignedIn(false)
           })
-          console.log("hi form login")
+          // console.log("hi form login")
           handleError()
   }
 

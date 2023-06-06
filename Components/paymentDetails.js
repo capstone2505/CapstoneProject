@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Switch } from 'react-native';
+import { auth, db } from './Config';
+import { addDoc, getDoc, getDocs, ref, where, collection, doc, query, setDoc } from "firebase/firestore";
 
 export default function PaymentDetails() {
   const [saveCardDetails, setSaveCardDetails] = useState(false);
@@ -7,7 +9,20 @@ export default function PaymentDetails() {
   const handleSaveCardDetailsToggle = () => {
     setSaveCardDetails(!saveCardDetails);
   };
+  const add = async () => {
+    const docRef = await addDoc(collection(db, "paymentDetails"), {
+        name: name, contact: contact,email: email
+    });
+    console.log("Document written with ID: ", docRef.id);
+    handleRegister()
+    console.log("hii from add")
+}
+const [CardNum, setCardNum] = useState()
+  const [CardExpDate, setCardExpDate] = useState()
+  const [CardExpYear, setCardExpYear] = useState()
+  const [CardverfVal,setCardverfVal] = useState()
 
+  
   return (
     <View style={styles.container}>
       <View style={styles.space} />
@@ -24,14 +39,14 @@ export default function PaymentDetails() {
         <Text style={styles.boldTextLarge}>Card Details</Text>
         <View style={styles.cardDetails}>
           <Text style={styles.label}>Card Number</Text>
-          <TextInput style={styles.input} placeholder="Card Number" />
+          <TextInput style={styles.input} placeholder="Card Number" onChangeText={text => setCardNum(text)}/>
           <Text style={styles.label}>Card expiry date</Text>
           <View style={styles.expiryContainer}>
-            <TextInput style={[styles.input, styles.expiryInput]} placeholder="MM" />
-            <TextInput style={[styles.input, styles.expiryInput]} placeholder="YY" />
+            <TextInput style={[styles.input, styles.expiryInput]} placeholder="MM" onChangeText={text => setCardExpDate(text)} />
+            <TextInput style={[styles.input, styles.expiryInput]} placeholder="YY" onChangeText={text => setCardExpYear(text)} />
           </View>
           <Text style={styles.label}>Card Verification Value</Text>
-          <TextInput style={styles.input} placeholder="CVV" />
+          <TextInput style={styles.input} placeholder="CVV" nChangeText={text => setCardverfVal(text)}/>
           <View style={styles.checkboxContainer}>
             <Switch
               trackColor={{ false: '#767577', true: '#81b0ff' }}
@@ -40,14 +55,15 @@ export default function PaymentDetails() {
               onValueChange={handleSaveCardDetailsToggle}
               value={saveCardDetails}
             />
-            <Text style={styles.checkboxText}>For faster and more secure checkout save your card details</Text>
+            <Text style={styles.checkboxText}  onPress={add} >For faster and more secure checkout save your card details</Text>
+          
           </View>
         </View>
         <View style={styles.space} />
         <View style={styles.imageContainer}>
           <Image source={require('../assets/Images/payment.png')} style={styles.image} resizeMode="contain" />
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("OrderedPlaced")}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("OrderedPlaced")} >
           <Text style={styles.buttonText}>Pay now</Text>
         </TouchableOpacity>
         <View style={styles.space} />
