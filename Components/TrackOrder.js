@@ -1,29 +1,36 @@
-import React from 'react';
-import { StatusBar, StyleSheet, View, Image, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { StatusBar, StyleSheet, View, Image, SafeAreaView, Text , Pressable} from 'react-native';
 
+const TrackOrder = () => {
+  const steps = [
+    { id: 1, title: 'Ordered', image: require('../assets/Images/Ordered.png') },
+    { id: 2, title: 'On the Way', image: require('../assets/Images/onTheway.png') },
+    { id: 3, title: 'Delivered', image: require('../assets/Images/Delivered.png') },
+  ];
 
-export default function App() {
+  const [currentStep, setCurrentStep] = useState(0);
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Image style={styles.home} source={require('../assets/Images/home.png')} />
+       <View style={styles.header}>
+      <Pressable  onPress={() => navigation.navigate("Home")}>
+      <Text style={styles.x}><Image source={require('../assets/Images/home.png')}/></Text>
+                </Pressable>
       </View>
       <View style={styles.content}>
-        <Image style={styles.track1} source={require('../assets/Images/Track1.png')} />
-      </View>
-       <View style={styles.content}>
-        <Image style={styles.ordered} source={require('../assets/Images/Ordered.png')} />
-      </View>
-      <View style={styles.content}>
-        <Image style={styles.onTheway} source={require('../assets/Images/onTheway.png')} />
-      </View>
-      <View style={styles.content}>
-        <Image style={styles.delivered} source={require('../assets/Images/Delivered.png')} />
+        {steps.map((step, index) => (
+          <View key={step.id} style={styles.stepContainer}>
+            <Image style={styles.stepImage} source={step.image} />
+            <Text style={[styles.stepTitle, currentStep === index && styles.currentStepTitle]}>
+              {step.title}
+            </Text>
+          </View>
+        ))}
       </View>
       <StatusBar style="auto" />
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -32,31 +39,40 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'flex-start',
-    padding: 16,
+    padding: 8,
   },
   home: {
-    width: '15%',
-    height: 50,
+    width: 30,
+    height: 30,
     marginBottom: 10,
   },
-  track1: {
-    width: '40%',
-    height: 100,
-    marginBottom: 5,
+  content: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
-  ordered: {
-    width: '100%',
+  stepContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+    marginRight: 20,
+  },
+  stepImage: {
+    width: 200,
     height: 200,
-    marginBottom: 10,
+    resizeMode: 'contain',
   },
-  onTheway: {
-    width: '100%',
-    height: 200,
-    marginBottom: 10,
+  stepTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 8,
+    textAlign: 'center',
+    color: '#999',
   },
-  delivered: {
-    width: '104%',
-    height: 200,
-    marginBottom: 10,
+  currentStepTitle: {
+    color: '#000',
   },
 });
+
+export default TrackOrder;
