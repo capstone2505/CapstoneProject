@@ -4,6 +4,9 @@ import {
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { CheckBox } from 'react-native-elements';
+import { auth, db } from './Config';
+import { addDoc, getDoc, getDocs, ref, where, collection, doc, query, setDoc } from "firebase/firestore";
+
 // import { TextInput } from 'react-native-gesture-handler';
 
 const PackageDetails = ({ navigation, route }) => {
@@ -31,66 +34,70 @@ const PackageDetails = ({ navigation, route }) => {
   const [checked3, setChecked3] = useState(false);
   const [detailsPackage, setDetails] = useState(route.params.details.split(','));
   const [extra, setExtra] = useState(route.params.extraPack)
+  const [totalAmount, setTotalAmount] = useState(quantity * route.params.price);
 
   // const [selectedExtra, setSelectedExtra] = useState(null);
 
   // const handleCheck = (extra) => {
   //   setSelectedExtra(extra);
   // };
-  
+
 
   const [selectedExtras, setSelectedExtras] = useState([]);
 
-  const handleCheck = (extra) => {
-    if (selectedExtras.includes(extra)) {
-      setSelectedExtras(selectedExtras.filter((item) => item !== extra));
-    } else {
-      setSelectedExtras([...selectedExtras, extra]);
-    }
-  };
+const handleCheck = (extra) => {
+  if (selectedExtras.includes(extra)) {
+    setSelectedExtras(selectedExtras.filter((item) => item !== extra));
+  } else {
+    setSelectedExtras([...selectedExtras, extra]);
+  }
+  const extraPrice = selectedExtras.includes(extra) ? 0 : extra.price;
+  const extrasTotal = selectedExtras.reduce((total, item) => total + item.price, 0);
+  // setTotalAmount(quantity * route.params.price + extraPrice);
+  extraPrice == 0 ? setTotalAmount(totalAmount - extra.price) :setTotalAmount(totalAmount +extraPrice)
+
+};
+
+// const handleCheck = (extra) => {
+//   if (selectedExtras.includes(extra)) {
+//     setSelectedExtras([...selectedExtras, extra]);
+
+//     setSelectedExtras(selectedExtras.filter((item) => item !== extra));
+//     alert("yes")
+//   } else {
+//     setSelectedExtras([...selectedExtras, extra]);
+//     setSelectedExtras(selectedExtras.filter((item) => item !== extra))
+//     alert("no")
+
+//   }
+
+//   const extrasTotal = selectedExtras.reduce((total, item) => total + item.price, 0);
+//   const amount = (route.params.price + extrasTotal) * quantity;
+//   setTotalAmount(amount);
+//   alert(amount)
+
+// };
 
 
   const handleQuantityIncrease = () => {
     setQuantity(quantity + 1);
+    setTotalAmount((quantity + 1) * route.params.price);
   };
   const handleQuantityDecrease = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
+      setTotalAmount((quantity - 1) * route.params.price);
     }
   };
 
-  const handleCheck1 = () => {
-    setChecked1(!checked1);
-    if (checked1) {
-      // Do something when checkbox 1 is checked
-      console.log('Checkbox 1 was checked');
-    } else {
-      // Do something when checkbox 1 is unchecked
-      console.log('Checkbox 1 was unchecked');
-    }
-  };
-
-  const handleCheck2 = () => {
-    setChecked2(!checked2);
-    if (checked2) {
-      // Do something when checkbox 2 is checked
-      console.log('Checkbox 2 was checked');
-    } else {
-      // Do something when checkbox 2 is unchecked
-      console.log('Checkbox 2 was unchecked');
-    }
-  };
-
-  const handleCheck3 = () => {
-    setChecked3(!checked3);
-    if (checked3) {
-      // Do something when checkbox 3 is checked
-      console.log('Checkbox 3 was checked');
-    } else {
-      // Do something when checkbox 3 is unchecked
-      console.log('Checkbox 3 was unchecked');
-    }
-  };
+//   const add = async () => {
+//     const docRef = await addDoc(collection(db, "request"), {
+//         detailRequest : detailRequest
+//     });
+//     console.log("Document written with ID: ", docRef.id);
+//     handleRegister()
+//     console.log("hii from detail request")
+// };
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -206,26 +213,31 @@ const PackageDetails = ({ navigation, route }) => {
         <View style={{ width: 330, alignSelf: 'center', padding: 5 }}>
 
           {/* {extra ? <Text style={{ margin: 3 }}>{extra} blaa</Text> : null} */}
-          {extra ? 
-          <View>
-          <Text style={{ fontWeight: 'bold', margin: 6, fontSize: 20 }}>Extra Order</Text>
-          {extra.map((x, i) => {
-            return (<View key={i} style={[styles.card, styles.shadowProp]}>
-              <View style={{ width: 100 }}>
-                <Text style={{ fontSize: 15, marginTop: 15 }} >{x.extra}</Text>
-                <Text>{x.price} QR</Text>
-              </View>
-              <View style={{ width: 50 }} >
-                <CheckBox
-              checked={selectedExtras.includes(x)}
-              onPress={() => handleCheck(x)}
-              style={{ color: 'pink' }}
-            />
-              </View>
-            </View>)
-          })}
-          </View>
-          :null }
+          {extra ?
+            <View>
+              <Text style={{ fontWeight: 'bold', margin: 6, fontSize: 20 }}>Extra Order</Text>
+              {extra.map((x, i) => {
+                return (
+
+                  <View key={i} style={[styles.card, styles.shadowProp]}>
+                    <View style={{ width: 100 }}>
+                      <Text style={{ fontSize: 15, marginTop: 15 }} >{x.extra}</Text>
+                      <Text>{x.price} QR</Text>
+                    </View>
+                    <View style={{ width: 50 }} >
+                      <CheckBox
+                        checked={selectedExtras.includes(x)}
+                        // checked={() => handleCheck(x)}
+
+                        onPress={() => handleCheck(x)}
+                        // onValueChange={() => handleCheck(x)}
+                        style={{ color: 'pink' }}
+                      />
+                    </View>
+                  </View>)
+              })}
+            </View>
+            : null}
           {/* <View style={[styles.card, styles.shadowProp]}>
             <Text style={{ fontSize: 15, marginTop: 15 }}>Cold Selection</Text>
             <CheckBox
@@ -252,7 +264,7 @@ const PackageDetails = ({ navigation, route }) => {
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
             <Text> Total Amount </Text>
-            <Text> </Text>
+            <Text>{totalAmount} QR</Text>
           </View>
           <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
