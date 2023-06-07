@@ -24,6 +24,7 @@ const SignUp = ({ navigation }) => {
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
 
   const [invaildMassage, setInvalidMassage] = useState("")
+  const [emptyFields, setEmptyFields] = useState([]);
 
   // To registe at the firebase and check if the user is there or not 
   const handleRegister = () => {
@@ -32,6 +33,7 @@ const SignUp = ({ navigation }) => {
         console.log('Signed in')
         setSignedIn(true)
         navigation.navigate('Login')
+       
       })
       .catch((error) => {
         console.log(error.message)
@@ -44,40 +46,72 @@ const SignUp = ({ navigation }) => {
 
   // To add data in the profile 
   const add = async () => {
+    //const emptyFields = Object.keys(fields).filter(key => !fields[key])
+
+    if (!name || !contact|| !email || !password ) {
+      console.log('Please fill in all fields');
+      //return;
+    }
+    else if (password !== confirmPassword) {
+      ConfirmsetPassword(true);
+      console.log('Password and Confirm Password do not match');
+      return;
+    }
+    
+    else{
     const docRef = await addDoc(collection(db, "user"), {
-      name: name, contact: contact, email: email
+      name: name, contact: contact, email: email, address: {city:'',streetNum:'',streetName:'',buidingNum:''}
     });
     console.log("Document written with ID: ", docRef.id);
     handleRegister()
     console.log("hii from add")
+    clear()
+    }
+   
   }
+  
+  const isFieldEmpty = fieldName => emptyFields.includes(fieldName);
 
+   const handleError = () => {
 
-  const handleError = () => {
-    console.log("hhhhhhhhhhhhhhhhhhhh");
+    if (password !== confirmPassword) {
+      ConfirmsetPassword(true);
+      console.log('Password and Confirm Password do not match');
+      return;
+    }
+   
+    
+    //console.log("hhhhhhhhhhhhhhhhhhhh");
     // if (email === '' && password === '') {
     //   setEmailError('Enter an email!!');
     //   setEmailFocused(true);
     //   // setPasswordFocused(true);
     // }
-    if (email === '') {
-      setEmailError('Enter an email!!');
-      setEmailFocused(true);
-      setPasswordlError('');
-      setPasswordFocused(false);
-    }
-    if (invaildMassage === 'auth/invalid-email') {
-      setEmailError('invalid-email!!');
-      setEmailFocused(true);
-      setPasswordlError('');
-      setPasswordFocused(false);
-    }
-    if (invaildMassage === 'auth/email-already-in-use') {
-      setEmailError('This Email already in use!');
-      setEmailFocused(true);
-      setPasswordlError('');
-      setPasswordFocused(false);
-    }
+    // if (email === '') {
+    //   setEmailError('Enter an email!!');
+    //   setEmailFocused(true);
+    //   setPasswordlError('');
+    //   setPasswordFocused(false);
+    // }
+    // if (invaildMassage === 'auth/invalid-email') {
+    //   setEmailError('invalid-email!!');
+    //   setEmailFocused(true);
+    //   setPasswordlError('');
+    //   setPasswordFocused(false);
+    // }
+    // if (invaildMassage === 'auth/email-already-in-use') {
+    //   setEmailError('This Email already in use!');
+    //   setEmailFocused(true);
+    //   setPasswordlError('');
+    //   setPasswordFocused(false);
+    // }
+    
+
+  // const check = async () => {
+  //   if (!name || !age || !country || !email || !password || !contact) {
+  //     console.log('Please fill in all fields');
+  //     return;
+  //   }
 
 
     // else if (password === '') {
@@ -108,6 +142,20 @@ const SignUp = ({ navigation }) => {
     //   setPasswordFocused(false);
     // }
   }
+  
+  const  press = () => {
+    navigation.navigate("Login")
+    add()
+
+  }
+  const clear = async () => {
+    console.log('this is clear')
+    setName("")
+    setContact("")
+    setEmail("")
+    setPassword("")
+    ConfirmsetPassword("")
+  }
   return (
     <ScrollView>
       <SafeAreaView style={{ backgroundColor: 'white', width: 450, height: 1200 }}>
@@ -120,8 +168,8 @@ const SignUp = ({ navigation }) => {
         </View>
         <View>
           <Text style={[styles.txtstyle]}>Name</Text>
-          <TextInput placeholder='Your Name' style={styles.textInput} onChangeText={text => setName(text)}> </TextInput>
-
+          <TextInput placeholder='Your Name' style={[styles.textInput ,{ borderColor: isFieldEmpty('name') ? 'red' : 'grey' }]} onChangeText={text => setName(text)}></TextInput>
+          {/* { borderColor: isFieldEmpty('name') ? 'red' : '#89487c' }]} placeholder='Name' onChangeText={text => setName(text)} */}
           <Text style={[styles.txtstyle]}>Contact</Text>
           <TextInput placeholder='+974' style={styles.textInput} onChangeText={text => setContact(text)}> </TextInput>
 
@@ -153,7 +201,8 @@ const SignUp = ({ navigation }) => {
         <View>
           <Pressable
             // onPress={() => navigation.navigate("Login")} 
-            onPress={add}
+            //onPress={add}
+            onPress={press}
             style={{
               alignItems: 'center',
               backgroundColor: '#998184',
@@ -165,14 +214,14 @@ const SignUp = ({ navigation }) => {
               marginTop: 25
             }}
           >
-            <Text style={{ textAlign: 'center', color: 'white', margin: 10, width: 140, height: 30, fontSize: 20 }} onPress={add}> SIGN UP</Text>
+            <Text style={{ textAlign: 'center', color: 'white', margin: 10, width: 140, height: 30, fontSize: 20 }} > SIGN UP</Text>
           </Pressable>
         </View>
 
       </SafeAreaView>
     </ScrollView>
   )
-}
+          }
 
 export default SignUp
 

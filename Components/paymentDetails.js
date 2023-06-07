@@ -4,24 +4,34 @@ import { auth, db } from './Config';
 import { addDoc, getDoc, getDocs, ref, where, collection, doc, query, setDoc } from "firebase/firestore";
 
 export default function PaymentDetails() {
+
+  const [CardNum, setCardNum] = useState()
+  const [CardExpDate, setCardExpDate] = useState()
+  const [CardExpYear, setCardExpYear] = useState()
+  const [CardverfVal,setCardverfVal] = useState()
   const [saveCardDetails, setSaveCardDetails] = useState(false);
 
   const handleSaveCardDetailsToggle = () => {
     setSaveCardDetails(!saveCardDetails);
   };
   const add = async () => {
+
+    if (!CardNum || !CardExpDate|| !CardExpYear || !CardverfVal || !saveCardDetails ) {
+      console.log('Please fill in all fields');
+      //return;
+
+    }
+
+    else{
     const docRef = await addDoc(collection(db, "paymentDetails"), {
-        name: name, contact: contact,email: email
+      CardNum: CardNum, CardExpDate: CardExpDate,CardExpYear: CardExpYear,CardverfVal:CardverfVal,saveCardDetails:saveCardDetails
     });
     console.log("Document written with ID: ", docRef.id);
     handleRegister()
     console.log("hii from add")
 }
-const [CardNum, setCardNum] = useState()
-  const [CardExpDate, setCardExpDate] = useState()
-  const [CardExpYear, setCardExpYear] = useState()
-  const [CardverfVal,setCardverfVal] = useState()
 
+}
   
   return (
     <View style={styles.container}>
@@ -56,7 +66,6 @@ const [CardNum, setCardNum] = useState()
               value={saveCardDetails}
             />
             <Text style={styles.checkboxText}  onPress={add} >For faster and more secure checkout save your card details</Text>
-          
           </View>
         </View>
         <View style={styles.space} />
