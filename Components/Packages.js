@@ -5,12 +5,11 @@ import { View, ScrollView, Text, StyleSheet, Image, TouchableOpacity, SafeAreaVi
 
 export default function Packages({navigation}) {
     return (
-        <SafeAreaView style={styles.container}>
-
-                <Text style={{marginTop: 30,  fontSize: 30, fontWeight: 'bold' , textAlign:'center', alignItems: 'center'}}> Charger Packages</Text>
-                <View style={{ backgroundColor: 'white', width: 500, height: 1500, alignContent: 'center', marginTop: 10 }}>
-                    <Image style={{ width: 180, height: 180, borderRadius: 20, marginLeft: 120 }} source={require('../assets/Images2/charger.webp')} />
-                    <ScrollView>
+        <ScrollView>
+        <View style={{backgroundColor:'white', width:500,height:1500,alignContent:'center'}}>
+            <Text style={{margin:30,fontSize:30 ,fontWeight:'bold'
+            }}> Charger Packages</Text>
+            <Image style={{width:180,height:180,borderRadius:20,marginLeft:120}} source={require('../assets/Images2/charger.webp')} />
 
                     <View style={[styles.card, styles.shadowProp]}>
                         <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, alignSelf: 'left', width: 150 }}>
@@ -133,12 +132,12 @@ export default function Packages({navigation}) {
                         </View>
                     </View>
 
+</View>
+    </ScrollView>
+            // </View>
 
-            </ScrollView>
-            </View>
 
-
-        </SafeAreaView>
+        // </SafeAreaView>
 
     )
 };

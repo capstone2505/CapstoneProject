@@ -56,7 +56,7 @@ const PackageDetails = ({ navigation, route }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
 
-        <Image source={require("../assets/icon.png")} style={styles.image} />
+        <Image source={require('../assets/Images/charger.png')}  style={styles.image} />
 
         <View style={{
           //           shadowColor: '#c0c0c0',
@@ -89,10 +89,6 @@ const PackageDetails = ({ navigation, route }) => {
               <Text style={{ margin: 6, paddingTop: 10 }}>25 Person</Text>
               <Text style={{ margin: 6 }}>50 Cup</Text>
             </View>
-
-
-
-
             <View style={{
               width: 70,
               height: 70,
@@ -120,37 +116,10 @@ const PackageDetails = ({ navigation, route }) => {
 
         <View style={{ width: 330, alignSelf: 'center', padding: 5 }}>
           <Text style={{ fontWeight: 'bold', margin: 6, fontSize: 20 }}>Extra Order</Text>
-          <View style={[styles.card, styles.shadowProp]}>
-            <View style={{width: 100}}>
-              <Text style={{ fontSize: 15, marginTop: 15 }} >Hazel  </Text>
-            </View>
-            <View style={{width: 50}} >
-              <CheckBox
-                checked={checked1}
-                onPress={handleCheck1}
-                style={{ color: 'pink' }}
-              />
-            </View>
-
-
-          </View>
-
-          <View style={[styles.card, styles.shadowProp]}>
-            <Text style={{ fontSize: 15, marginTop: 15 }}>Cold Selection</Text>
-            <CheckBox
-              checked={checked2}
-              onPress={handleCheck2}
-            />
-          </View>
-
-          {/* Cold Selection */}
-          <View style={[styles.card, styles.shadowProp]}>
-            <Text style={{ fontSize: 15, marginTop: 15 }}>Cold Selection </Text>
-            <CheckBox
-              checked={checked3}
-              onPress={handleCheck3}
-            />
-          </View>
+          <Text style={{ paddingLeft: 10, margin: 3 }}>Cold Selection </Text>
+          <Text style={{ paddingLeft: 10, margin: 3 }}> Hot Selection </Text>
+          <Text style={{ paddingLeft: 10, margin: 3 }}>Hot Sahlab </Text>
+          <Text style={{ paddingLeft: 10, margin: 3 }}>Triple Q </Text>
         </View>
 
         <View style={{ marginBottom: 30, width: 330, alignSelf: 'center', padding: 5 }}>
@@ -164,16 +133,15 @@ const PackageDetails = ({ navigation, route }) => {
             <Text> 3000QR </Text>
           </View>
           <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
-            
+            <TouchableOpacity>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Pressable  onPress={() => navigation.navigate("MyCart")}>
                 <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add to Cart </Text>
                 </Pressable>
               </View>
-            
+            </TouchableOpacity>
           </View>
         </View>
-
 
       </ScrollView >
     </SafeAreaView>

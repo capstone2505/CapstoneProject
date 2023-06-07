@@ -6,19 +6,19 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Image style={styles.home} source={require('../assets/Images2/home.png')} />
+        <Image style={styles.home} source={require('../assets/Images/home.png')} />
       </View>
       <View style={styles.content}>
-        <Image style={styles.track1} source={require('../assets/Images2/Track1.png')} />
+        <Image style={styles.track1} source={require('../assets/Images/Track1.png')} />
       </View>
        <View style={styles.content}>
-        <Image style={styles.ordered} source={require('../assets/Images2/Ordered.png')} />
+        <Image style={styles.ordered} source={require('../assets/Images/Ordered.png')} />
       </View>
       <View style={styles.content}>
-        <Image style={styles.onTheway} source={require('../assets/Images2/onTheway.png')} />
+        <Image style={styles.onTheway} source={require('../assets/Images/onTheway.png')} />
       </View>
       <View style={styles.content}>
-        <Image style={styles.delivered} source={require('../assets/Images2/Delivered.png')} />
+        <Image style={styles.delivered} source={require('../assets/Images/Delivered.png')} />
       </View>
       <StatusBar style="auto" />
     </SafeAreaView>

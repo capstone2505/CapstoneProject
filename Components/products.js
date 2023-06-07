@@ -1,10 +1,10 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView, Pressable } from 'react-native';
 import { Searchbar } from "react-native-paper";
 
 // npm install react-native-paper
-export default function Products() {
+export default function Products({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topImageContainer}>
@@ -33,76 +33,80 @@ export default function Products() {
         {/* First row */}
         <View style={styles.rowContainer}>
           <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
             <Text style={styles.imageName}>Image 1</Text>
-            <TouchableOpacity style={styles.button}>
+            {/* <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+
+            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
+              <Text style={styles.buttonText}> View Packaging </Text>
+            </Pressable>
           </View>
 
           <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
             <Text style={styles.imageName}>Image 2</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
+            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
+              <Text style={styles.buttonText}> View Packaging </Text>
+            </Pressable>
           </View>
         </View>
 
         {/* Second row */}
         <View style={styles.rowContainer}>
           <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
             <Text style={styles.imageName}>Image 3</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
+            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
+              <Text style={styles.buttonText}> View Packaging </Text>
+            </Pressable>
           </View>
 
           <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
             <Text style={styles.imageName}>Image 4</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
+            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
+              <Text style={styles.buttonText}> View Packaging </Text>
+            </Pressable>
           </View>
         </View>
 
         {/* Third row */}
         <View style={styles.rowContainer}>
           <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
             <Text style={styles.imageName}>Image 5</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
+            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
+              <Text style={styles.buttonText}> View Packaging </Text>
+            </Pressable>
           </View>
 
           <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
             <Text style={styles.imageName}>Image 6</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
+            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
+              <Text style={styles.buttonText}> View Packaging </Text>
+            </Pressable>
           </View>
         </View>
 
         {/* Fourth row */}
         <View style={styles.rowContainer}>
           <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
             <Text style={styles.imageName}>Image 7</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
+            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
+              <Text style={styles.buttonText}> View Packaging </Text>
+            </Pressable>
           </View>
 
           <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
+            <Image source={require('../assets/Images/charger.png')} style={styles.image} />
             <Text style={styles.imageName}>Image 8</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
+            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
+              <Text style={styles.buttonText}> View Packaging </Text>
+            </Pressable>
           </View>
         </View>
 

@@ -1,5 +1,5 @@
 //Farah Aboudia 60093383
-import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView ,Pressable} from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { RadioButton } from 'react-native-paper';
 //npm install react-native-paper
@@ -9,7 +9,7 @@ const ConfirmOrder = ({ navigation }) => {
     const [checked, setChecked] = React.useState('first');
 
     return (
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
+        <SafeAreaView style={{ flex: 1, justifyContent: 'center', marginLeft: 20 }}>
             <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 20 }}>Conform Order</Text>
 
             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Address</Text>
@@ -30,7 +30,9 @@ const ConfirmOrder = ({ navigation }) => {
                     <Text style={{ color: 'black', margin: 2, fontSize: 20 }}> Details </Text>
                     <Text style={{ color: 'black', margin: 2, fontSize: 20 }}> 3000 QR </Text>
                 </View>
-                <View style={{ backgroundColor: 'red', height: 60, width: 60 }}><Text>000000</Text></View>
+                <View style={{ height: 60, width: 60 }}>                
+                <Image style={{ width: 80, height: 80, borderRadius: 20, }} source={require('../assets/Images/charger.png')} />
+</View>
             </View>
 
             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Summary Payment</Text>
