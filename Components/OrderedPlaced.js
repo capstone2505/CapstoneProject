@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StatusBar, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView  } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView , Pressable } from 'react-native';
 import Constants from 'expo-constants';
 
 // You can import from local files
@@ -13,7 +13,10 @@ export default function OrderedPlaced({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.x}>{"X"}</Text>
+      <Pressable  onPress={() => navigation.navigate("Home")}>
+      <Text style={styles.x}>{"X"}</Text>
+                </Pressable>
+       
       </View>
       {/* <View style={styles.content}> */}
         <Image style={styles.thankYou} source={require('../assets/Images/ThankYou.png')} />
