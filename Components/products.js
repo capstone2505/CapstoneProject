@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, Image, Dimensions, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, SafeAreaView, ScrollView, TouchableOpacity, Pressable} from 'react-native';
 import { Searchbar } from "react-native-paper";
 
 import { db } from "./Config";
@@ -25,6 +25,8 @@ export default function Products({ navigation }) {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
 
+  const [id, setId] = useState()
+
   useEffect(() => {
     readAll();
   }, []);
@@ -34,6 +36,7 @@ export default function Products({ navigation }) {
     let temp = [];
     docs.forEach(async (doc) => {
       let product = doc.data();
+      setId(doc.id)
       temp.push(product);
       setData(temp);
     });
@@ -55,59 +58,57 @@ export default function Products({ navigation }) {
       setData(filteredData);
     }
   };
+  // console.log(id);
 
-// console.log('All Products');
-//   console.log(data.map( (item, index) => {console.log(item[3]);}));
+
+  // console.log('All Products');
+  //   console.log(data.map( (item, index) => {console.log(item[3]);}));
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.topImageContainer}>
-        <Image source={require('../assets/Images/productheader.png')} style={styles.topImage} />
-      </View>
-      <ScrollView>
-        <Searchbar
-          placeholder="Search"
-          onChangeText={handleSearch}
-          value={search}
-          autoCorrect={false}
-          style={{
-            backgroundColor: '#D9D9D9',
-            borderRadius: 10,
-            paddingHorizontal: 5,
-            height: 50,
-            width: "90%",
-            fontSize: 16,
-            color: '#333333',
-            margin: 20
-          }}
-        />
-        <View style={styles.rowContainer}>
-          {data.map((item, index) => {
-            const path = images.find((img) => img.name === item.image);
-            const icon = path ? path.path : null;
-            return (
-              <View key={index} style={styles.squareContainer}>
-                <Image source={icon} style={styles.image} />
-                <Text style={styles.imageName}>{item.name}</Text>
-                {/* <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}> */}
-                <TouchableOpacity onPress={() =>
-                  navigation.navigate({
-                    name: "Packages",
-                    params: {
-                      name: item.name,
-                      image: item.image,
-                      package: item.packages,
-                    },
-                  })} style={[styles.button]}>
-                  <Text style={styles.buttonText}>View Packaging</Text>
-                </TouchableOpacity>
-                {/* </Pressable> */}
-              </View>
-            );
-          })}
+        <View style={styles.topImageContainer}>
+            <Image source={require('../assets/Images/productheader.png')} style={styles.topImage} />
         </View>
-      </ScrollView>
+        <ScrollView>
+            <Searchbar
+                placeholder="Search"
+                onChangeText={handleSearch}
+                value={search}
+                autoCorrect={false}
+                style={{
+                    backgroundColor: '#D9D9D9',
+                    borderRadius: 10,
+                    paddingHorizontal: 5,
+                    height: 50,
+                    width: "90%",
+                    fontSize: 16,
+                    color: '#333333',
+                    margin: 20
+                }}
+            />
+            <View style={styles.rowContainer}>
+                {data.map((item, index) => {
+                    const path = images.find((img) => img.name === item.image);
+                    const icon = path ? path.path : null;
+                    return (
+                        <View key={index} style={styles.squareContainer}>
+                            <Image source={icon} style={styles.image} />
+                            <Text style={styles.imageName}>{item.name}</Text>
+                            <Pressable
+                                onPress={() => navigation.navigate({
+                                    name: 'Packages', params: {
+                                        packageList: item.packages, name: item.name, image: item.image, pId: id
+                                    }
+                                })}
+                                style={styles.button}>
+                                <Text style={styles.buttonText}>View Packaging</Text>
+                            </Pressable>
+                        </View>
+                    );
+                })}
+            </View>
+        </ScrollView>
     </SafeAreaView>
-  );
+);
 }
 
 const windowWidth = Dimensions.get('window').width;

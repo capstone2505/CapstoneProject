@@ -18,143 +18,56 @@ const images = [
 
 export default function Packages({ navigation, route }) {
 
-    const [data, setData] = useState(route.params.package);
-
-    console.log('Data Pakages');
+    const [data, setData] = useState(route.params.packageList);
     console.log(data);
-
-    console.log('Data ');
-    data.map((item, index) => console.log(item.packages[index].name))
-
-    const [search, setSearch] = useState("");
-
-    useEffect(() => {
-        readAll();
-    }, []);
-
-    const readAll = async () => {
-        const docs = await getDocs(collection(db, "products"));
-        let temp = [];
-        docs.forEach(async (doc) => {
-            let product = doc.data();
-            temp.push(product);
-            setData(temp);
-        });
-        // console.log(data);
-    };
 
     const path = images.find((img) => img.name === route.params.image);
     const icon = path ? path.path : null;
-
+    
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={[styles.packagename]}> {route.params.name} Packages</Text>
-            <View style={[styles.packageview]}>
-                <Image style={{ width: 180, height: 180, borderRadius: 20, marginLeft: 120 }} source={icon} />
-                {data.map((item, index) => {
-                    return (
-                        // <View key={index} style={styles.squareContainer}>
-                        <View key={index} style={[styles.card, styles.shadowProp]}>
-                            <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, alignSelf: 'left', width: 150 }}>
-                            <Text style={{ fontWeight: 'bold', textAlign: 'center', padding: 8 }}>  {console.log(item)} </Text>
-                            </View>
-                            {/* <View style={{ flexDirection: 'row' }}>
-                                <View style={{ width: 220 }}>
-                                    <Text style={{ margin: 3, paddingTop: 10 }}>25 Person</Text>
-                                    <Text style={{ margin: 3 }}>50 Cup</Text>
-                                    <Pressable onPress={() => navigation.navigate("PackageDetails")}>
-                                        <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
-                                            Read more ...
-                                        </Text>
-                                    </Pressable>
+            <ScrollView>
+                <Text style={[styles.packagename]}> {route.params.name} Packages</Text>
+                <View style={[styles.packageview]}>
+                    <Image style={{ width: 180, height: 180, borderRadius: 20, marginLeft: 120 }} source={icon} />
+
+                    {
+                        data.map((x, i) => {
+                            return (
+                                <View key={i} style={[styles.card, styles.shadowProp]}>
+                                    <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, width: 150,alignSelf: 'left' }}>
+                                        <Text style={{ fontWeight: 'bold', textAlign: 'center', padding: 8 }}> Package {i + 1} </Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <View style={{ width: 220 }}>
+                                            <Text style={{ margin: 3, paddingTop: 10 }}>{x.name} </Text>
+                                            <Text style={{ margin: 3 }}>{x.cup} Cup</Text>
+                                            <Pressable onPress={() => navigation.navigate("PackageDetails")}>
+                                                <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
+                                                    Read more ...
+                                                </Text>
+                                            </Pressable>
+                                        </View>
+                                        <View style={{
+                                            width: 90,
+                                            height: 70,
+                                            borderRadius: 60,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            backgroundColor: '#D9D9D9',
+                                            padding: 8,
+                                            marginBottom: 20,
+                                        }}>
+                                            <Text style={{ fontWeight: 'bold' }}>{x.price} </Text>
+                                            <Text style={{ fontWeight: 'bold' }}>QR</Text>
+                                        </View>
+                                    </View>
                                 </View>
-                                <View style={{
-                                    width: 90,
-                                    height: 70,
-                                    borderRadius: 60,
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    backgroundColor: '#D9D9D9',
-                                    padding: 8,
-                                    marginBottom: 20,
-                                }}>
-                                    <Text style={{ fontWeight: 'bold' }}>5000 </Text>
-                                    <Text style={{ fontWeight: 'bold' }}>QR</Text>
-                                </View>
-                            </View> */}
-                        </View>
-                    );
-                })}
+                            );
+                        })}
+                </View>
+            </ScrollView>
 
-
-                {/* <Image style={{ width: 180, height: 180, borderRadius: 20, marginLeft: 120 }} source={require(route.params.image)} /> */}
-                {/* {data.map((item, index) => {item.Packages.map((elem) => elem.id == elem.name);
-                return (
-                        <View key={index} style={styles.squareContainer}>
-                    <Image source={icon} style={styles.image} />
-                            <Text style={styles.imageName}>{item.name}</Text>
-                            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
-                                <Text style={styles.buttonText}>View Packaging</Text>
-                            </Pressable> 
-                        </View>
-                );
-                })} */}
-                {/* {data.map((item, index) => {
-                    return (
-                        <View key={index} style={styles.squareContainer}>
-                            <Image source={icon} style={styles.image} />
-                            <Text style={styles.imageName}>{item.name}</Text>
-                            <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
-                                <Text style={styles.buttonText}>View Packaging</Text>
-                            </Pressable>
-                        </View>
-                    );
-                })} */}
-
-
-                {/* // return (
-                        //     <View key={index} style={styles.squareContainer}>
-                        // <Image source={icon} style={styles.image} />
-                        //         <Text style={styles.imageName}>{item.name}</Text>
-                        //         <Pressable onPress={() => navigation.navigate("Packages")} style={styles.button}>
-                        //             <Text style={styles.buttonText}>View Packaging</Text>
-                        //         </Pressable> 
-                        //     </View>
-                    //    { item.map(()) => { */}
-
-
-                {/* <View key={index} style={[styles.card, styles.shadowProp]}>
-                    <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, alignSelf: 'left', width: 150 }}>
-                        <Text style={{ fontWeight: 'bold', textAlign: 'center', padding: 8 }}>Package </Text>
-                        {console.log(item[index])}
-
-                    </View>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={{ width: 220 }}>
-                            <Text style={{ margin: 3, paddingTop: 10 }}>25 Person</Text>
-                            <Text style={{ margin: 3 }}>50 Cup</Text>
-                            <Pressable onPress={() => navigation.navigate("PackageDetails")}>
-                                <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
-                                    Read more ...
-                                </Text>
-                            </Pressable>
-                        </View>
-                        <View style={{
-                            width: 90,
-                            height: 70,
-                            borderRadius: 60,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            backgroundColor: '#D9D9D9',
-                            padding: 8,
-                            marginBottom: 20,
-                        }}>
-                            <Text style={{ fontWeight: 'bold' }}>5000 </Text>
-                            <Text style={{ fontWeight: 'bold' }}>QR</Text>
-                        </View>
-                    </View>
-                </View> */}
-            </View>
         </SafeAreaView>
 
     )

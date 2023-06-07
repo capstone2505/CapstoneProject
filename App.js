@@ -44,8 +44,8 @@ export default function App() {
           <Stack.Screen name='AboutUs' component={AboutUs} />
           <Stack.Screen name='EditProfile' component={EditProfile} options={{ headerShown: true }}/>
           <Stack.Screen name='Offers' component={Offers} />
-          <Stack.Screen name='Packages' component={Packages} />
-          <Stack.Screen name='PackageDetails' component={PackageDetails} />
+          <Stack.Screen name='Packages' component={Packages} options={{ headerShown: true }}/>
+          <Stack.Screen name='PackageDetails' component={PackageDetails} options={{ headerShown: true }} />
           <Stack.Screen name='MyCart' component={MyCart} />
           <Stack.Screen name='ConfirmOrder' component={ConfirmOrder} />
           <Stack.Screen name='PaymentDetails' component={PaymentDetails} />
