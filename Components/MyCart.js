@@ -1,31 +1,34 @@
-//Farah Aboudia 60093383
-import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView, ScrollView , Pressable} from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 const MyCart = ({ navigation }) => {
-
     return (
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center' ,backgroundColor:'white'}}>
-            {/* <Text style={{ fontSize: 40, fontWeight: 'bold', textAlign: 'left', marginBottom: 90 ,}}>My Cart</Text> */}
-            <View style={[styles.txt, { marginBottom: 30, flexDirection: 'row', backgroundColor: '#f5f5f5' ,width:410,marginLeft:10,marginRight:20,height:200}]}>
-                <View style={{ backgroundColor: 'darkgrey', height: 100, width: 100 }}><Text></Text></View>
+        <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white', alignItems: 'center', }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'left', marginBottom: 20 }}>My Cart</Text>
+
+            <View style={[styles.txt, { marginBottom: 5, flexDirection: 'row', backgroundColor: '#f5f5f5', width: 390, marginLeft: 10, marginRight: 20 }]}>
+                <Image style={{ width: 100, height: 100, borderRadius: 20, }} source={require('../assets/Images/charger.png')} />
                 <View>
-                               <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'left', marginBottom: 5, padding: 6, borderRadius: 20,width: 150, paddingLeft: 10 }}>Package Title</Text>
-                    <Text style={{ color: 'black', margin: 10, fontSize: 20 }}> Order Details </Text>
-                    <Text style={{ color: 'black', margin: 10, fontSize: 20 }}> 3000 QR </Text>
-        
-                    <View style={{flexDirection:'row',marginLeft:160}}>
-                        <TouchableOpacity style={styles.quantityButton} >
-                        <Text style={styles.quantityButtonText}>-</Text>
-                        </TouchableOpacity>
-                        <Text style={styles.quantity}></Text>
-                           <TouchableOpacity  >
-                        <Text>1</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.quantityButton} >
-                        <Text style={styles.quantityButtonText}>+</Text>
-                        </TouchableOpacity>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold', textAlign: 'left', marginBottom: 5, padding: 2, borderRadius: 20, width: 150, paddingLeft: 10, marginTop: 3 }}>Package 1</Text>
+
+                        <View style={styles.quantityContainer}>
+                            <TouchableOpacity style={styles.quantityButton}>
+                                <Text style={styles.quantityButtonText}>-</Text>
+                            </TouchableOpacity>
+                            <Text style={styles.quantity}>1</Text>
+                            <TouchableOpacity style={styles.quantityButton}>
+                                <Text style={styles.quantityButtonText}>+</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
+                    <View style={{ marginLeft: 10 }}>
+                        <Text style={{ color: 'black', margin: 2, fontSize: 12 }}> Order Details </Text>
+                        <Text style={{ color: 'black', margin: 2, fontSize: 12 }}> Order Details </Text>
+                        <Text style={{ color: 'black', margin: 2, fontSize: 12 }}> Order Details </Text>
+                        <Text style={{ color: 'black', margin: 2, fontSize: 12 }}> Order Details </Text>
+                    </View>
+                    <Text style={{ color: 'black', margin: 10, fontSize: 15 }}> 3000 QR </Text>
                 </View>
             </View>
 
@@ -103,18 +106,16 @@ const MyCart = ({ navigation }) => {
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                 <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
-                    <TouchableOpacity>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}>Add More</Text>
-                        </View>
-                    </TouchableOpacity>
+                <Pressable onPress={() => navigation.navigate("Packages")}>
+                            <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add More </Text>
+                        </Pressable>
                 </View>
                 <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
-                    <TouchableOpacity>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Pressable onPress={() => navigation.navigate("Checkout")}>
                             <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Checkout </Text>
-                        </View>
-                    </TouchableOpacity>
+                        </Pressable>
+                    </View>
                 </View>
             </View>
         </SafeAreaView>
@@ -139,26 +140,25 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         margin: 6,
     },
-     quantityButton: {
-    borderWidth: 1,
-    borderColor: '#888',
-    borderRadius: 20,
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // marginRight: 10,
-    backgroundColor: 'pink'
-  },
-  quantityButtonText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#888',
-  },
-  quantity: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginRight: 10,
-    marginLeft: 10,
-  },
+    quantityContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 30,
+        width: 90,
+        backgroundColor: 'white',
+    },
+    quantityButton: {
+        width: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    quantityButtonText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#888',
+    },
+    quantity: {
+        fontSize: 15,
+        fontWeight: 'bold',
+    },
 })

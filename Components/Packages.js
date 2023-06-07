@@ -1,143 +1,90 @@
-import React from 'react';
-import { View, ScrollView, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView , Pressable} from 'react-native'
+import React, { useState, useEffect } from 'react';
+import { View, ScrollView, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView, Pressable } from 'react-native'
+// import { useState, useEffect } from 'react'
+import { db } from "./Config";
+import { getDocs, collection } from "firebase/firestore";
 
 
+export default function Packages({ navigation, route }) {
 
-export default function Packages({navigation}) {
+    const images = [
+        { name: 'charger.png', path: require("../assets/Images/charger.png") },
+        { name: 'cheatBurger.png', path: require("../assets/Images/cheatBurger.png") },
+        { name: 'salt.png', path: require("../assets/Images/salt.png") },
+        { name: 'rose.png', path: require("../assets/Images/rose.png") },
+        { name: 'pows.png', path: require("../assets/Images/pows.png") },
+        { name: 'origin.png', path: require("../assets/Images/origin.png") },
+        { name: 'pows.png', path: require("../assets/Images/pows.png") },
+        { name: 'honu.png', path: require("../assets/Images/honu.png") },
+        { name: 'exit55.png', path: require("../assets/Images/exit55.png") },
+      ]
+
+    const [data, setData] = useState(route.params.packageList);
+    console.log(data);
+
+    const path = images.find((img) => img.name === route.params.image);
+    const icon = path ? path.path : null;
+
+    const [img, setImg] = useState(route.params.imgDetails) 
+    const [extra, setExtra] = useState(route.params.extraPack) 
     return (
-        <ScrollView>
-        <View style={{backgroundColor:'white', width:500,height:1500,alignContent:'center'}}>
-            <Text style={{margin:30,fontSize:30 ,fontWeight:'bold'
-            }}> Charger Packages</Text>
-            <Image style={{width:180,height:180,borderRadius:20,marginLeft:120}} source={require('../assets/Images2/charger.webp')} />
+        <SafeAreaView style={styles.container}>
+            <ScrollView>
+                <Text style={[styles.packagename]}> {route.params.name} Packages</Text>
+                <View style={[styles.packageview]}>
+                    <Image style={{ width: 180, height: 180, borderRadius: 20, marginLeft: 120 }} source={icon} />
 
-                    <View style={[styles.card, styles.shadowProp]}>
-                        <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, alignSelf: 'left', width: 150 }}>
-                            <Text style={{ fontWeight: 'bold', textAlign: 'center', padding: 8 }}>Package 1</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row' }}>
-                            <View style={{ width: 220 }}>
-                                <Text style={{ margin: 3, paddingTop: 10 }}>25 Person</Text>
-                                <Text style={{ margin: 3 }}>50 Cup</Text>
-                                <Pressable onPress={() => navigation.navigate("PackageDetails")}>
-                                    <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
-                                        Read more ...
-                                    </Text>
-                                </Pressable>
-                            </View>
-                            <View style={{
-                                width: 90,
-                                height: 70,
-                                borderRadius: 60,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                backgroundColor: '#D9D9D9',
-                                padding: 8,
-                                marginBottom: 20,
-                            }}>
-                                <Text style={{ fontWeight: 'bold' }}>5000 </Text>
-                                <Text style={{ fontWeight: 'bold' }}>QR</Text>
-                            </View>
-                        </View>
-                    </View>
+                    {
+                        data.map((x, i) => {
+                            return (
+                                <View key={i} style={[styles.card, styles.shadowProp]}>
+                                    <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, width: 150, alignSelf: 'left' }}>
+                                        <Text style={{ fontWeight: 'bold', textAlign: 'center', padding: 8 }}> Package {x.id} </Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <View style={{ width: 220 }}>
+                                            <Text style={{ margin: 3, paddingTop: 10 }}>{x.name} </Text>
+                                            {x.cup ? <Text style={{ margin: 3 }}>{x.cup} Cup</Text> : null}
 
-                    <View style={[styles.card, styles.shadowProp]}>
-                        <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, alignSelf: 'left', width: 150 }}>
-                            <Text style={{ fontWeight: 'bold', textAlign: 'center', padding: 8 }}>Package 1</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row' }}>
-                            <View style={{ width: 220 }}>
-                                <Text style={{ margin: 3, paddingTop: 10 }}>50 Person</Text>
-                                <Text style={{ margin: 3 }}>100 Cup</Text>
-                                <Pressable onPress={() => navigation.navigate("PackageDetails")}>
-                                    <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
-                                        Read more ...
-                                    </Text>
-                                </Pressable>
+                                            <Pressable onPress={() => navigation.navigate({
+                                                name: 'PackageDetails', params: {
+                                                    details: x.details, 
+                                                    name: x.name, 
+                                                    imgDetails: img , 
+                                                    cup: x.cup , 
+                                                    price: x.price,
+                                                    id: x.id,
+                                                    extraPack: extra,
+                                                    
+                                                }
+                                            })}>
+                                                <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
+                                                    Read more ...
 
-                            </View>
-                            <View style={{
-                                width: 90,
-                                height: 70,
-                                borderRadius: 60,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                backgroundColor: '#D9D9D9',
-                                padding: 8,
-                                marginBottom: 20,
-                            }}>
-                                <Text style={{ fontWeight: 'bold' }}>3500 </Text>
-                                <Text style={{ fontWeight: 'bold' }}>QR</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={[styles.card, styles.shadowProp]}>
-                        <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, alignSelf: 'left', width: 150 }}>
-                            <Text style={{ fontWeight: 'bold', textAlign: 'center', padding: 8 }}>Package 1</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row' }}>
-                            <View style={{ width: 220 }}>
-                                <Text style={{ margin: 3, paddingTop: 10 }}>75 Person</Text>
-                                <Text style={{ margin: 3 }}>150 Cup</Text>
-                                <Pressable onPress={() => navigation.navigate("PackageDetails")}>
-                                    <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
-                                        Read more ...
-                                    </Text>
-                                </Pressable>
+                                                </Text>
+                                            </Pressable>
+                                        </View>
+                                        <View style={{
+                                            width: 90,
+                                            height: 70,
+                                            borderRadius: 60,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            backgroundColor: '#D9D9D9',
+                                            padding: 8,
+                                            marginBottom: 20,
+                                        }}>
+                                            <Text style={{ fontWeight: 'bold' }}>{x.price} </Text>
+                                            <Text style={{ fontWeight: 'bold' }}>QR</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            );
+                        })}
+                </View>
+            </ScrollView>
 
-                            </View>
-                            <View style={{
-                                width: 90,
-                                height: 70,
-                                borderRadius: 60,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                backgroundColor: '#D9D9D9',
-                                padding: 8,
-                                marginBottom: 20,
-                            }}>
-                                <Text style={{ fontWeight: 'bold' }}>4500 </Text>
-                                <Text style={{ fontWeight: 'bold' }}>QR</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={[styles.card, styles.shadowProp]}>
-                        <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, alignSelf: 'left', width: 150 }}>
-                            <Text style={{ fontWeight: 'bold', textAlign: 'center', padding: 8 }}>Package 1</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row' }}>
-                            <View style={{ width: 220 }}>
-                                <Text style={{ margin: 3, paddingTop: 10 }}>100 Person</Text>
-                                <Text style={{ margin: 3 }}>200 Cup</Text>
-                                <Pressable onPress={() => navigation.navigate("PackageDetails")}>
-                                    <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
-                                        Read more ...
-                                    </Text>
-                                </Pressable>
-
-                            </View>
-                            <View style={{
-                                width: 90,
-                                height: 70,
-                                borderRadius: 60,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                backgroundColor: '#D9D9D9',
-                                padding: 8,
-                                marginBottom: 20,
-                            }}>
-                                <Text style={{ fontWeight: 'bold' }}>6000 </Text>
-                                <Text style={{ fontWeight: 'bold' }}>QR</Text>
-                            </View>
-                        </View>
-                    </View>
-
-</View>
-    </ScrollView>
-            // </View>
-
-
-        // </SafeAreaView>
+        </SafeAreaView>
 
     )
 };
@@ -162,4 +109,24 @@ const styles = StyleSheet.create({
         shadowOpacity: 1,
         shadowRadius: 3,
     },
+    image: {
+        width: 180,
+        height: 180,
+        borderRadius: 20,
+        marginLeft: 120
+    },
+    packagename: {
+        marginTop: 30,
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        alignItems: 'center'
+    },
+    packageview: {
+        backgroundColor: 'white',
+        width: 500,
+        height: 1500,
+        alignContent: 'center',
+        marginTop: 10
+    }
 })

@@ -1,5 +1,5 @@
 import {
-  StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, TextInput ,Pressable
+  StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, TextInput, Pressable
 } from 'react-native'
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -7,10 +7,49 @@ import { CheckBox } from 'react-native-elements';
 // import { TextInput } from 'react-native-gesture-handler';
 
 const PackageDetails = ({ navigation, route }) => {
+
+
+
+  const images = [
+    { name: 'chargermode.png', path: require("../assets/Images/chargermode.png") },
+    { name: 'pawsbooth.png', path: require("../assets/Images/pawsbooth.png") },
+    { name: 'hounbooth.png', path: require("../assets/Images/hounbooth.png") },
+    { name: 'exit55table.png', path: require("../assets/Images/exit55table.png") },
+    { name: 'saltbooth.png', path: require("../assets/Images/saltbooth.png") },
+    { name: 'origin.png', path: require("../assets/Images/origin.png") },
+    { name: 'cheatBurgerStory.png', path: require("../assets/Images/cheatBurgerStory.png") },
+    { name: 'rosemarybooth.png', path: require("../assets/Images/rosemarybooth.png") },
+    { name: 'exit55table.png', path: require("../assets/Images/exit55table.png") },
+  ]
+
+  const path = images.find((img) => img.name === route.params.imgDetails);
+  const icon = path ? path.path : null;
+
   const [quantity, setQuantity] = useState(1);
   const [checked1, setChecked1] = useState(false);
   const [checked2, setChecked2] = useState(false);
   const [checked3, setChecked3] = useState(false);
+  const [detailsPackage, setDetails] = useState(route.params.details.split(','));
+  const [extra, setExtra] = useState(route.params.extraPack)
+
+  // const [selectedExtra, setSelectedExtra] = useState(null);
+
+  // const handleCheck = (extra) => {
+  //   setSelectedExtra(extra);
+  // };
+  
+
+  const [selectedExtras, setSelectedExtras] = useState([]);
+
+  const handleCheck = (extra) => {
+    if (selectedExtras.includes(extra)) {
+      setSelectedExtras(selectedExtras.filter((item) => item !== extra));
+    } else {
+      setSelectedExtras([...selectedExtras, extra]);
+    }
+  };
+
+
   const handleQuantityIncrease = () => {
     setQuantity(quantity + 1);
   };
@@ -56,7 +95,51 @@ const PackageDetails = ({ navigation, route }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
 
-        <Image source={require('../assets/Images/charger.png')}  style={styles.image} />
+        <Image source={icon} style={styles.image} />
+
+        {/* {
+                        data.map((x, i) => {
+                            return (
+                                <View key={i} style={[styles.card, styles.shadowProp]}>
+                                    <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, width: 150, alignSelf: 'left' }}>
+                                        <Text style={{ fontWeight: 'bold', textAlign: 'center', padding: 8 }}> Package {x.id} </Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <View style={{ width: 220 }}>
+                                            <Text style={{ margin: 3, paddingTop: 10 }}>{x.name} </Text>
+                                            {x.cup ? <Text style={{ margin: 3 }}>{x.cup} Cup</Text> : null}
+
+                                            <Pressable onPress={() => navigation.navigate({
+                                                name: 'PackageDetails', params: {
+                                                    details: x.details, name: x.name, imgDetails: x.imgDetails, cup: x.cup , id: x.id
+                                                }
+                                            })}>
+                                                <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
+                                                    Read more ...
+
+                                                </Text>
+                                            </Pressable>
+                                        </View>
+                                        <View style={{
+                                            width: 90,
+                                            height: 70,
+                                            borderRadius: 60,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            backgroundColor: '#D9D9D9',
+                                            padding: 8,
+                                            marginBottom: 20,
+                                        }}>
+                                            <Text style={{ fontWeight: 'bold' }}>{x.price} </Text>
+                                            <Text style={{ fontWeight: 'bold' }}>QR</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            );
+                        })} */}
+
+
+
 
         <View style={{
           //           shadowColor: '#c0c0c0',
@@ -70,7 +153,7 @@ const PackageDetails = ({ navigation, route }) => {
           marginTop: 10, width: 330, backgroundColor: '#F7EBED', borderRadius: 30, alignSelf: 'center', padding: 5, justifyContent: 'space-between'
         }}>
           <View style={{ flexDirection: 'row', marginBottom: 15 }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'left', marginBottom: 5, padding: 6, borderRadius: 70, backgroundColor: '#D3B3B8', width: 150, paddingLeft: 10 }}>Package 1</Text>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'left', marginBottom: 5, padding: 6, borderRadius: 70, backgroundColor: '#D3B3B8', width: 150, paddingLeft: 10 }}>Package {route.params.id}</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <View style={styles.quantityContainer}>
                 <TouchableOpacity style={styles.quantityButton} onPress={handleQuantityDecrease}>
@@ -86,9 +169,11 @@ const PackageDetails = ({ navigation, route }) => {
 
           <View style={{ flexDirection: 'row', }}>
             <View style={{ width: 220 }}>
-              <Text style={{ margin: 6, paddingTop: 10 }}>25 Person</Text>
-              <Text style={{ margin: 6 }}>50 Cup</Text>
+              <Text style={{ margin: 6, paddingTop: 10 }}>{route.params.name}</Text>
+              {route.params.cup ? <Text style={{ margin: 6 }}>{route.params.cup} Cup</Text> : null}
+              {/* <Text style={{ margin: 6 }}>50 Cup</Text> */}
             </View>
+
             <View style={{
               width: 70,
               height: 70,
@@ -99,7 +184,7 @@ const PackageDetails = ({ navigation, route }) => {
               padding: 8,
               marginBottom: 7
             }}>
-              <Text>5000 </Text>
+              <Text>{route.params.price}</Text>
               <Text>QR</Text>
             </View>
           </View>
@@ -108,18 +193,55 @@ const PackageDetails = ({ navigation, route }) => {
 
         <View style={{ marginTop: 10, width: 330, alignSelf: 'center', padding: 5 }}>
           <Text style={{ fontWeight: 'bold', margin: 6, fontSize: 20 }}>Catering Menu Include</Text>
-          <Text style={{ paddingLeft: 10, margin: 3 }}>Cold Selection </Text>
-          <Text style={{ paddingLeft: 10, margin: 3 }}> Hot Selection </Text>
-          <Text style={{ paddingLeft: 10, margin: 3 }}>Hot Sahlab </Text>
-          <Text style={{ paddingLeft: 10, margin: 3 }}>Triple Q </Text>
+          {detailsPackage.map((x, i) => {
+            return (<Text style={{ paddingLeft: 10, margin: 3 }}>{x}</Text>)
+          })}
+          {/* // <Text style={{ fontWeight: 'bold', margin: 6, fontSize: 20 }}>{route.params.details}</Text>
+          // <Text style={{ paddingLeft: 10, margin: 3 }}>Cold Selection </Text>
+          // <Text style={{ paddingLeft: 10, margin: 3 }}> Hot Selection </Text>
+          // <Text style={{ paddingLeft: 10, margin: 3 }}>Hot Sahlab </Text>
+          // <Text style={{ paddingLeft: 10, margin: 3 }}>Triple Q </Text> */}
         </View>
 
         <View style={{ width: 330, alignSelf: 'center', padding: 5 }}>
+
+          {/* {extra ? <Text style={{ margin: 3 }}>{extra} blaa</Text> : null} */}
+          {extra ? 
+          <View>
           <Text style={{ fontWeight: 'bold', margin: 6, fontSize: 20 }}>Extra Order</Text>
-          <Text style={{ paddingLeft: 10, margin: 3 }}>Cold Selection </Text>
-          <Text style={{ paddingLeft: 10, margin: 3 }}> Hot Selection </Text>
-          <Text style={{ paddingLeft: 10, margin: 3 }}>Hot Sahlab </Text>
-          <Text style={{ paddingLeft: 10, margin: 3 }}>Triple Q </Text>
+          {extra.map((x, i) => {
+            return (<View key={i} style={[styles.card, styles.shadowProp]}>
+              <View style={{ width: 100 }}>
+                <Text style={{ fontSize: 15, marginTop: 15 }} >{x.extra}</Text>
+                <Text>{x.price} QR</Text>
+              </View>
+              <View style={{ width: 50 }} >
+                <CheckBox
+              checked={selectedExtras.includes(x)}
+              onPress={() => handleCheck(x)}
+              style={{ color: 'pink' }}
+            />
+              </View>
+            </View>)
+          })}
+          </View>
+          :null }
+          {/* <View style={[styles.card, styles.shadowProp]}>
+            <Text style={{ fontSize: 15, marginTop: 15 }}>Cold Selection</Text>
+            <CheckBox
+              checked={checked2}
+              onPress={handleCheck2}
+            />
+          </View> */}
+
+          {/* Cold Selection */}
+          {/* <View style={[styles.card, styles.shadowProp]}>
+            <Text style={{ fontSize: 15, marginTop: 15 }}>Cold Selection </Text>
+            <CheckBox
+              checked={checked3}
+              onPress={handleCheck3}
+            />
+          </View> */}
         </View>
 
         <View style={{ marginBottom: 30, width: 330, alignSelf: 'center', padding: 5 }}>
@@ -130,16 +252,14 @@ const PackageDetails = ({ navigation, route }) => {
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
             <Text> Total Amount </Text>
-            <Text> 3000QR </Text>
+            <Text> </Text>
           </View>
           <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
-            <TouchableOpacity>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Pressable  onPress={() => navigation.navigate("MyCart")}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Pressable onPress={() => navigation.navigate("MyCart")}>
                 <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add to Cart </Text>
-                </Pressable>
-              </View>
-            </TouchableOpacity>
+              </Pressable>
+            </View>
           </View>
         </View>
 
