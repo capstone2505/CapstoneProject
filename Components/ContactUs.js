@@ -1,7 +1,28 @@
-import React from 'react';
+import React ,{ useState }  from 'react';
 import { StatusBar, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, SafeAreaView, Pressable } from 'react-native';
 
-const ContactUa =({ navigation }) => {
+
+import { auth, db } from './Config';
+import { addDoc, getDoc, getDocs, ref, where, collection, doc, query, setDoc } from "firebase/firestore";
+
+const ContactUs =({ navigation }) => {
+  const [name, setName] = useState()
+  const [contact, setContact] = useState()
+  const [email, setEmail] = useState()
+  const [message,setMessage]= useState()
+  //const [Confirmpassword, ConfirmsetPassword] = useState()
+ // const [signedIn, setSignedIn] = useState(false)
+
+
+  const add = async () => {
+    const docRef = await addDoc(collection(db, "contactUS"), {
+        name: name, contact: contact,email: email,message:message
+    });
+
+    console.log("Document written with ID: ", docRef.id);
+    handleRegister()
+    console.log("hii from add")
+}
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -14,24 +35,24 @@ const ContactUa =({ navigation }) => {
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.labelText}>Name:</Text>
-          <TextInput style={styles.input} />
+          <TextInput style={styles.input} onChangeText={text => setName(text)}/>
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.labelText}>Email:</Text>
-          <TextInput style={styles.input} />
+          <TextInput style={styles.input} onChangeText={text => setEmail(text)}/>
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.labelText}>Phone:</Text>
-          <TextInput style={styles.input} />
+          <TextInput style={styles.input} onChangeText={text => setContact(text)}/>
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.labelText}>Message:</Text>
-          <TextInput style={[styles.input, styles.textArea]} multiline={true} numberOfLines={4} />
+          <TextInput style={[styles.input, styles.textArea]} multiline={true} numberOfLines={4} onChangeText={text => setMessage(text)} />
         </View>
         <View style={styles.sendButton}>
           <Pressable onPress={() => navigation.navigate("Home")}>
           
-            <Text style={styles.sendButtonText}>Send</Text>
+            <Text style={styles.sendButtonText}  onPress={add} > Send</Text>
           </Pressable>
         </View>
       </View>
@@ -39,7 +60,7 @@ const ContactUa =({ navigation }) => {
     </SafeAreaView>
   );
 }
-export default ContactUa
+export default ContactUs
 
 const styles = StyleSheet.create({
   container: {
