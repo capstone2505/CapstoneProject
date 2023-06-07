@@ -96,7 +96,12 @@ export default function Products({ navigation }) {
                             <Pressable
                                 onPress={() => navigation.navigate({
                                     name: 'Packages', params: {
-                                        packageList: item.packages, name: item.name, image: item.image, pId: id
+                                        packageList: item.packages, 
+                                        name: item.name, 
+                                        image: item.image, 
+                                        pId: id,                                                        
+                                        imgDetails: item.imgDetails, 
+                                        extraPack : item.extraPack,
                                     }
                                 })}
                                 style={styles.button}>

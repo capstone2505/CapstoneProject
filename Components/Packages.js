@@ -4,26 +4,29 @@ import { View, ScrollView, Text, StyleSheet, Image, TouchableOpacity, SafeAreaVi
 import { db } from "./Config";
 import { getDocs, collection } from "firebase/firestore";
 
-const images = [
-    { name: 'charger.png', path: require("../assets/Images/charger.png") },
-    { name: 'cheatBurger.png', path: require("../assets/Images/cheatBurger.png") },
-    { name: 'salt.png', path: require("../assets/Images/salt.png") },
-    { name: 'rose.png', path: require("../assets/Images/rose.png") },
-    { name: 'pows.png', path: require("../assets/Images/pows.png") },
-    { name: 'origin.png', path: require("../assets/Images/origin.png") },
-    { name: 'pows.png', path: require("../assets/Images/pows.png") },
-    { name: 'honu.png', path: require("../assets/Images/honu.png") },
-    { name: 'exit55.png', path: require("../assets/Images/exit55.png") },
-]
 
 export default function Packages({ navigation, route }) {
+
+    const images = [
+        { name: 'charger.png', path: require("../assets/Images/charger.png") },
+        { name: 'cheatBurger.png', path: require("../assets/Images/cheatBurger.png") },
+        { name: 'salt.png', path: require("../assets/Images/salt.png") },
+        { name: 'rose.png', path: require("../assets/Images/rose.png") },
+        { name: 'pows.png', path: require("../assets/Images/pows.png") },
+        { name: 'origin.png', path: require("../assets/Images/origin.png") },
+        { name: 'pows.png', path: require("../assets/Images/pows.png") },
+        { name: 'honu.png', path: require("../assets/Images/honu.png") },
+        { name: 'exit55.png', path: require("../assets/Images/exit55.png") },
+      ]
 
     const [data, setData] = useState(route.params.packageList);
     console.log(data);
 
     const path = images.find((img) => img.name === route.params.image);
     const icon = path ? path.path : null;
-    
+
+    const [img, setImg] = useState(route.params.imgDetails) 
+    const [extra, setExtra] = useState(route.params.extraPack) 
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
@@ -35,16 +38,29 @@ export default function Packages({ navigation, route }) {
                         data.map((x, i) => {
                             return (
                                 <View key={i} style={[styles.card, styles.shadowProp]}>
-                                    <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, width: 150,alignSelf: 'left' }}>
-                                        <Text style={{ fontWeight: 'bold', textAlign: 'center', padding: 8 }}> Package {i + 1} </Text>
+                                    <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, width: 150, alignSelf: 'left' }}>
+                                        <Text style={{ fontWeight: 'bold', textAlign: 'center', padding: 8 }}> Package {x.id} </Text>
                                     </View>
                                     <View style={{ flexDirection: 'row' }}>
                                         <View style={{ width: 220 }}>
                                             <Text style={{ margin: 3, paddingTop: 10 }}>{x.name} </Text>
-                                            <Text style={{ margin: 3 }}>{x.cup} Cup</Text>
-                                            <Pressable onPress={() => navigation.navigate("PackageDetails")}>
+                                            {x.cup ? <Text style={{ margin: 3 }}>{x.cup} Cup</Text> : null}
+
+                                            <Pressable onPress={() => navigation.navigate({
+                                                name: 'PackageDetails', params: {
+                                                    details: x.details, 
+                                                    name: x.name, 
+                                                    imgDetails: img , 
+                                                    cup: x.cup , 
+                                                    price: x.price,
+                                                    id: x.id,
+                                                    extraPack: extra,
+                                                    
+                                                }
+                                            })}>
                                                 <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
                                                     Read more ...
+
                                                 </Text>
                                             </Pressable>
                                         </View>
