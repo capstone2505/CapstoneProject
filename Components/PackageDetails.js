@@ -45,38 +45,38 @@ const PackageDetails = ({ navigation, route }) => {
 
   const [selectedExtras, setSelectedExtras] = useState([]);
 
-const handleCheck = (extra) => {
-  if (selectedExtras.includes(extra)) {
-    setSelectedExtras(selectedExtras.filter((item) => item !== extra));
-  } else {
-    setSelectedExtras([...selectedExtras, extra]);
-  }
-  const extraPrice = selectedExtras.includes(extra) ? 0 : extra.price;
-  const extrasTotal = selectedExtras.reduce((total, item) => total + item.price, 0);
-  // setTotalAmount(quantity * route.params.price + extraPrice);
-  extraPrice == 0 ? setTotalAmount(totalAmount - extra.price) :setTotalAmount(totalAmount +extraPrice)
+  const handleCheck = (extra) => {
+    if (selectedExtras.includes(extra)) {
+      setSelectedExtras(selectedExtras.filter((item) => item !== extra));
+    } else {
+      setSelectedExtras([...selectedExtras, extra]);
+    }
+    const extraPrice = selectedExtras.includes(extra) ? 0 : extra.price;
+    const extrasTotal = selectedExtras.reduce((total, item) => total + item.price, 0);
+    // setTotalAmount(quantity * route.params.price + extraPrice);
+    extraPrice == 0 ? setTotalAmount(totalAmount - extra.price) : setTotalAmount(totalAmount + extraPrice)
 
-};
+  };
 
-// const handleCheck = (extra) => {
-//   if (selectedExtras.includes(extra)) {
-//     setSelectedExtras([...selectedExtras, extra]);
+  // const handleCheck = (extra) => {
+  //   if (selectedExtras.includes(extra)) {
+  //     setSelectedExtras([...selectedExtras, extra]);
 
-//     setSelectedExtras(selectedExtras.filter((item) => item !== extra));
-//     alert("yes")
-//   } else {
-//     setSelectedExtras([...selectedExtras, extra]);
-//     setSelectedExtras(selectedExtras.filter((item) => item !== extra))
-//     alert("no")
+  //     setSelectedExtras(selectedExtras.filter((item) => item !== extra));
+  //     alert("yes")
+  //   } else {
+  //     setSelectedExtras([...selectedExtras, extra]);
+  //     setSelectedExtras(selectedExtras.filter((item) => item !== extra))
+  //     alert("no")
 
-//   }
+  //   }
 
-//   const extrasTotal = selectedExtras.reduce((total, item) => total + item.price, 0);
-//   const amount = (route.params.price + extrasTotal) * quantity;
-//   setTotalAmount(amount);
-//   alert(amount)
+  //   const extrasTotal = selectedExtras.reduce((total, item) => total + item.price, 0);
+  //   const amount = (route.params.price + extrasTotal) * quantity;
+  //   setTotalAmount(amount);
+  //   alert(amount)
 
-// };
+  // };
 
 
   const handleQuantityIncrease = () => {
@@ -90,14 +90,14 @@ const handleCheck = (extra) => {
     }
   };
 
-//   const add = async () => {
-//     const docRef = await addDoc(collection(db, "request"), {
-//         detailRequest : detailRequest
-//     });
-//     console.log("Document written with ID: ", docRef.id);
-//     handleRegister()
-//     console.log("hii from detail request")
-// };
+  //   const add = async () => {
+  //     const docRef = await addDoc(collection(db, "request"), {
+  //         detailRequest : detailRequest
+  //     });
+  //     console.log("Document written with ID: ", docRef.id);
+  //     handleRegister()
+  //     console.log("hii from detail request")
+  // };
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -146,22 +146,13 @@ const handleCheck = (extra) => {
                         })} */}
 
 
-
-
-        <View style={{
-          //           shadowColor: '#c0c0c0',
-          // shadowOpacity: 0.9,
-          // shadowOffset: {
-          //   height: 2,
-          //   width: 2,
-          // },
-          // shadowRadius: 8,
-          // elevation: 6,
-          marginTop: 10, width: 330, backgroundColor: '#F7EBED', borderRadius: 30, alignSelf: 'center', padding: 5, justifyContent: 'space-between'
-        }}>
+        <View style={[styles.card, styles.shadowProp]}>
           <View style={{ flexDirection: 'row', marginBottom: 15 }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'left', marginBottom: 5, padding: 6, borderRadius: 70, backgroundColor: '#D3B3B8', width: 150, paddingLeft: 10 }}>Package {route.params.id}</Text>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, width: 200 }}>
+              <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', padding: 8 }}> Package {route.params.id} </Text>
+            </View>
+            {/* <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'left', marginBottom: 5, padding: 6, borderRadius: 70, backgroundColor: '#D3B3B8', width: 150, paddingLeft: 10 }}>Package {route.params.id}</Text> */}
+            <View style={{ width: 170, flexDirection: 'row', justifyContent: 'space-between' }}>
               <View style={styles.quantityContainer}>
                 <TouchableOpacity style={styles.quantityButton} onPress={handleQuantityDecrease}>
                   <Text style={styles.quantityButtonText}>-</Text>
@@ -174,34 +165,31 @@ const handleCheck = (extra) => {
             </View>
           </View>
 
-          <View style={{ flexDirection: 'row', }}>
+          <View style={{ flexDirection: 'row' }}>
             <View style={{ width: 220 }}>
-              <Text style={{ margin: 6, paddingTop: 10 }}>{route.params.name}</Text>
-              {route.params.cup ? <Text style={{ margin: 6 }}>{route.params.cup} Cup</Text> : null}
-              {/* <Text style={{ margin: 6 }}>50 Cup</Text> */}
+              <Text style={{ margin: 3, paddingTop: 10 , fontSize: 18 }}>{route.params.name} </Text>
+              {route.params.cup ? <Text style={{ margin: 6,  fontSize: 18  }}>{route.params.cup} Cup</Text> : null}
             </View>
-
             <View style={{
-              width: 70,
+              width: 90,
               height: 70,
-              borderRadius: 50,
+              borderRadius: 60,
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor: '#D9D9D9',
               padding: 8,
-              marginBottom: 7
+              marginBottom: 20,
             }}>
-              <Text>{route.params.price}</Text>
-              <Text>QR</Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{route.params.price} </Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 18 }}>QR</Text>
             </View>
           </View>
-
         </View>
 
         <View style={{ marginTop: 10, width: 330, alignSelf: 'center', padding: 5 }}>
           <Text style={{ fontWeight: 'bold', margin: 6, fontSize: 20 }}>Catering Menu Include</Text>
           {detailsPackage.map((x, i) => {
-            return (<Text style={{ paddingLeft: 10, margin: 3 }}>{x}</Text>)
+            return (<Text style={{ paddingLeft: 10, margin: 3 , fontSize: 18 }}>{x}</Text>)
           })}
           {/* // <Text style={{ fontWeight: 'bold', margin: 6, fontSize: 20 }}>{route.params.details}</Text>
           // <Text style={{ paddingLeft: 10, margin: 3 }}>Cold Selection </Text>
@@ -219,9 +207,9 @@ const handleCheck = (extra) => {
               {extra.map((x, i) => {
                 return (
 
-                  <View key={i} style={[styles.card, styles.shadowProp]}>
+                  <View key={i} style={[styles.cardExtra]}>
                     <View style={{ width: 100 }}>
-                      <Text style={{ fontSize: 15, marginTop: 15 }} >{x.extra}</Text>
+                      <Text style={{ fontSize: 18, marginTop: 15 }} >{x.extra}</Text>
                       <Text>{x.price} QR</Text>
                     </View>
                     <View style={{ width: 50 }} >
@@ -263,8 +251,8 @@ const handleCheck = (extra) => {
             multiline />
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
-            <Text> Total Amount </Text>
-            <Text>{totalAmount} QR</Text>
+            <Text style={{fontSize: 18 }}> Total Amount </Text>
+            <Text style={{fontSize: 18  }}>{totalAmount} QR</Text>
           </View>
           <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -290,8 +278,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   image: {
-    width: 200,
-    height: 150,
+    width: 300,
+    height: 300,
     resizeMode: 'contain',
     borderColor: 'lightgray',
     borderWidth: 1,
@@ -371,7 +359,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     margin: 8,
   },
-  card: {
+  cardExtra: {
     flexDirection: 'row',
     alignSelf: 'center',
     backgroundColor: '#F7EBED',
@@ -381,12 +369,26 @@ const styles = StyleSheet.create({
     height: 50,
     margin: 6
   },
+  // shadowPropExtra: {
+  //   shadowColor: '#3e529b',
+  //   shadowOffset: { width: -2, height: 4 },
+  //   shadowOpacity: 1,
+  //   shadowRadius: 8,
+  // },
+  card: {
+    backgroundColor: '#F7EBED',
+    opacity: 0.95,
+    borderRadius: 20,
+    width: 370,
+    margin: 10,
+    marginLeft: 25,
+    alignItems: "center",
+  },
   shadowProp: {
-    shadowColor: '#3e529b',
+    shadowColor: 'lightgray',
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 1,
-    shadowRadius: 8,
+    shadowRadius: 3,
   },
-
 
 })
