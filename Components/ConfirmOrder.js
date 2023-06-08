@@ -1,4 +1,4 @@
-//Farah Aboudia 60093383
+
 import { StyleSheet, Text, View, SafeAreaView ,Pressable, Image} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { RadioButton } from 'react-native-paper';
@@ -10,7 +10,7 @@ const ConfirmOrder = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ flex: 1, justifyContent: 'center', marginLeft: 20 }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 20 }}>Conform Order</Text>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 20 }}>Confirm Order</Text>
 
             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Address</Text>
             <View style={[styles.txt, { marginBottom: 10 }]}>
@@ -78,8 +78,10 @@ const ConfirmOrder = ({ navigation }) => {
 
             <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 350, height: 50, borderRadius: 8, padding: 8 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Pressable onPress={() => navigation.navigate("Home")}>
-                        <Text style={{ color: 'white' , marginTop: 5, fontSize: 20}}> Go to Payment </Text>
+                <Pressable onPress={() => navigation.navigate(checked === 'first' ? 'OrderedPlaced' : 'PaymentDetails')}>
+                        <Text style={{ color: 'white' , marginTop: 5, fontSize: 20}}> 
+                        {checked === 'first' ? 'Place Order' : 'Go to Payment'}
+                        </Text>
                 </Pressable>
             </View>
             </View>
