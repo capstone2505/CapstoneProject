@@ -20,12 +20,9 @@ import ConfirmOrder from './Components/ConfirmOrder'
 import PaymentDetails from './Components/paymentDetails'
 import OrderedPlaced from './Components/OrderedPlaced'
 import TrackOrder from './Components/TrackOrder'
-// import Profile from './Components/EditProfile';
 import Checkout from './Components/Checkout';
 import Home2 from './Components/Home2';
 import TabNavigation2 from './Navigation/TabNavigation2';
-
-
 
 // import Try from './Components/Try'
 //installation for nav - npm install @react-navigation/native
@@ -52,7 +49,7 @@ export default function App() {
           <Stack.Screen name='OrderedPlaced' component={OrderedPlaced} />
           <Stack.Screen name='TrackOrder' component={TrackOrder} />
           <Stack.Screen name='Profile' component={Profile} />
-          <Stack.Screen name='Checkout' component={Checkout} />         
+          <Stack.Screen name='Checkout' component={Checkout} options={{ headerShown: true }}/>         
       </Stack.Navigator>
     </NavigationContainer>
   );

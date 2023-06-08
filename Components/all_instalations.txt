@@ -1,0 +1,91 @@
+
+Done... 
+
+React Components: 
+- StyleSheet
+- Text 
+- View
+- SafeAreaView
+- Image
+- FlatList
+- ScrollView
+- ImageBackground 
+- TouchableOpacity
+- Modal
+- Pressable
+- import React, { useState, useEffect } from 'react'
+
+--------------------------------------------------------------------------------------------------------------------
+
+For firebase: 
+# Installation 
+    - npm install firebase
+#imports 
+    - import { signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth";
+    - import { auth, db, storage } from './config'
+    - import { doc, setDoc, getDocs, collection } from "firebase/firestore";
+    - import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+
+--------------------------------------------------------------------------------------------------------------------
+
+For navigation: 
+# Installation 
+    -  npm install @react-navigation/native
+    -  expo install react-native-screens react-native-safe-area-context
+    -  npm install @react-navigation/native-stack
+#imports 
+    - import { NavigationContainer } from '@react-navigation/native';
+    - import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
+
+--------------------------------------------------------------------------------------------------------------------
+
+For buttom tabs 
+#Installation: 
+    - npm install @react-navigation/bottom-tabs
+#Import: 
+    - import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+--------------------------------------------------------------------------------------------------------------------
+
+For react-native-vector-icons directory
+#Installation: 
+    - npm install --save react-native-vector-icons
+#Import: 
+    - import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+    - import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+    - import FontAwesome from 'react-native-vector-icons/FontAwesome';
+    - import Fontisto from 'react-native-vector-icons/Fontisto';
+
+--------------------------------------------------------------------------------------------------------------------
+
+For React Native elements: 
+#Installation: 
+    - npm install @rneui/themed @rneui/base
+    - npm install react-native-elements
+#Import: 
+    - import { Card } from '@rneui/themed';
+
+--------------------------------------------------------------------------------------------------------------------
+
+For react-native-paper: 
+#Installation: 
+    - npm install react-native-paper
+#Import: 
+    - import { Searchbar } from "react-native-paper";
+    - import { RadioButton } from 'react-native-paper';
+
+--------------------------------------------------------------------------------------------------------------------
+
+For dropdown : 
+#Installation: 
+    - npm install react-native-element-dropdown
+#Import: 
+    - import { SelectCountry } from 'react-native-element-dropdown';
+
+--------------------------------------------------------------------------------------------------------------------
+
+For datetime-picker : 
+#Installation: 
+    - npm install react-native-modal-datetime-picker
+#Import: 
+    - import DateTimePickerModal from "react-native-modal-datetime-picker";
