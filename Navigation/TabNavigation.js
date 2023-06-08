@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Zocial from 'react-native-vector-icons/Zocial';
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 //jjjj
 import Products  from '../Components/products'
 import MyCart from '../Components/MyCart'
@@ -11,6 +13,7 @@ import SignUp from '../Components/SignUp';
 import Profile from '../Components/profile';
 import AboutUs from '../Components/AboutUs';
 import Packages from '../Components/Packages';
+import ContactUs from '../Components/ContactUs';
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ConfirmOrder from '../Components/ConfirmOrder';
@@ -45,19 +48,20 @@ export default function TabNavigation() {
           ),
         }} />
 
-        {/* Profile page */}
-          <Tab.Screen name="Profile" component={Profile} options={{
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
-          ),
-        }} />
+        
 
         {/* AboutUs page */}
         <Tab.Screen name="AboutUs" component={AboutUs} options={{
           tabBarLabel: 'AboutUs',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="comment-edit" color={color} size={size} />
+          ),
+        }} />
+
+<Tab.Screen name="ContactUs" component={ContactUs} options={{
+          tabBarLabel: 'ContactUs',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="quick-contacts-mail" color={color} size={size} />
           ),
         }} />
 

@@ -1,117 +1,119 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View, Image, Dimensions, SafeAreaView, ScrollView, TouchableOpacity, Pressable} from 'react-native';
+import { Searchbar } from "react-native-paper";
 
-import { Searchbar } from 'react-native-paper';
+import { db } from "./Config";
+import { getDocs, collection } from "firebase/firestore";
 
 // npm install react-native-paper
-export default function Products() {
+
+const images = [
+  { name: 'charger.png', path: require("../assets/Images/charger.png") },
+  { name: 'cheatBurger.png', path: require("../assets/Images/cheatBurger.png") },
+  { name: 'salt.png', path: require("../assets/Images/salt.png") },
+  { name: 'rose.png', path: require("../assets/Images/rose.png") },
+  { name: 'pows.png', path: require("../assets/Images/pows.png") },
+  { name: 'origin.png', path: require("../assets/Images/origin.png") },
+  { name: 'pows.png', path: require("../assets/Images/pows.png") },
+  { name: 'honu.png', path: require("../assets/Images/honu.png") },
+  { name: 'exit55.png', path: require("../assets/Images/exit55.png") },
+]
+
+export default function Products({ navigation }) {
+
+  const [allData, setAllData] = useState([]);
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const [id, setId] = useState()
+
+  useEffect(() => {
+    readAll();
+  }, []);
+
+  const readAll = async () => {
+    const docs = await getDocs(collection(db, "products"));
+    let temp = [];
+    docs.forEach(async (doc) => {
+      let product = doc.data();
+      setId(doc.id)
+      temp.push(product);
+      setData(temp);
+    });
+    console.log(data);
+    setAllData(temp);
+  };
+
+  const handleSearch = (value) => {
+    setSearch(value);
+    if (value.length === 0) {
+      setData(allData);
+    }
+    const filteredData = allData.filter((item) =>
+      item.name.toLowerCase().includes(value.toLowerCase())
+    );
+    if (filteredData.length === 0) {
+      setData([]);
+    } else {
+      setData(filteredData);
+    }
+  };
+  // console.log(id);
+
+
+  // console.log('All Products');
+  //   console.log(data.map( (item, index) => {console.log(item[3]);}));
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.topImageContainer}>
-        <Image source={require('../assets/Images2/productheader.jpeg')} style={styles.topImage} />
-      </View>
-      <ScrollView>
-
-        {/* Search box */}
-        <Searchbar
-          placeholder="Search"
-          // onChangeText={handleSearch}
-          // value={search}
-          autoCorrect={false}
-          style={{
-            backgroundColor: '#D9D9D9',
-            borderRadius: 10,
-            paddingHorizontal: 5,
-            height: 50,
-            width: "90%",
-            fontSize: 16,
-            color: '#333333',
-            margin: 20
-          }}
-        />
-
-        {/* First row */}
-        <View style={styles.rowContainer}>
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 1</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 2</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
+        <View style={styles.topImageContainer}>
+            <Image source={require('../assets/Images/productheader.png')} style={styles.topImage} />
         </View>
-
-        {/* Second row */}
-        <View style={styles.rowContainer}>
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 3</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 4</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Third row */}
-        <View style={styles.rowContainer}>
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 5</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 6</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Fourth row */}
-        <View style={styles.rowContainer}>
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 7</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.squareContainer}>
-            <Image source={require('../assets/Images2/p.jpeg')} style={styles.image} />
-            <Text style={styles.imageName}>Image 8</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Packaging</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Additional rows go here */}
-      </ScrollView>
-      <StatusBar style="auto" />
+        <ScrollView>
+            <Searchbar
+                placeholder="Search"
+                onChangeText={handleSearch}
+                value={search}
+                autoCorrect={false}
+                style={{
+                    backgroundColor: '#D9D9D9',
+                    borderRadius: 10,
+                    paddingHorizontal: 5,
+                    height: 50,
+                    width: "90%",
+                    fontSize: 16,
+                    color: '#333333',
+                    margin: 20
+                }}
+            />
+            <View style={styles.rowContainer}>
+                {data.map((item, index) => {
+                    const path = images.find((img) => img.name === item.image);
+                    const icon = path ? path.path : null;
+                    return (
+                        <View key={index} style={styles.squareContainer}>
+                            <Image source={icon} style={styles.image} />
+                            <Text style={styles.imageName}>{item.name}</Text>
+                            <Pressable
+                                onPress={() => navigation.navigate({
+                                    name: 'Packages', params: {
+                                        packageList: item.packages, 
+                                        name: item.name, 
+                                        image: item.image, 
+                                        pId: id,                                                        
+                                        imgDetails: item.imgDetails, 
+                                        extraPack : item.extraPack,
+                                    }
+                                })}
+                                style={styles.button}>
+                                <Text style={styles.buttonText}>View Packaging</Text>
+                            </Pressable>
+                        </View>
+                    );
+                })}
+            </View>
+        </ScrollView>
     </SafeAreaView>
-  );
+);
 }
 
 const windowWidth = Dimensions.get('window').width;
@@ -141,22 +143,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 10,
     marginBottom: 10,
-    
   },
   searchText: {
     fontSize: 16,
   },
   rowContainer: {
+    justifyContent: 'center',
     flexDirection: 'row',
-    marginBottom: 15,
+    marginBottom: 50,
+    flexWrap: 'wrap',
   },
   squareContainer: {
-    flex: 1,
     backgroundColor: '#F7EBED',
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 10,
     borderWidth: 1,
     borderColor: '#998184',
     shadowColor: '#998184',
@@ -164,6 +165,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 4,
     aspectRatio: 1,
+    width: 160,
+    margin: 6
   },
   image: {
     width: '60%',
@@ -174,7 +177,7 @@ const styles = StyleSheet.create({
   imageName: {
     fontSize: 14,
     marginBottom: 3,
-    
+
   },
   button: {
     backgroundColor: '#998184',
