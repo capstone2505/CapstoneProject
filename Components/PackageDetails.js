@@ -167,8 +167,8 @@ const PackageDetails = ({ navigation, route }) => {
 
           <View style={{ flexDirection: 'row' }}>
             <View style={{ width: 220 }}>
-              <Text style={{ margin: 3, paddingTop: 10 , fontSize: 18 }}>{route.params.name} </Text>
-              {route.params.cup ? <Text style={{ margin: 6,  fontSize: 18  }}>{route.params.cup} Cup</Text> : null}
+              <Text style={{ margin: 3, paddingTop: 10, fontSize: 18 }}>{route.params.name} </Text>
+              {route.params.cup ? <Text style={{ margin: 6, fontSize: 18 }}>{route.params.cup} Cup</Text> : null}
             </View>
             <View style={{
               width: 90,
@@ -186,10 +186,10 @@ const PackageDetails = ({ navigation, route }) => {
           </View>
         </View>
 
-        <View style={{ marginTop: 10, width: 330, alignSelf: 'center', padding: 5 }}>
+        <View style={{ marginTop: 10, width: 370, alignSelf: 'center', padding: 5 }}>
           <Text style={{ fontWeight: 'bold', margin: 6, fontSize: 20 }}>Catering Menu Include</Text>
           {detailsPackage.map((x, i) => {
-            return (<Text style={{ paddingLeft: 10, margin: 3 , fontSize: 18 }}>{x}</Text>)
+            return (<Text style={{ paddingLeft: 10, margin: 3, fontSize: 18 }}>{x}</Text>)
           })}
           {/* // <Text style={{ fontWeight: 'bold', margin: 6, fontSize: 20 }}>{route.params.details}</Text>
           // <Text style={{ paddingLeft: 10, margin: 3 }}>Cold Selection </Text>
@@ -198,21 +198,22 @@ const PackageDetails = ({ navigation, route }) => {
           // <Text style={{ paddingLeft: 10, margin: 3 }}>Triple Q </Text> */}
         </View>
 
-        <View style={{ width: 330, alignSelf: 'center', padding: 5 }}>
+        <View style={{ width: 370, alignSelf: 'center', padding: 5 }}>
 
           {/* {extra ? <Text style={{ margin: 3 }}>{extra} blaa</Text> : null} */}
           {extra ?
-            <View>
+            <View >
               <Text style={{ fontWeight: 'bold', margin: 6, fontSize: 20 }}>Extra Order</Text>
               {extra.map((x, i) => {
                 return (
-
                   <View key={i} style={[styles.cardExtra]}>
-                    <View style={{ width: 100 }}>
-                      <Text style={{ fontSize: 18, marginTop: 15 }} >{x.extra}</Text>
-                      <Text>{x.price} QR</Text>
+                    <View style={{ width: 240 }}>
+                      <Text style={{ fontSize: 15, marginTop: 15 }} >{x.extra}</Text>
                     </View>
-                    <View style={{ width: 50 }} >
+                    <View style={{ width: 53 }}>                      
+                      <Text style={{ fontSize: 15, marginTop: 15 , fontWeight: 'bold'}}>{x.price} QR</Text>
+                    </View>
+                    <View>
                       <CheckBox
                         checked={selectedExtras.includes(x)}
                         // checked={() => handleCheck(x)}
@@ -244,15 +245,14 @@ const PackageDetails = ({ navigation, route }) => {
           </View> */}
         </View>
 
-        <View style={{ marginBottom: 30, width: 330, alignSelf: 'center', padding: 5 }}>
+        <View style={{ marginBottom: 30, width: 370, alignSelf: 'center', padding: 5 }}>
           <Text style={{ fontWeight: 'bold', margin: 6, fontSize: 20 }}>Any Special Request??</Text>
           <TextInput style={styles.textInput} placeholder="Type here..."
             autoFocus
             multiline />
-
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
-            <Text style={{fontSize: 18 }}> Total Amount </Text>
-            <Text style={{fontSize: 18  }}>{totalAmount} QR</Text>
+            <Text style={{ fontSize: 18 }}> Total Amount </Text>
+            <Text style={{ fontSize: 18 }}>{totalAmount} QR</Text>
           </View>
           <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F7EBED',
     opacity: 0.95,
     paddingLeft: 10,
-    width: 300,
+    width: 350,
     height: 50,
     margin: 6
   },
