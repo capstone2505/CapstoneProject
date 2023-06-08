@@ -210,7 +210,7 @@ const PackageDetails = ({ navigation, route }) => {
                     <View style={{ width: 240 }}>
                       <Text style={{ fontSize: 15, marginTop: 15 }} >{x.extra}</Text>
                     </View>
-                    <View style={{ width: 53 }}>                      
+                    <View style={{ width: 55 }}>                      
                       <Text style={{ fontSize: 15, marginTop: 15 , fontWeight: 'bold'}}>{x.price} QR</Text>
                     </View>
                     <View>
