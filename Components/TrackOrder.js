@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image , SafeAreaView , Pressable} from 'react-native';
 import Constants from 'expo-constants';
+import { useNavigation } from '@react-navigation/native';
 
 const TrackOrder = () => {
   const [orderStatus, setOrderStatus] = useState('Completed');
 
-  const renderStep = (status, label, imageSource) => {
+  const renderStep = (status, label, imageSource,index) => {
     const stepStyles = [styles.step];
     const circleStyles = [styles.circle];
     const tickStyles = [styles.tick];
+    const dotStyles = [styles.dot];
 
 
     if (orderStatus === status) {
       circleStyles.push(styles.completed);
       tickStyles.push(styles.show);
     }
-
+    if (index !== 0) {
+      dotStyles.push(styles.dotPink);
+    }
+   
     return (
-      
+      <SafeAreaView>         
       <View style={stepStyles} key={status}>
         <Image style={styles.track1} source={imageSource} />
         <Text>{label}</Text>
@@ -25,6 +30,9 @@ const TrackOrder = () => {
           <Text>&#10003;</Text>
         </View>
       </View>
+
+      </SafeAreaView>
+
     );
   };
 
@@ -35,19 +43,18 @@ const TrackOrder = () => {
       <Pressable  onPress={() => navigation.navigate("Home")}>
       <Text style={styles.x}>{"X"}</Text>
                 </Pressable>
-                {/* <Text style={{ color: 'Black', marginTop: 10, fontSize: 30 ,textAlign: 'center', }}> Track Order </Text> */}
                 <Image style={styles.track} source={require('../assets/Images/Track1.png')} />
-
-
+                <Text style={{ color: 'Black', marginTop: 5, fontSize: 20 }}> Track Order </Text>
       </View>
       </SafeAreaView>
       
       <View>
-      {renderStep('Completed', 'Completed', require('../assets/Images/Ordered.png'))}
-      {renderStep('OnTheWay', 'On the way', require('../assets/Images/onTheway.png'))}
-      {renderStep('Delivered', 'Delivered', require('../assets/Images/Delivered.png'))}
+      {renderStep('Completed', 'Completed', require('../assets/Images/Ordered.png'), 0)}
+      {renderStep('OnTheWay', 'On the way', require('../assets/Images/onTheway.png'), 1)}
+      {renderStep('Delivered', 'Delivered', require('../assets/Images/Delivered.png'), 2)}
     </View>
-    </View>
+  </View>
+
   );
 };
 
@@ -76,16 +83,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: 'green',
+    borderColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 4,
   },
   show: {
-    backgroundColor: 'green',
+    backgroundColor: 'pink',
   },
   track1: {
-    width: 90,
+    width: 100,
     height: 95,
     marginRight: 35,
     marginLeft: 60,
@@ -97,10 +104,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 },
 track: {
-  marginTop: 10,
+  marginTop: 15,
     width: '100%',
     height: 150,
     marginBottom: -60,
+},
+dot: {
+  width: 8,
+  height: 8,
+  borderRadius: 4,
+  backgroundColor: 'gray',
+  marginRight: 5,
+},
+dotPink: {
+  backgroundColor: 'pink',
 },
 });
 
