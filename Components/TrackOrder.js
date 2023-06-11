@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image , SafeAreaView , Pressable} from 'react-native';
 import Constants from 'expo-constants';
-import { useNavigation } from '@react-navigation/native';
 
 const TrackOrder = () => {
   const [orderStatus, setOrderStatus] = useState('Completed');
@@ -102,6 +101,11 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     alignItems: 'center',
+},
+dot: {
+  fontSize: 40,
+  fontWeight: 'bold',
+  alignItems: 'center',
 },
 track: {
   marginTop: 15,
