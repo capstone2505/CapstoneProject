@@ -8,7 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 //DB work
 import { auth, db } from './Config';
-import { getDocs, collection, query, where , doc, getDoc } from "firebase/firestore";
+import { getDocs, collection, query, where , doc, getDoc , addDoc } from "firebase/firestore";
 
 const Checkout = ({ navigation }) => {
 
@@ -108,9 +108,19 @@ const Checkout = ({ navigation }) => {
   const [streetName, setStreetName] = useState()
   const [buildingNumber, setBuildingNumber] = useState()
 
+  const addAddress = async () => {
+    const docRef = await addDoc(collection(db, "checkout"),{
+      streetNumber:streetNumber,
+      streetName:streetName,
+      buildingNumber:buildingNumber,
+    });
+   console.log("Document id from checkout " , docRef.id)
+   console.log("hello from mnoosh checkout ", streetNumber,streetName,buildingNumber)
+  }
   return (
     <SafeAreaView style={styles.container}>
       <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold', alignSelf: 'left' }}>Add Address</Text>
+      {/* address stuff  */}
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
         <View style={[styles.txt, { flexDirection: 'row', marginBottom: 0 }]}>
           <TextInput style={{ color: 'black' }}
@@ -128,7 +138,7 @@ const Checkout = ({ navigation }) => {
         </View>
         <View style={[styles.txt, { flexDirection: 'row', marginBottom: 0 }]}>
           <TextInput style={{ color: 'black' }}
-            placeholder="   Building Number"
+            placeholder="Building Number"
             value={buildingNumber}
             onChangeText={(txt) => setBuildingNumber(txt)}
           />
@@ -153,13 +163,13 @@ const Checkout = ({ navigation }) => {
           />
         </View>
       </View>
-
+{/* the end of the address  */}
       <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold', alignSelf: 'left' }}>Contact Info</Text>
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
         <View style={[styles.txt, { flexDirection: 'row', marginBottom: 0 }]}>
           <Fontisto name='email' color={'#998184'} size={20} />
           <TextInput style={{ color: 'black' }}
-            placeholder="  Example@gmail.com"
+            placeholder="Example@gmail.com"
             value={email}
             onChangeText={(txt) => setEmail(txt)}
           />
@@ -212,6 +222,13 @@ const Checkout = ({ navigation }) => {
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Pressable onPress={() => navigation.navigate("ConfirmOrder")}>
             <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Confirm Order</Text>
+          </Pressable>
+        </View>
+        </View>
+        <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8, marginTop: 100 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Pressable onPress={addAddress}>
+            <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> add Order</Text>
           </Pressable>
         </View>
       </View>
