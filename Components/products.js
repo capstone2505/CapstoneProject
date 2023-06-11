@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   rowContainer: {
     justifyContent: 'center',
     flexDirection: 'row',
-    marginBottom: 5,
+    marginBottom: 50,
     flexWrap: 'wrap',
   },
   squareContainer: {

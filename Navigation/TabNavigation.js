@@ -14,14 +14,24 @@ import Profile from '../Components/profile';
 import AboutUs from '../Components/AboutUs';
 import Packages from '../Components/Packages';
 import ContactUs from '../Components/ContactUs';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ConfirmOrder from '../Components/ConfirmOrder';
 import PackageDetails from '../Components/PackageDetails';
 
+
 const Tab = createBottomTabNavigator();
+// const handlePress = ({ navigation }) => {
+//   const [isLoggedIn, setIsLoggedIn] = useState(false);
+//   if (isLoggedIn) {
+//     navigation.navigate("MyCart");
+//   } else {
+//     navigation.navigate("Login");
+//   }
+// };
 
 export default function TabNavigation() {
+  
     return (
       <Tab.Navigator>
         {/* Home page  */}
@@ -41,7 +51,7 @@ export default function TabNavigation() {
         }} />
 
         {/* MyCart page */}
-        <Tab.Screen name="MyCart" component={MyCart} options={{
+        <Tab.Screen name="MyCart" component={Login} options={{
           tabBarLabel: 'MyCart',
           tabBarIcon: ({ color, size }) => (
             <Zocial name="cart" color={color} size={size} />

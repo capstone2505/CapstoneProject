@@ -75,6 +75,7 @@ import { Feather, Entypo } from "react-native-vector-icons";
 import { signOut } from "firebase/auth";
 import { auth, db } from './Config';
 
+
 const Home = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -145,7 +146,7 @@ const Home = () => {
 
   const onSignOut = () => {
     signOut(auth)
-      .then(() => navigation.navigate("Login"))
+      .then(() => navigation.navigate("Home"))
       .catch((error) => console.log("Error logging out: ", error));
   };
   useLayoutEffect(() => {
@@ -176,7 +177,7 @@ const Home = () => {
             <TouchableOpacity onPress={handleProductButtonPress}><Image style={{ width: 425, height: 150, alignSelf: 'center' }} source={require("../assets/Images2/start_order.jpg")} /></TouchableOpacity>
           </View>
           <View style={{ flexDirection: 'row' }}>
-            <Image style={{ width: 105, height: 100, alignSelf: 'center', margin: 15, borderRadius: 20 }} source={require("../assets/Images2/dose.png")} />
+            <Image style={{ width: 105, height: 100, alignSelf: 'center', margin: 15, borderRadius: 20 }} source={require("../assets/Images/rosemary.png")} />
             <Image style={{ width: 105, height: 100, alignSelf: 'center', margin: 15, borderRadius: 20 }} source={require("../assets/Images2/charger.jpg")} />
             <Image style={{ width: 105, height: 100, alignSelf: 'center', margin: 15, borderRadius: 20 }} source={require("../assets/Images2/cheatB.jpeg")} />
           </View>

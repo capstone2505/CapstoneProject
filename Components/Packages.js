@@ -33,7 +33,6 @@ export default function Packages({ navigation, route }) {
                 <Text style={[styles.packagename]}> {route.params.name} Packages</Text>
                 <View style={[styles.packageview]}>
                     <Image style={{ width: 180, height: 180, borderRadius: 20, marginLeft: 120 }} source={icon} />
-
                     {
                         data.map((x, i) => {
                             return (
@@ -125,8 +124,8 @@ const styles = StyleSheet.create({
     packageview: {
         backgroundColor: 'white',
         width: 500,
-        height: 1500,
         alignContent: 'center',
-        marginTop: 10
+        marginTop: 10,
+        
     }
 })
