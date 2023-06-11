@@ -103,7 +103,6 @@ const MyCart = ({ navigation, route }) => {
         }
     }, [cartDataUpdated, cartData])
 
-
     const itemId = route.params.id;
     const itemDetils = route.params.details;
     const itemImgDetails = route.params.imgDetails;
