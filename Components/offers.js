@@ -18,6 +18,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function Offers({ navigation }) {
+  
   const images = [
     { name: "pows.png", path: require("../assets/Images/pows.png") },
     { name: "charger.png", path: require("../assets/Images/charger.png") },
