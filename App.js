@@ -31,7 +31,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="TrackOrder" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Home' component={TabNavigation} />
       <Stack.Screen name='Home2' component={TabNavigation2} />
         <Stack.Screen name='Login' component={Login} />
@@ -43,7 +43,7 @@ export default function App() {
           <Stack.Screen name='Offers' component={offers} options={{ headerShown: true }} />
           <Stack.Screen name='Packages' component={Packages} options={{ headerShown: true }}/>
           <Stack.Screen name='PackageDetails' component={PackageDetails} options={{ headerShown: true }}/>
-          <Stack.Screen name='MyCart' component={MyCart} />
+          <Stack.Screen name='MyCart' component={MyCart} options={{ headerShown: true }}/>
           <Stack.Screen name='ConfirmOrder' component={ConfirmOrder} />
           <Stack.Screen name='PaymentDetails' component={PaymentDetails} />
           <Stack.Screen name='OrderedPlaced' component={OrderedPlaced} />
