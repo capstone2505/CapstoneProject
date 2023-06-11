@@ -6,7 +6,32 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+//DB work
+import { auth, db } from './Config';
+import { getDocs, collection, query, where , doc, getDoc } from "firebase/firestore";
+
 const Checkout = ({ navigation }) => {
+
+  const [profile, setProfile] = useState()
+  let userId = auth?.currentUser?.email;
+  // const id = userId.toCase();
+  console.log(userId);
+
+  useEffect(() => {
+    readAllWhere();
+  }, [userId]);
+
+  const readAllWhere = async () => {
+    const docRef = doc(db, 'user', userId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      console.log(data);
+      setProfile(data);  
+    }
+  }
+  console.log('profile');
+  console.log(profile);
 
   const local_data = [
     {
@@ -181,6 +206,7 @@ const Checkout = ({ navigation }) => {
           <Text style={[styles.button, styles.txt, { color: '#998184', width: 240 }]}>Selected Time: {date.toLocaleTimeString()}</Text>
         </View>
       </View>
+            
 
       <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8, marginTop: 100 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>

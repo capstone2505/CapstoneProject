@@ -46,13 +46,13 @@ export default function App() {
           <Stack.Screen name='Offers' component={offers} options={{ headerShown: true }} />
           <Stack.Screen name='Packages' component={Packages} options={{ headerShown: true }}/>
           <Stack.Screen name='PackageDetails' component={PackageDetails} options={{ headerShown: true }}/>
-          <Stack.Screen name='MyCart' component={MyCart} />
-          <Stack.Screen name='ConfirmOrder' component={ConfirmOrder} />
-          <Stack.Screen name='PaymentDetails' component={PaymentDetails} />
+          <Stack.Screen name='MyCart' component={MyCart}  options={{ headerShown: true }}/>
+          <Stack.Screen name='ConfirmOrder' component={ConfirmOrder} options={{ headerShown: true }}/>
+          <Stack.Screen name='PaymentDetails' component={PaymentDetails} options={{ headerShown: true }}/>
           <Stack.Screen name='OrderedPlaced' component={OrderedPlaced} />
           <Stack.Screen name='TrackOrder' component={TrackOrder} />
           <Stack.Screen name='Profile' component={Profile} />
-          <Stack.Screen name='Checkout' component={Checkout} />         
+          <Stack.Screen name='Checkout' component={Checkout}  options={{ headerShown: true }} />         
       </Stack.Navigator>
     </NavigationContainer>
   );

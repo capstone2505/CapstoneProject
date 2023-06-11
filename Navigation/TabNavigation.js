@@ -21,14 +21,14 @@ import PackageDetails from '../Components/PackageDetails';
 
 
 const Tab = createBottomTabNavigator();
-// const handlePress = ({ navigation }) => {
-//   const [isLoggedIn, setIsLoggedIn] = useState(false);
-//   if (isLoggedIn) {
-//     navigation.navigate("MyCart");
-//   } else {
-//     navigation.navigate("Login");
-//   }
-// };
+const handlePress = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  if (isLoggedIn) {
+    navigation.navigate("Home");
+  } else {
+    navigation.navigate("Home2");
+  }
+};
 
 export default function TabNavigation() {
   
@@ -51,7 +51,7 @@ export default function TabNavigation() {
         }} />
 
         {/* MyCart page */}
-        <Tab.Screen name="MyCart" component={Login} options={{
+        <Tab.Screen name="MyCart" component={handlePress} options={{
           tabBarLabel: 'MyCart',
           tabBarIcon: ({ color, size }) => (
             <Zocial name="cart" color={color} size={size} />
