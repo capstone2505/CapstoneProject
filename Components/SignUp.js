@@ -1,9 +1,8 @@
 import { View, Text, Image, SafeAreaView, TextInput, StyleSheet, TouchableOpacity, ScrollView, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { auth, db } from './Config';
-import { addDoc, getDoc, getDocs, ref, where, collection, doc, query, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
 
 const SignUp = ({ navigation }) => {
 
@@ -12,142 +11,126 @@ const SignUp = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, ConfirmsetPassword] = useState('')
-  const [signedIn, setSignedIn] = useState(false)
+
+  const [nameError, setNameError] = useState("")
+  const [nameFocused, setNameFocused] = useState(false);
 
   const [emailError, setEmailError] = useState("")
   const [emailFocused, setEmailFocused] = useState(false);
 
-  const [passwordError, setPasswordlError] = useState("")
+  const [contactError, setContactError] = useState("")
+  const [contactFocused, setContactFocused] = useState(false);
+
+  const [passwordError, setPasswordError] = useState("")
   const [passwordFocused, setPasswordFocused] = useState(false);
 
   const [confirmPasswordError, setConfirmPasswordError] = useState("")
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
 
-  const [invaildMassage, setInvalidMassage] = useState("")
-  const [emptyFields, setEmptyFields] = useState([]);
+  const [invalidMessage, setInvalidMessage] = useState("")
 
-  // To registe at the firebase and check if the user is there or not 
   const handleRegister = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        console.log('Signed in')
-        setSignedIn(true)
-        navigation.navigate('Login')
-       
-      })
-      .catch((error) => {
-        console.log(error.message)
-        let e = error.code
-        setInvalidMassage(e);
-      })
-    console.log("hii from collection")
-    handleError()
-  }
+    console.log("jjjjj");
 
-  // To add data in the profile 
-  const add = async () => {
-    //const emptyFields = Object.keys(fields).filter(key => !fields[key])
+    //email
+    if (email === '') {
+      setEmailError('Enter your email!!');
+      setEmailFocused(true);
+    }
+    else if (email !== '' && invalidMessage === 'auth/email-already-in-use') {
+      setEmailError('This Email already in use!');
+      setEmailFocused(true);
+    }
+    else if (email !== '' && invalidMessage === 'auth/invalid-email') {
+      setEmailError('Invalid email format!');
+      setEmailFocused(true);
+    } else {
+      setEmailError('');
+      setEmailFocused(false);
+    }
 
-    if (!name || !contact|| !email || !password ) {
-      console.log('Please fill in all fields');
-      //return;
+    //password
+    if (password === '') {
+      setPasswordError('Enter your password!!');
+      setPasswordFocused(true);
+    }
+    else if (password !== '' && password.length < 6) {
+      setPasswordError('Password must be at least 6 characters!!');
+      setPasswordFocused(true);
+    } else {
+      setPasswordError('');
+      setPasswordFocused(false);
+    }
+
+    // conform password
+    if ((password !== '' &&  password.length < 6) && confirmPassword === '') {
+      setConfirmPasswordError('Confirm your password!!');
+      setConfirmPasswordFocused(true)
+      setPasswordError('Password must be at least 6 characters!!');
+      setPasswordFocused(true);
     }
     else if (password !== confirmPassword) {
-      ConfirmsetPassword(true);
-      console.log('Password and Confirm Password do not match');
-      return;
+      setConfirmPasswordError('Passwords didn’t match. Try again!!');
+      setConfirmPasswordFocused(true)
+    }else {
+      setConfirmPasswordError('');
+      setConfirmPasswordFocused(false)
+    }
+
+    // Contact 
+    if (contact === '') {
+      setContactError('Enter your phone number !!')
+      setContactFocused(true)
+    } else if (contact.length != 8) {
+      setContactError('Your phone number must be 8 digits !!')
+      setContactFocused(true)
+    } else {
+      setContactError('')
+      setContactFocused(false);
+    }
+
+    // name 
+    if (name === '') {
+      setNameError('Enter your Name !!')
+      setNameFocused(true)
+    } 
+    else if (name !== '') {
+      setNameError('');
+      setNameFocused(false);
     }
     
-    else{
-    const docRef = await addDoc(collection(db, "user"), {
-      name: name, contact: contact, email: email, address: {city:'',streetNum:'',streetName:'',buidingNum:''}
-    });
-    console.log("Document written with ID: ", docRef.id);
-    handleRegister()
-    console.log("hii from add")
-    clear()
-    }
-   
-  }
-  
-  const isFieldEmpty = fieldName => emptyFields.includes(fieldName);
-
-   const handleError = () => {
-
-    if (password !== confirmPassword) {
-      ConfirmsetPassword(true);
-      console.log('Password and Confirm Password do not match');
-      return;
-    }
-   
+    createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          console.log('Done');
+          submitUserData();  // Submit the data to the "user" collection here
+          navigation.navigate('Login');
+        })
+        .catch((error) => {
+          console.log(error.message);
+          let e = error.code;
+          setInvalidMessage(e);
+          console.log(invalidMessage);
+        });
     
-    //console.log("hhhhhhhhhhhhhhhhhhhh");
-    // if (email === '' && password === '') {
-    //   setEmailError('Enter an email!!');
-    //   setEmailFocused(true);
-    //   // setPasswordFocused(true);
-    // }
-    // if (email === '') {
-    //   setEmailError('Enter an email!!');
-    //   setEmailFocused(true);
-    //   setPasswordlError('');
-    //   setPasswordFocused(false);
-    // }
-    // if (invaildMassage === 'auth/invalid-email') {
-    //   setEmailError('invalid-email!!');
-    //   setEmailFocused(true);
-    //   setPasswordlError('');
-    //   setPasswordFocused(false);
-    // }
-    // if (invaildMassage === 'auth/email-already-in-use') {
-    //   setEmailError('This Email already in use!');
-    //   setEmailFocused(true);
-    //   setPasswordlError('');
-    //   setPasswordFocused(false);
-    // }
-    
-
-  // const check = async () => {
-  //   if (!name || !age || !country || !email || !password || !contact) {
-  //     console.log('Please fill in all fields');
-  //     return;
-  //   }
-
-
-    // else if (password === '') {
-    //   setPasswordlError('Enter a password!!');
-    //   setPasswordFocused(true);
-    //   setEmailError('');
-    //   setEmailFocused(false);
-    // }
-
-    // if (password !== '' && confirmPassword === '') {
-    //   setConfirmPasswordError('Confirm your password!!');
-    //   setConfirmPasswordFocused(true)
-
-    //   setEmailError('');
-    //   setEmailFocused(false);
-
-    //   setPasswordlError('');
-    //   setPasswordFocused(false);
-    // }
-    // else if (password !== confirmPassword) {
-    //   setConfirmPasswordError('Passwords didn’t match. Try again!!');
-    //   setConfirmPasswordFocused(true)
-
-    //   setEmailError('');
-    //   setEmailFocused(false);
-
-    //   setPasswordlError('');
-    //   setPasswordFocused(false);
-    // }
   }
-  
-  const  press = () => {
-    navigation.navigate("Login")
-    add()
 
+  const submitUserData = async () => {
+    const docRef = doc(db, "user", email);
+    console.log(email, password, name, contact);
+    await setDoc(docRef, {
+      email: email,
+      name: name,
+      contact: contact,
+      address: { city: '', streetNum: '', streetName: '', buidingNum: '' }
+    })
+      .then(() => {
+        console.log('Data submitted successfully');
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   }
+
   const clear = async () => {
     console.log('this is clear')
     setName("")
@@ -156,22 +139,17 @@ const SignUp = ({ navigation }) => {
     setPassword("")
     ConfirmsetPassword("")
   }
+
   return (
     <ScrollView>
       <SafeAreaView style={{ backgroundColor: 'white', width: 450, height: 1200 }}>
         <View>
-
           <Image style={{ width: 400, height: 200, borderRadius: 30 }} source={require("../assets/Images/choose.png")} />
         </View>
         <View>
           <Text style={{ fontSize: 25, marginLeft: 10, marginBottom: 10 }}> Create account</Text>
         </View>
         <View>
-          <Text style={[styles.txtstyle]}>Name</Text>
-          <TextInput placeholder='Your Name' style={[styles.textInput ,{ borderColor: isFieldEmpty('name') ? 'red' : 'grey' }]} onChangeText={text => setName(text)}></TextInput>
-          {/* { borderColor: isFieldEmpty('name') ? 'red' : '#89487c' }]} placeholder='Name' onChangeText={text => setName(text)} */}
-          <Text style={[styles.txtstyle]}>Contact</Text>
-          <TextInput placeholder='+974' style={styles.textInput} onChangeText={text => setContact(text)}> </TextInput>
 
           <Text style={[styles.txtstyle]}>Email</Text>
           <TextInput
@@ -181,9 +159,9 @@ const SignUp = ({ navigation }) => {
           />
           {(email === '' && emailFocused === true) || emailFocused ? <Text style={styles.error}>{emailError}</Text> : null}
 
-
           <Text style={[styles.txtstyle]}>Password</Text>
           <TextInput
+          secureTextEntry
             placeholder='Password'
             style={[styles.textInput, { borderBottomColor: (password === '' && passwordFocused === true) || passwordFocused ? 'red' : 'grey' }]}
             onChangeText={text => setPassword(text)}
@@ -192,21 +170,37 @@ const SignUp = ({ navigation }) => {
 
           <Text style={[styles.txtstyle]}>Confirm Password</Text>
           <TextInput
+          secureTextEntry
             placeholder='Confirm Password'
             style={[styles.textInput, { borderBottomColor: (confirmPassword === '' && confirmPasswordFocused === true) || confirmPasswordFocused ? 'red' : 'grey' }]}
             onChangeText={text => ConfirmsetPassword(text)}
           />
           {(confirmPassword === '' && confirmPasswordFocused === true) || confirmPasswordFocused ? <Text style={styles.error}>{confirmPasswordError}</Text> : null}
+
+          <Text style={[styles.txtstyle]}>Name</Text>
+          <TextInput
+            placeholder='Your Name'
+            style={[styles.textInput, { borderBottomColor: (name === '' && nameFocused === true) || nameFocused ? 'red' : 'grey' }]}
+            onChangeText={text => setName(text)}
+          />
+          {(name === '' && nameFocused === true) || nameFocused ? <Text style={styles.error}>{nameError}</Text> : null}
+
+          <Text style={[styles.txtstyle]}>Contact</Text>
+          <TextInput
+            placeholder='+974'
+            style={[styles.textInput, { borderBottomColor: (contact === '' && contactFocused === true) || contactFocused ? 'red' : 'grey' }]}
+            onChangeText={text => setContact(text)}
+          />
+          {(contact === '' && contactFocused === true) || contactFocused ? <Text style={styles.error}>{contactError}</Text> : null}
+
+
         </View>
         <View>
           <Pressable
-            // onPress={() => navigation.navigate("Login")} 
-            //onPress={add}
-            onPress={press}
+            onPress={handleRegister}
             style={{
               alignItems: 'center',
               backgroundColor: '#998184',
-              // borderWidth:1,
               borderRadius: 10,
               marginRight: 5,
               width: 300,
@@ -221,7 +215,7 @@ const SignUp = ({ navigation }) => {
       </SafeAreaView>
     </ScrollView>
   )
-          }
+}
 
 export default SignUp
 
