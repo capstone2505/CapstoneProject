@@ -60,8 +60,7 @@ const Checkout = ({ navigation }) => {
   const [country, setCountry] = useState('1');
 
   ///////////// Date picker /////////////
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  
 
   useEffect(() => {
     // Do something with the selected date
@@ -107,12 +106,19 @@ const Checkout = ({ navigation }) => {
   const [streetNumber, setStreetNumber] = useState()
   const [streetName, setStreetName] = useState()
   const [buildingNumber, setBuildingNumber] = useState()
+  //const [Date, setdate] = useState(null)
+  //const [Time,setTime]=useState(null)
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const addAddress = async () => {
     const docRef = await addDoc(collection(db, "checkout"),{
       streetNumber:streetNumber,
       streetName:streetName,
       buildingNumber:buildingNumber,
+      email:email,
+      contact:contact
+
     });
    console.log("Document id from checkout " , docRef.id)
    console.log("hello from mnoosh checkout ", streetNumber,streetName,buildingNumber)
@@ -192,15 +198,18 @@ const Checkout = ({ navigation }) => {
             <Text style={styles.buttonText}>Select Date</Text>
           </Pressable>
           <DateTimePickerModal
-            isVisible={isDatePickerVisible}
+          //onPress={setSelectedDate}
+          onChangeText={txt => setSelectedDate(txt)}  
+          isVisible={isDatePickerVisible}
             mode="date"
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
             display={Platform.OS === 'ios' ? 'inline' : 'default'}
           />
           {selectedDate && (
-            <Text style={[styles.button, styles.txt, { color: '#998184', width: 240 }]}>Selected Date: {selectedDate.toLocaleDateString()}</Text>
+            <Text style={[styles.button, styles.txt, { color: '#998184', width: 240 }]}>Selected Date: {selectedDate.toLocaleDateString()} </Text>
           )}
+          
         </View>
 
         <View style={{ flexDirection: 'row' }}>

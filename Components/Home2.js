@@ -49,7 +49,7 @@ const Home2 = ({ navigation }) => {
               margin: 15,
               borderRadius: 20,
             }}
-            source={require("../assets/Images2/charger.jpg")}
+            source={require("../assets/Images/charger.png")}
           ></Image>
           <Image
             style={{
@@ -59,7 +59,7 @@ const Home2 = ({ navigation }) => {
               margin: 15,
               borderRadius: 20,
             }}
-            source={require("../assets/Images2/cheatB.jpeg")}
+            source={require("../assets/Images/cheatB.jpeg")}
           ></Image>
         </View>
         <View
@@ -88,7 +88,7 @@ const Home2 = ({ navigation }) => {
         <View style={{ flexDirection: "row" }}>
           <Image
             style={{ width: 150, height: 200, borderRadius: 30, marginTop: 20 }}
-            source={require("../assets/Images2/paws.jpg")}
+            source={require("../assets/Images/paws.jpg")}
           ></Image>
           <View
             style={{
