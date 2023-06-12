@@ -51,7 +51,6 @@ const EditProfile = ({ navigation, route }) => {
     update(e)
     navigation.navigate("Profile")
     readAllWhere()
-
   }
 
   return (
