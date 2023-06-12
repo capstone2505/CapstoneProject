@@ -10,7 +10,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { auth, db } from './Config';
 import { getDocs, collection, query, where , doc, getDoc , addDoc } from "firebase/firestore";
 
-const Checkout = ({ navigation }) => {
+const Checkout = ({ navigation, route }) => {
+  
+  const total = route.params.total
 
   const [profile, setProfile] = useState()
   let userId = auth?.currentUser?.email;

@@ -25,14 +25,17 @@ const PackageDetails = ({ navigation, route }) => {
   const icon = path ? path.path : null;
 
   const [quantity, setQuantity] = useState(1);
-  // const [checked1, setChecked1] = useState(false);
-  // const [checked2, setChecked2] = useState(false);
-  // const [checked3, setChecked3] = useState(false);
   const [detailsPackage, setDetails] = useState(route.params.details.split(','));
   const [extra, setExtra] = useState(route.params.extraPack)
   const [totalAmount, setTotalAmount] = useState(quantity * route.params.price);
-
+  const [detailRequest, setDetailRequest] = useState('');
   const [selectedExtras, setSelectedExtras] = useState([]);
+
+  // console.log(selectedExtras);
+  // console.log(detailRequest);
+
+  let user = auth?.currentUser?.email;
+  console.log(user);
 
   const handleCheck = (extra) => {
     if (selectedExtras.includes(extra)) {
@@ -56,6 +59,36 @@ const PackageDetails = ({ navigation, route }) => {
     }
   };
 
+  const add = async () => {
+    console.log("blahhhhhhhhhhhh")
+    const docRef = await addDoc(collection(db, "request"), {
+      detailRequest: detailRequest,
+      email: user,
+    });
+    console.log("Document written with ID: ", docRef.id);
+  };
+
+  const handleContinue = () => {
+    navigation.navigate("MyCart", {
+      id: route.params.id,
+      details: detailsPackage,
+      imgDetails: icon,
+      price: route.params.price,
+      extraPack: selectedExtras,
+      name: route.params.name,
+      cup: route.params.cup,
+      total: totalAmount,
+      quantity: quantity,
+      request: detailRequest,
+      compName: route.params.compName
+    });
+  };
+
+  const handelBoth =()=>{
+    console.log("hii mnoosh from both ")
+    add()
+    handleContinue()
+  }
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -139,29 +172,20 @@ const PackageDetails = ({ navigation, route }) => {
           <Text style={{ fontWeight: 'bold', margin: 6, fontSize: 20 }}>Any Special Request??</Text>
           <TextInput style={styles.textInput} placeholder="Type here..."
             autoFocus
+            onChangeText={text => setDetailRequest(text)}
             multiline />
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
             <Text style={{ fontSize: 18 }}> Total Amount </Text>
             <Text style={{ fontSize: 18 }}>{totalAmount} QR</Text>
           </View>
-          <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Pressable onPress={() => navigation.navigate({
-                name: 'MyCart', params: {
-                  id: route.params.id,
-                  details: detailsPackage,
-                  imgDetails: route.params.imgDetails,
-                  price: route.params.price,
-                  extraPack: extra,
-                  name: route.params.name,
-                  cup: route.params.cup,
-                  total: totalAmount, 
-                  quantity: quantity
-                }
-              })}>               
-               <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add to Cart </Text>
+             <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
+             <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Pressable onPress={handelBoth}>
+                <Text style={{ color: "white", marginTop: 5, fontSize: 20 }}>
+                  Add to Cart
+                </Text>
               </Pressable>
-            </View>
+          </View> 
           </View>
         </View>
       </ScrollView >
