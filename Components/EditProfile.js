@@ -11,12 +11,12 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 //DB work
 import { auth, db } from './Config';
-import { getDocs, collection, query, where, updateDoc } from "firebase/firestore";
+import { getDocs, collection, query, where, updateDoc, getDoc, doc} from "firebase/firestore";
 
 const EditProfile = ({ navigation, route }) => {
 
-  const [name, setName] = useState()
-  const [contact, setContact] = useState()
+  const [name, setName] = useState('')
+  const [contact, setContact] = useState('')
   const [profile, setProfile] = useState()
 
   let user = auth?.currentUser?.email;
@@ -39,19 +39,48 @@ const EditProfile = ({ navigation, route }) => {
   }
   console.log(profile);
 
-  const update = async (e) => {
-    // Update the fileName field
-    const docRef = query(collection(db, "user"), where("email", "==", e));
-    await updateDoc(docRef, { name: name , contact: contact})
-      .then(() => { console.log('fileName updated') })
-      .catch((error) => { console.log(error.message) })
-  }
+  // const update = async (e) => {
+  //   // Update the fileName field
+  //   // const docRef = query(collection(db, "user"), where("email", "==", e));
 
-  const save = (e) => {
-    update(e)
-    navigation.navigate("Profile")
-    readAllWhere()
-  }
+  //   const docRef = doc(db, 'user', e);
+  //   const docSnap = await getDoc(docRef);
+  //   console.log("Hiiiiiiii");
+  //   console.log(docSnap);
+  //   await updateDoc(docSnap, { name: name, contact: contact })
+  //     .then(() => { console.log('fileName updated') })
+  //     .catch((error) => { console.log(error.message) })
+  // }
+
+  // const save = (e) => {
+  //   update(e)
+  //   navigation.navigate("Profile")
+  //   readAllWhere()
+  // }
+
+  // const [name, setName] = useState('');
+  // const [contact, setContact] = useState('');
+
+  const updateProfile = async (email) => {
+    try {
+      const userDocRef = doc(db, 'user', email);
+      const docSnap = await getDoc(userDocRef);
+      if (docSnap.exists()) {
+        await updateDoc(userDocRef, { name, contact });
+        console.log('Profile updated successfully');
+      } else {
+        console.log('User document does not exist');
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
+  };
+
+  const save = (email) => {
+    updateProfile(email);
+    navigation.navigate('Profile');
+    readAllWhere();
+  };
 
   return (
     <SafeAreaView resizeMode="cover" style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white' }}>
@@ -66,8 +95,8 @@ const EditProfile = ({ navigation, route }) => {
       <View style={{ alignItems: 'center', marginBottom: 50 }}>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
           <MaterialCommunityIcons name='account' color={'#998184'} size={20} />
-          <TextInput style={{ color: 'black' , marginRight: 5}} placeholder={' ' + route.params.name} 
-           value={name} onChangeText={(txt) => setName(txt)}
+          <TextInput style={{ color: 'black', marginRight: 5 }} placeholder={' ' + route.params.name}
+            value={name} onChangeText={(txt) => setName(txt)}
           />
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
@@ -76,8 +105,8 @@ const EditProfile = ({ navigation, route }) => {
         </View>
         <View style={[styles.txt, { flexDirection: 'row' }]}>
           <FontAwesome name='phone' color={'#998184'} size={20} />
-          <TextInput style={{ color: 'black' }} placeholder={' ' + route.params.contact} 
-           value={contact} onChangeText={(txt) => setContact(txt)}
+          <TextInput style={{ color: 'black' }} placeholder={' ' + route.params.contact}
+            value={contact} onChangeText={(txt) => setContact(txt)}
           />
         </View>
       </View>
@@ -97,7 +126,7 @@ const EditProfile = ({ navigation, route }) => {
 
       <View style={{ alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: '50%', borderRadius: 8, padding: 8 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Pressable onPress={() =>save(route.params.email)} >
+          <Pressable onPress={() => save(route.params.email)} >
             <Text style={{ color: 'white', width: 200, textAlign: 'center' }}> Save </Text>
           </Pressable>
         </View>

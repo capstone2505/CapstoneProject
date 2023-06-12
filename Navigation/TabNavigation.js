@@ -134,7 +134,7 @@ export default function TabNavigation() {
       />
 
       {/* MyCart page */}
-      {userId ? (
+      {userId === undefined ? (
         <Tab.Screen
           name="MyCart"
           component={MyCart}
