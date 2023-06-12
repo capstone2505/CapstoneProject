@@ -1,47 +1,81 @@
 // Last update of my cart 06/10/2023
 
-import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView, ScrollView, Pressable, } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import {
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+    Image,
+    SafeAreaView,
+    ScrollView,
+    Pressable,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 
 //DB work
-import { auth, db } from './Config';
-import { getDocs, collection, query, where, doc, setDoc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { auth, db } from "./Config";
+import {
+    getDocs,
+    collection,
+    query,
+    where,
+    doc,
+    setDoc,
+    getDoc,
+    updateDoc,
+    deleteDoc,
+} from "firebase/firestore";
 
 const MyCart = ({ navigation, route }) => {
-
     let userId = auth?.currentUser?.email;
     console.log(userId);
 
     const [cartData, setCartData] = useState([]);
 
     const images = [
-        { name: 'chargermode.png', path: require("../assets/Images/chargermode.png") },
-        { name: 'pawsbooth.png', path: require("../assets/Images/pawsbooth.png") },
-        { name: 'hounbooth.png', path: require("../assets/Images/hounbooth.png") },
-        { name: 'exit55table.png', path: require("../assets/Images/exit55table.png") },
-        { name: 'saltbooth.png', path: require("../assets/Images/saltbooth.png") },
-        { name: 'origin.png', path: require("../assets/Images/origin.png") },
-        { name: 'cheatBurgerStory.png', path: require("../assets/Images/cheatBurgerStory.png") },
-        { name: 'rosemarybooth.png', path: require("../assets/Images/rosemarybooth.png") },
-        { name: 'exit55table.png', path: require("../assets/Images/exit55table.png") },
-    ]
+        {
+            name: "chargermode.png",
+            path: require("../assets/Images/chargermode.png"),
+        },
+        { name: "pawsbooth.png", path: require("../assets/Images/pawsbooth.png") },
+        { name: "hounbooth.png", path: require("../assets/Images/hounbooth.png") },
+        {
+            name: "exit55table.png",
+            path: require("../assets/Images/exit55table.png"),
+        },
+        { name: "saltbooth.png", path: require("../assets/Images/saltbooth.png") },
+        { name: "origin.png", path: require("../assets/Images/origin.png") },
+        {
+            name: "cheatBurgerStory.png",
+            path: require("../assets/Images/cheatBurgerStory.png"),
+        },
+        {
+            name: "rosemarybooth.png",
+            path: require("../assets/Images/rosemarybooth.png"),
+        },
+        {
+            name: "exit55table.png",
+            path: require("../assets/Images/exit55table.png"),
+        },
+    ];
 
     useEffect(() => {
         saveData();
-    }, [])
+        discountamount();
+    }, []);
 
     const readCart = async () => {
         try {
-            const docRef = doc(db, 'cart', userId);
+            const docRef = doc(db, "cart", userId);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 const data = docSnap.data();
                 setCartData([data]);
             } else {
-                console.log('No such document!');
+                console.log("No such document!");
             }
         } catch (error) {
-            console.error('Error reading cart:', error);
+            console.error("Error reading cart:", error);
         }
     };
 
@@ -56,16 +90,20 @@ const MyCart = ({ navigation, route }) => {
                 });
             });
             setSubAmount(amount);
-            console.log('Sub-Amount:', amount);
+            console.log("Sub-Amount:", amount);
         }
-    }, [cartData])
+    }, [cartData]);
+
+    // useEffect( async () => {
+
+    //   }, [cartData]);
 
     const [cartDataUpdated, setCartDataUpdated] = useState(false);
 
     useEffect(() => {
         const fetchCartData = async () => {
             try {
-                const docRef = doc(db, 'cart', userId);
+                const docRef = doc(db, "cart", userId);
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
@@ -73,29 +111,27 @@ const MyCart = ({ navigation, route }) => {
                     setCartData([data]);
                 } else {
                     // If the cart doesn't exist, create an empty cart
-                    const newCartData = { cartItem: [], amount: 0, status: '' };
+                    const newCartData = { cartItem: [], amount: 0, status: "" };
                     await setDoc(docRef, newCartData);
                     setCartData([newCartData]);
                 }
-                readCart()
+                readCart();
                 setCartDataUpdated(true);
             } catch (error) {
-                console.error('Error fetching cart data:', error);
+                console.error("Error fetching cart data:", error);
             }
         };
 
         fetchCartData();
-
-    }, [userId])
-
+    }, [userId]);
 
     useEffect(() => {
         if (cartDataUpdated) {
             // Code to handle the updated cart data
             // This will run whenever the cartData state is updated
-            console.log('New cart data:', cartData);
+            console.log("New cart data:", cartData);
         }
-    }, [cartDataUpdated, cartData])
+    }, [cartDataUpdated, cartData]);
 
     const itemId = route.params.id;
     const itemDetils = route.params.details;
@@ -106,9 +142,8 @@ const MyCart = ({ navigation, route }) => {
     const itemCup = route.params.cup;
     const total = route.params.total;
     const itemQuantity = route.params.quantity;
-    const compName = route.params.compName;
 
-    const [cart, setCart] = useState()
+    const [cart, setCart] = useState();
 
     const saveData = async () => {
         try {
@@ -138,7 +173,6 @@ const MyCart = ({ navigation, route }) => {
                         cup: itemCup,
                         total: subAmount,
                         quantity: quantity,
-                        compName: compName
                     });
                 }
                 await updateDoc(docRef, { cartItem: updatedItems });
@@ -155,13 +189,11 @@ const MyCart = ({ navigation, route }) => {
                     cup: itemCup || "",
                     total: subAmount || 0,
                     quantity: quantity || 0,
-                    compName: compName || ""
-
                 };
                 await setDoc(docRef, {
                     cartItem: [newItem],
                     total: total,
-                    status: 'unpaid'
+                    status: "unpaid",
                 });
                 setCart([
                     {
@@ -174,12 +206,11 @@ const MyCart = ({ navigation, route }) => {
                         cup: itemCup,
                         total: subAmount,
                         quantity: quantity,
-                        compName: compName
-                    }
+                    },
                 ]);
                 updateCartTotal();
             }
-            console.log('Data submitted');
+            console.log("Data submitted");
         } catch (error) {
             console.log(error.message);
         }
@@ -190,12 +221,14 @@ const MyCart = ({ navigation, route }) => {
 
     const deleteRes = async (rId, itemId) => {
         try {
-            const cartRef = doc(db, 'cart', rId);
+            const cartRef = doc(db, "cart", rId);
             const cartSnap = await getDoc(cartRef);
 
             if (cartSnap.exists()) {
                 const cartData = cartSnap.data();
-                const updatedItems = cartData.cartItem.filter((item, index) => index !== itemId);
+                const updatedItems = cartData.cartItem.filter(
+                    (item, index) => index !== itemId
+                );
                 const updatedCartData = { ...cartData, cartItem: updatedItems };
 
                 await setDoc(cartRef, updatedCartData);
@@ -212,11 +245,11 @@ const MyCart = ({ navigation, route }) => {
                 updateCartTotal();
 
                 // Delete the item document from the cartItem subcollection
-                const itemDocRef = doc(collection(db, 'cart', rId, 'cartItem'), itemId);
+                const itemDocRef = doc(collection(db, "cart", rId, "cartItem"), itemId);
                 await deleteDoc(itemDocRef);
             }
         } catch (error) {
-            console.error('Error deleting item:', error);
+            console.error("Error deleting item:", error);
         }
     };
 
@@ -265,7 +298,7 @@ const MyCart = ({ navigation, route }) => {
                 updateCartTotal();
             }
         } catch (error) {
-            console.error('Error updating quantity:', error);
+            console.error("Error updating quantity:", error);
         }
     };
 
@@ -277,14 +310,17 @@ const MyCart = ({ navigation, route }) => {
             if (cartSnap.exists()) {
                 const cartData = cartSnap.data();
                 const updatedCartData = { ...cartData, amount: newAmount }; // Update the amount field in the cartData
+
                 await setDoc(cartRef, updatedCartData);
+
                 // Update the cartData state with the updated cart amount
                 setCartData([updatedCartData]);
+
                 setSubAmount(newAmount);
                 readCart(); // Refresh the cart data after updating the amount
             }
         } catch (error) {
-            console.error('Error updating amount:', error);
+            console.error("Error updating amount:", error);
         }
     };
 
@@ -297,96 +333,305 @@ const MyCart = ({ navigation, route }) => {
         updateAmountInDB(userId, totalAmount); // Call updateAmountInDB to update the cart amount
     };
 
-    return (
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: 10 }}>
-            <ScrollView>
-                {
-                    cartData.map((item, i) =>
-                        <View key={i} style={[styles.txt, { marginBottom: 5, backgroundColor: '#f5f5f5', width: 370, marginLeft: 10, marginRight: 20 }]}>
-                            {
-                                item.cartItem.map((x, index) => {
-                                    const path = images.find((img) => img.name === x.imgDetails);
-                                    const icon = path ? path.path : null;
-                                    console.log(icon);
-                                    return (
-                                        <View key={index} style={{backgroundColor: 'pink'}}>
-                                            <Image style={{ width: 100, height: 100, borderRadius: 20, borderWidth: 1 }} source={icon} />
-                                            {/* <View> */}
-                                                <View style={{ flexDirection: 'row' }}>
-                                                    <Text style={styles.quantityTitle}>Package {x.packageId}</Text>
-                                                    <View style={styles.quantityContainer}>
-                                                        <TouchableOpacity style={styles.quantityButton} onPress={() => handleQuantityDecrease(userId, i)}>
-                                                            <Text style={styles.quantityButtonText}>-</Text>
-                                                        </TouchableOpacity>
-                                                        <Text style={styles.quantity}>{x.quantity}</Text>
-                                                        <TouchableOpacity style={styles.quantityButton} onPress={() => handleQuantityIncrease(userId, i)}>
-                                                            <Text style={styles.quantityButtonText}>+</Text>
-                                                        </TouchableOpacity>
-                                                    </View>
-                                                </View>
-                                               
-                                                <Text style={{ color: 'black', margin: 10, fontSize: 15 }}> {x.price} QR </Text>
-                                                <TouchableOpacity onPress={() => deleteRes(userId, i)} style={{ backgroundColor: 'red' }}>
-                                                    <Text style={{ color: 'black', margin: 10, fontSize: 30 }} >  X </Text>
-                                                </TouchableOpacity>
-                                            {/* </View> */}
-                                        </View>
-                                    )
-                                })
-                            }
-                        </View>
-                    )
-                }
+    const [discountTotal, setDiscountTotal] = useState([]);
+    const [discountValue, setDiscountValue] = useState();
 
+    const discountamount = () => {
+        let itemName = route.params.compName;
+        let itemTotal = route.params.total;
+        if (itemName == "Charger" && itemTotal >= 3000) {
+            console.log("yesss charger");
+            const discount = itemTotal * 0.20;
+            const discountedTotal = itemTotal - discount;
+            setDiscountTotal(discountedTotal)
+            setDiscountValue("20")
+            console.log(discountedTotal);
+        } else if (itemName == "Paws" && itemTotal >= 2300) {
+            const discount = itemTotal * 0.15;
+            const discountedTotal = itemTotal - discount;
+            setDiscountTotal(discountedTotal)
+            console.log(discountedTotal);
+            setDiscountValue("15")
+            console.log("noooo1 paws");
+        } else if (itemName == "Exit 55" && itemTotal >= 2000) {
+            const discount = itemTotal * 0.10;
+            const discountedTotal = itemTotal - discount;
+            setDiscountTotal(discountedTotal)
+            console.log(discountedTotal);
+            setDiscountValue("10")
+            console.log("noooo2 exit55");
+        } else if (itemName == "SALT" && itemTotal >= 2500) {
+            const discount = itemTotal * 0.05;
+            const discountedTotal = itemTotal - discount;
+            setDiscountTotal(discountedTotal)
+            console.log(discountedTotal);
+            setDiscountValue("5")
+            console.log("noooo3 salt");
+        } else {
+            return null;
+        }
+    };
+
+    return (
+        <SafeAreaView
+            style={{
+                flex: 1,
+                justifyContent: "center",
+                backgroundColor: "white",
+                alignItems: "center",
+            }}
+        >
+            <ScrollView>
+                <Text
+                    style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                        textAlign: "left",
+                        marginBottom: 20,
+                    }}
+                >
+                    My Cart
+                </Text>
+                {cartData.map((item, i) => (
+                    <View
+                        key={i}
+                        style={[
+                            styles.txt,
+                            {
+                                marginBottom: 5,
+                                backgroundColor: "#f5f5f5",
+                                width: 350,
+                                marginLeft: 10,
+                                marginRight: 20,
+                            },
+                        ]}
+                    >
+                        {item.cartItem.map((x, i) => {
+                            const path = images.find((img) => img.name === x.imgDetails);
+                            const icon = path ? path.path : null;
+                            // const detailsPackage = x.details.split(',')
+                            return (
+                                <View key={i}>
+                                    <Image
+                                        style={{ width: 100, height: 100, borderRadius: 20 }}
+                                        source={icon}
+                                    />
+                                    <View>
+                                        <View style={{ flexDirection: "row" }}>
+                                            <Text style={styles.quantityTitle}>
+                                                Package {x.packageId}
+                                            </Text>
+                                            <View style={styles.quantityContainer}>
+                                                <TouchableOpacity
+                                                    style={styles.quantityButton}
+                                                    onPress={() => handleQuantityDecrease(userId, i)}
+                                                >
+                                                    <Text style={styles.quantityButtonText}>-</Text>
+                                                </TouchableOpacity>
+
+                                                <Text style={styles.quantity}>{x.quantity}</Text>
+
+                                                <TouchableOpacity
+                                                    style={styles.quantityButton}
+                                                    onPress={() => handleQuantityIncrease(userId, i)}
+                                                >
+                                                    <Text style={styles.quantityButtonText}>+</Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                        </View>
+                                        {/* 
+                                              <View style={{ marginLeft: 10 }}>
+                                                  {detailsPackage.map((x, i) => {
+                                                      return (<Text style={{ color: 'black', margin: 2, fontSize: 12 }}>{x}</Text>)
+                                                  })}
+                                              </View> */}
+
+                                        <Text style={{ color: "black", margin: 10, fontSize: 15 }}>
+                                            {" "}
+                                            {x.price} QR{" "}
+                                        </Text>
+
+                                        <TouchableOpacity
+                                            onPress={() => deleteRes(userId, i)}
+                                            style={{ backgroundColor: "red" }}
+                                        >
+                                            <Text
+                                                style={{ color: "black", margin: 10, fontSize: 30 }}
+                                            >
+                                                {" "}
+                                                X{" "}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            );
+                        })}
+                    </View>
+                ))}
 
                 <View style={{ margin: 15, width: 400 }}>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 5, marginLeft: 5 }}>Summary Payment</Text>
-                    <View style={[{ flexDirection: 'row', justifyContent: 'space-between', marginLeft: 15 }]}>
-                        <View style={[{ width: 320, margin: 3, flexDirection: 'row', justifyContent: 'space-between' }]}>
+                    <Text
+                        style={{
+                            fontSize: 18,
+                            fontWeight: "bold",
+                            marginBottom: 5,
+                            marginLeft: 5,
+                        }}
+                    >
+                        Summary Payment
+                    </Text>
+                    <View
+                        style={[
+                            {
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                marginLeft: 15,
+                            },
+                        ]}
+                    >
+                        <View
+                            style={[
+                                {
+                                    width: 320,
+                                    margin: 3,
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                },
+                            ]}
+                        >
                             <Text style={{ fontSize: 15 }}>Sub-Total</Text>
                             <Text style={{ fontSize: 15 }}>{subAmount}QR</Text>
                         </View>
                     </View>
-                    <View style={[{ marginBottom: 3, flexDirection: 'row', justifyContent: 'space-between' }]}>
-                        <View style={[{ width: 320, flexDirection: 'row', justifyContent: 'space-between', marginLeft: 15 }]}>
+                    <View
+                        style={[
+                            {
+                                marginBottom: 3,
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                            },
+                        ]}
+                    >
+                        <View
+                            style={[
+                                {
+                                    width: 320,
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    marginLeft: 15,
+                                },
+                            ]}
+                        >
                             <Text style={{ margin: 5, fontSize: 15 }}>Discount</Text>
-                            <Text style={{ margin: 5, fontSize: 15 }}>0%</Text>
+                            <Text style={{ margin: 5, fontSize: 15 }}>{discountValue}%</Text>
                         </View>
                     </View>
-                    <View style={[{ marginBottom: 3, flexDirection: 'row', justifyContent: 'space-between', borderTopWidth: 1, borderColor: '#d3d3d3', width: 350, marginLeft: 10 }]}>
-                        <View style={[{ width: 320, flexDirection: 'row', justifyContent: 'space-between', marginLeft: 15 }]}>
+                    <View
+                        style={[
+                            {
+                                marginBottom: 3,
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                borderTopWidth: 1,
+                                borderColor: "#d3d3d3",
+                                width: 350,
+                                marginLeft: 10,
+                            },
+                        ]}
+                    >
+                        <View
+                            style={[
+                                {
+                                    width: 320,
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    marginLeft: 15,
+                                },
+                            ]}
+                        >
                             <Text style={{ margin: 5, fontSize: 15 }}>Total Amount</Text>
-                            <Text style={{ margin: 5, fontSize: 15 }}>{subAmount}QR</Text>
+                            <Text style={{ margin: 5, fontSize: 15 }}>{discountTotal}QR</Text>
                         </View>
                     </View>
                 </View>
 
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                    <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                    <View
+                        style={{
+                            marginTop: 30,
+                            alignSelf: "center",
+                            alignItems: "center",
+                            backgroundColor: "#998184",
+                            width: 150,
+                            height: 50,
+                            borderRadius: 8,
+                            padding: 8,
+                        }}
+                    >
                         <Pressable onPress={() => navigation.navigate("Packages")}>
-                            <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add More </Text>
+                            <Text style={{ color: "white", marginTop: 5, fontSize: 20 }}>
+                                {" "}
+                                Add More{" "}
+                            </Text>
                         </Pressable>
                     </View>
-
-                    <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Pressable onPress={() => navigation.navigate({
-                                                name: 'Checkout', params: {
-                                                    total: subAmount, 
-                                                }
-                                            })}>
-                                <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Checkout </Text>
+                    <View
+                        style={{
+                            marginTop: 30,
+                            alignSelf: "center",
+                            alignItems: "center",
+                            backgroundColor: "#998184",
+                            width: 150,
+                            height: 50,
+                            borderRadius: 8,
+                            padding: 8,
+                        }}
+                    >
+                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <Pressable
+                                onPress={() => navigation.navigate({
+                                    name: 'Checkout', params: {
+                                        discountValue: discountValue,
+                                        discountTotal: discountTotal,
+                                        subAmount: subAmount
+                                    }
+                                })}
+                                style={styles.button}>
+                                <Text style={{ color: "white", marginTop: 5, fontSize: 20 }}>
+                                    {" "}
+                                    Checkout{" "}
+                                </Text>
                             </Pressable>
                         </View>
                     </View>
-
+                    <View
+                        style={{
+                            marginTop: 30,
+                            alignSelf: "center",
+                            alignItems: "center",
+                            backgroundColor: "#998184",
+                            width: 150,
+                            height: 50,
+                            borderRadius: 8,
+                            padding: 8,
+                        }}
+                    >
+                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <Pressable onPress={discountamount}>
+                                <Text style={{ color: "white", marginTop: 5, fontSize: 20 }}>
+                                    {" "}
+                                    discount{" "}
+                                </Text>
+                            </Pressable>
+                        </View>
+                    </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
     );
-}
+};
 
-export default MyCart
+export default MyCart;
 
 const styles = StyleSheet.create({
     imgProfile: {
@@ -395,8 +640,8 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: 'pink',
-        marginBottom: 30
+        backgroundColor: "pink",
+        marginBottom: 30,
     },
     txt: {
         width: 350,
@@ -405,36 +650,35 @@ const styles = StyleSheet.create({
         margin: 6,
     },
     quantityContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        flexDirection: "row",
+        alignItems: "center",
         borderRadius: 30,
         width: 90,
-        backgroundColor: 'white',
+        backgroundColor: "white",
     },
     quantityButton: {
         width: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
     },
     quantityButtonText: {
         fontSize: 20,
-        fontWeight: 'bold',
-        color: '#888',
+        fontWeight: "bold",
+        color: "#888",
     },
     quantity: {
         fontSize: 15,
-        fontWeight: 'bold',
+        fontWeight: "bold",
     },
     quantityTitle: {
         fontSize: 15,
-        fontWeight: 'bold',
-        textAlign: 'left',
+        fontWeight: "bold",
+        textAlign: "left",
         marginBottom: 5,
         padding: 2,
         borderRadius: 20,
         width: 150,
         paddingLeft: 10,
-        marginTop: 3
-    }
-})
-
+        marginTop: 3,
+    },
+});

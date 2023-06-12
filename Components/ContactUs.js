@@ -12,7 +12,8 @@ const ContactUs =({ navigation }) => {
   const [message,setMessage]= useState()
   //const [Confirmpassword, ConfirmsetPassword] = useState()
  // const [signedIn, setSignedIn] = useState(false)
-
+ let user = auth?.currentUser?.email;
+  console.log(user);
 
   const add = async () => {
     const docRef = await addDoc(collection(db, "contactUS"), {

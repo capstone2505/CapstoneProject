@@ -58,13 +58,16 @@ export default function Products({ navigation }) {
       setData(filteredData);
     }
   };
-  // console.log(id);
 
+ 
 
   // console.log('All Products');
   //   console.log(data.map( (item, index) => {console.log(item[3]);}));
   return (
     <SafeAreaView style={styles.container}>
+      <View>
+
+</View>
         <View style={styles.topImageContainer}>
             <Image source={require('../assets/Images/productheader.png')} style={styles.topImage} />
         </View>
