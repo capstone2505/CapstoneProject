@@ -62,6 +62,7 @@ const PackageDetails = ({ route }) => {
   const navigation = useNavigation();
 
   const handleAddToCart = () => {
+    console.log("ffffffff");
     navigation.navigate('MyCart', {
       id: route.params.id,
       details: detailsPackage,
@@ -75,10 +76,10 @@ const PackageDetails = ({ route }) => {
     });
   };
 
-  const handleLogin = () => {
-    console.log('ddddddddddd');
-    navigation.navigate('Login');
-  };
+  // const handleLogin = () => {
+  //   console.log('ddddddddddd');
+  //   navigation.navigate('Login');
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -198,7 +199,7 @@ const PackageDetails = ({ route }) => {
           </View> */}
         <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Pressable onPress={isLoggedIn ?  handleLogin : handleAddToCart} >
+            <Pressable onPress={handleAddToCart} >
               <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}>Add to Cart</Text>
             </Pressable>
           </View>

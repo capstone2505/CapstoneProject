@@ -183,8 +183,8 @@ const Home = () => {
           </View>
 
           <View style={{ flexDirection: 'row' }}>
-            <View>
-             {more.map((p, index) => {
+            {/* <View> */}
+            {/* {more.map((p, index) => {
                 const path = images.find((img) => img.name === p.image);
                 // console.log(path);
                 const icon = path ? path.path : null;
@@ -223,12 +223,14 @@ const Home = () => {
                     })}
                   </View>
                 );
-              })}
+              })} */}
+            <Image style={{
+              width: 150, height: 200, borderRadius: 30, marginTop: 20
+            }} source={require("../assets/Images/paws.jpg")} />
 
 
-            </View>
+            {/* </View> */}
 
-            {/* <Image style={{}} source={require("../assets/Images/paws.jpg")} /> */}
             <View style={{ width: 230, height: 200, backgroundColor: 'lavenderblush', borderRadius: 10, margin: 20 }}>
               <View style={{ alignSelf: 'center', margin: 55 }}>
                 <Text style={{ color: 'rosybrown', fontWeight: 'bold', fontSize: 20 }}> CATERING FOR YOU</Text>

@@ -6,49 +6,89 @@ import { addDoc, getDoc, getDocs, ref, where, collection, doc, query, setDoc } f
 
 export default function PaymentDetails({ navigation }) {
 
-  const [cardNum, setCardNum] = useState('')
-  const [CardExpDate, setCardExpDate] = useState()
-  const [CardExpYear, setCardExpYear] = useState()
-  const [CardverfVal, setCardverfVal] = useState()
+  const [CardExpDate, setCardExpDate] = useState('')
+  const [CardExpYear, setCardExpYear] = useState('')
+  const [CardverfVal, setCardverfVal] = useState('')
   const [saveCardDetails, setSaveCardDetails] = useState(false);
+
+  const [cardNum, setCardNum] = useState('')
+  const [cardNumError, setCardNumError] = useState("")
+
+  const [payData, setPayData] = useState([]);
+
+  let userId = auth?.currentUser?.email;
+  console.log(userId);
+
+  const checkCardData = async () => {
+    console.log("dddddddddddddddddd");
+    const userInput = {
+      cardNumI: cardNum,
+      CardExpDateI: CardExpDate,
+      CardExpYearI: CardExpYear,
+    }
+
+    const docRef = doc(db, 'paymentDetails', userId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      setPayData(data);
+    }
+
+    cardNumError('')
+
+    let isValid = false;
+
+    querySnapshot.forEach((doc) => {
+      const cardData = doc.data();
+
+      // Perform validation checks
+      if (
+        userInput.cardNumberI === cardData.cardNo || userInput.cardNumberI === ''
+        // userInput.expirationDate === cardData.expirationDate &&
+        // userInput.cvv === cardData.cvv
+      ) {
+        // Card details match
+        isValid = true;
+      }
+    })
+if(!isValid) {
+  setCardNumError('Invalid card number')
+}else{
+  console.log("Ërrroorro");
+}
+    // console.log("fdfd");
+    // if (cardNum === '') {
+    //   console.log("dddddd");
+    //   setCardNumError('Enter your card number');
+    //   setCardNumFocused(true);
+    // } else if (payData.cardNo !== cardNum) {
+    //   setCardNumError('Invalid card number');
+    //   setCardNumFocused(true);
+    // }
+  }
 
   const handleSaveCardDetailsToggle = () => {
     setSaveCardDetails(!saveCardDetails);
   };
 
-  const [cardNumError, setCardNumError] = useState("")
   const [cardNumFocused, setCardNumFocused] = useState(false);
 
-  let userId = auth?.currentUser?.email;
-  console.log(userId);
 
-  useEffect(() => {
-    read();
-  }, [userId])
+  // useEffect(() => {
+  //   read();
+  // }, [userId])
 
-  const [payData, setPayData] = useState([]);
 
-  const read = async () => {
-    const docRef = doc(db, 'paymentDetails', userId);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const data = docSnap.data().cardNo;
-      setPayData(data);
-    }
-  };
-  console.log(payData);
+  // const read = async () => {
+  //   const docRef = doc(db, 'paymentDetails', userId);
+  //   const docSnap = await getDoc(docRef);
+  //   if (docSnap.exists()) {
+  //     const data = docSnap.data().cardNo;
+  //     setPayData(data);
+  //   }
+  // };
+  // console.log(payData);
 
-  const checkCardData = () => {
-    console.log("fdfd");
-    if (cardNum === '') {
-      console.log("dddddd");
-      setCardNumError('Enter your card number');
-      setCardNumFocused(true);
-    } else if (payData.cardNo !== cardNum) {
-      setCardNumError('Invalid card number');
-      setCardNumFocused(true);
-    }
-  }
 
   const click = () => {
     checkCardData()
@@ -73,12 +113,13 @@ export default function PaymentDetails({ navigation }) {
         <View style={styles.cardDetails}>
           <Text style={styles.label}>Card Number</Text>
           <TextInput
-            style={[styles.textInput, { borderBottomColor: (cardNum === '' && cardNumFocused === true) || cardNumFocused ? 'red' : 'grey' }]}
+            // style={[styles.textInput, { borderBottomColor: (cardNum === '' && cardNumFocused === true) || cardNumFocused ? 'red' : 'grey' }]}
             // style={styles.input} 
             placeholder="Card Number"
             onChangeText={text => setCardNum(text)}
           />
-          {(cardNum === '' && cardNumFocused === true) || cardNumFocused ? <Text style={styles.error}>{cardNumError}</Text> : null}
+          {cardNumError ? <Text style={{ color: 'red' }}>{cardNumError}</Text> : null}
+          {/* {(cardNum === '' && cardNumFocused === true) || cardNumFocused ? <Text style={styles.error}>{cardNumError}</Text> : null} */}
 
           {/* onChangeText={text => setCardNum(text)}  */}
           <Text style={styles.label}>Card expiry date</Text>
