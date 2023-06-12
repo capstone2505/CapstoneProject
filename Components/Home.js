@@ -4,6 +4,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { Card } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 
+import { db } from "./Config";
+import { getDocs, collection } from "firebase/firestore";
+
 const Home = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -13,8 +16,6 @@ const Home = () => {
   const handleChatIconPress = () => {
     setModalVisible(true);
   };
-
-  
 
   const handleSendButtonPress = () => {
     if (inputText) {
@@ -75,6 +76,41 @@ const Home = () => {
     navigation.navigate('Products');
   };
 
+  const images = [
+    { name: "rosemary.png", path: require("../assets/Images/rosemary.png") },
+    { name: "charger.jpg", path: require("../assets/Images/charger.jpg") },
+    { name: "cheatB.jpeg", path: require("../assets/Images/cheatB.jpeg") },
+    { name: "paws.jpg", path: require("../assets/Images/paws.jpg") },
+
+  ];
+
+  const more = [
+    { id: 1, name: "Rosemary", image: "rosemary.png" },
+    { id: 2, name: "Charger", image: "charger.jpg" },
+    { id: 3, name: "Cheat Burger", image: "cheatB.jpeg" },
+    { id: 4, name: "Pows", image: "paws.jpg" },
+  ];
+
+  const [data, setData] = useState([]);
+  const [id, setId] = useState();
+
+  const readAll = async () => {
+    const docs = await getDocs(collection(db, "products"));
+    let temp = [];
+    docs.forEach(async (doc) => {
+      let product = doc.data();
+      setId(doc.id);
+      temp.push(product);
+      setData(temp);
+    });
+    console.log("data");
+    console.log(data);
+  };
+
+  useEffect(() => {
+    readAll();
+  }, []);
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -91,12 +127,52 @@ const Home = () => {
           </View>
           <Card.Image style={{ padding: 0, width: 435, height: 150, alignSelf: 'center' }} source={path} />
           <View>
-          <TouchableOpacity onPress={handleOffersButtonPress}><Image style={{ width: 425, height: 150, alignSelf: 'center' }} source={require("../assets/Images2/start_order.jpg")} /></TouchableOpacity>
+            <TouchableOpacity onPress={handleOffersButtonPress}><Image style={{ width: 425, height: 150, alignSelf: 'center' }} source={require("../assets/Images2/start_order.jpg")} /></TouchableOpacity>
           </View>
-          <View style={{ flexDirection: 'row' }}>
-            <Image style={{ width: 105, height: 100, alignSelf: 'center', margin: 15, borderRadius: 20 }} source={require("../assets/Images/rosemary.png")} />
-            <Image style={{ width: 105, height: 100, alignSelf: 'center', margin: 15, borderRadius: 20 }} source={require("../assets/Images2/charger.jpg")} />
-            <Image style={{ width: 105, height: 100, alignSelf: 'center', margin: 15, borderRadius: 20 }} source={require("../assets/Images2/cheatB.jpeg")} />
+          <View style={{ flexDirection: "row" }}>
+            {more.map((p, index) => {
+              const path = images.find((img) => img.name === p.image);
+              const icon = path ? path.path : null;
+              const product = data.filter((item) => item.name === p.name);
+              const m = product ? product : null;
+              console.log(product);
+              return (
+                <View>
+                  {product.map((x, i) => {
+                    return (
+                      <View key={i}>
+                        <Pressable
+                          onPress={() =>
+                            navigation.navigate({
+                              name: "Packages",
+                              params: {
+                                packageList: x.packages,
+                                name: x.name,
+                                image: x.image,
+                                pId: id,
+                                imgDetails: x.imgDetails,
+                                extraPack: x.extraPack,
+                              },
+                            })
+                          }
+                        >
+                          <Image
+                            style={{
+                              width: 105,
+                              height: 100,
+                              alignSelf: "center",
+                              margin: 15,
+                              borderRadius: 20,
+                            }}
+                            source={icon}
+                          />
+                        </Pressable>
+                      </View>
+                    );
+                  })}
+                </View>
+              );
+            })}
           </View>
           <View style={{ backgroundColor: 'lavenderblush', borderRadius: 20, width: 350, height: 30, alignSelf: 'center' }}>
             <TouchableOpacity onPress={handleOffersButtonPress}>
@@ -105,8 +181,54 @@ const Home = () => {
               </Text>
             </TouchableOpacity>
           </View>
+
           <View style={{ flexDirection: 'row' }}>
-            <Image style={{ width: 150, height: 200, borderRadius: 30, marginTop: 20 }} source={require("../assets/Images2/paws.jpg")} />
+            <View>
+             {more.map((p, index) => {
+                const path = images.find((img) => img.name === p.image);
+                console.log(path);
+                const icon = path ? path.path : null;
+                const product = data.filter((item) => item.name === "Pows");
+                const m = product ? product : null;
+                console.log(product);
+                return (
+                  <View key={index}>
+                    {product.map((x, i) => {
+                      return (
+                        <View >
+                          <Pressable
+                            onPress={() =>
+                              navigation.navigate({
+                                name: "Packages",
+                                params: {
+                                  packageList: x.packages,
+                                  name: x.name,
+                                  image: x.image,
+                                  pId: id,
+                                  imgDetails: x.imgDetails,
+                                  extraPack: x.extraPack,
+                                },
+                              })
+                            }
+                          >
+                            <Image
+                              style={{
+                                width: 150, height: 200, borderRadius: 30, marginTop: 20
+                              }}
+                              source={icon}
+                            />
+                          </Pressable>
+                        </View>
+                      );
+                    })}
+                  </View>
+                );
+              })}
+
+
+            </View>
+
+            {/* <Image style={{}} source={require("../assets/Images/paws.jpg")} /> */}
             <View style={{ width: 230, height: 200, backgroundColor: 'lavenderblush', borderRadius: 10, margin: 20 }}>
               <View style={{ alignSelf: 'center', margin: 55 }}>
                 <Text style={{ color: 'rosybrown', fontWeight: 'bold', fontSize: 20 }}> CATERING FOR YOU</Text>
@@ -259,6 +381,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     padding: 8,
     elevation: 3,
-    
+
   },
 });
