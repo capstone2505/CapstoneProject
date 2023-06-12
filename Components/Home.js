@@ -103,8 +103,8 @@ const Home = () => {
       temp.push(product);
       setData(temp);
     });
-    console.log("data");
-    console.log(data);
+    // console.log("data");
+    // console.log(data);
   };
 
   useEffect(() => {
