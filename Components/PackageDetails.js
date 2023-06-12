@@ -224,8 +224,9 @@ const PackageDetails = ({ route }) => {
           </View>
         </View>
   
-        </View>
+        {/* </View> */}
       </ScrollView >
+      
     </SafeAreaView>
   )
 }
