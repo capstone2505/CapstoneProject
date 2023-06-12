@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabNavigation from './Navigation/TabNavigation';
 import Home from './Components/Home'
@@ -12,7 +12,7 @@ import ContactUs from './Components/ContactUs';
 import AboutUs from './Components/AboutUs'
 import EditProfile from './Components/EditProfile'
 import Profile from './Components/profile'
-import Offers from './Components/offers'
+import offers from './Components/offers'
 import Packages from './Components/Packages'
 import PackageDetails from './Components/PackageDetails'
 import MyCart from './Components/MyCart'
@@ -35,24 +35,24 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='Home' component={TabNavigation} />
-      <Stack.Screen name='Home2' component={TabNavigation2} />
+        <Stack.Screen name='Home' component={TabNavigation} />
+        <Stack.Screen name='Home2' component={TabNavigation2} />
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='SignUp' component={SignUp} />
-          <Stack.Screen name='Products' component={Products} />
-          <Stack.Screen name='ContactUs' component={ContactUs} />
-          <Stack.Screen name='AboutUs' component={AboutUs} />
-          <Stack.Screen name='EditProfile' component={EditProfile} options={{ headerShown: true }}/>
-          <Stack.Screen name='Offers' component={Offers} />
-          <Stack.Screen name='Packages' component={Packages} />
-          <Stack.Screen name='PackageDetails' component={PackageDetails} />
-          <Stack.Screen name='MyCart' component={MyCart} />
-          <Stack.Screen name='ConfirmOrder' component={ConfirmOrder} />
-          <Stack.Screen name='PaymentDetails' component={PaymentDetails} />
-          <Stack.Screen name='OrderedPlaced' component={OrderedPlaced} />
-          <Stack.Screen name='TrackOrder' component={TrackOrder} />
-          <Stack.Screen name='Profile' component={Profile} />
-          <Stack.Screen name='Checkout' component={Checkout} />         
+        <Stack.Screen name='Products' component={Products} />
+        <Stack.Screen name='ContactUs' component={ContactUs} />
+        <Stack.Screen name='AboutUs' component={AboutUs} />
+        <Stack.Screen name='EditProfile' component={EditProfile} options={{ headerShown: true }} />
+        <Stack.Screen name='Offers' component={offers} options={{ headerShown: true }} />
+        <Stack.Screen name='Packages' component={Packages} options={{ headerShown: true }} />
+        <Stack.Screen name='PackageDetails' component={PackageDetails} options={{ headerShown: true }} />
+        <Stack.Screen name='MyCart' component={MyCart} options={{ headerShown: true }} />
+        <Stack.Screen name='ConfirmOrder' component={ConfirmOrder} options={{ headerShown: true }} />
+        <Stack.Screen name='PaymentDetails' component={PaymentDetails} options={{ headerShown: true }} />
+        <Stack.Screen name='OrderedPlaced' component={OrderedPlaced} />
+        <Stack.Screen name='TrackOrder' component={TrackOrder} />
+        <Stack.Screen name='Profile' component={Profile} />
+        <Stack.Screen name='Checkout' component={Checkout} options={{ headerShown: true }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

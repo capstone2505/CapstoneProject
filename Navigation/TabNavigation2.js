@@ -23,7 +23,7 @@ export default function TabNavigation2() {
     return (
       <Tab.Navigator>
         {/* Home page  */}
-        <Tab.Screen name="Home" component={Home2} options={{
+        <Tab.Screen name="Home2" component={Home2} options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />

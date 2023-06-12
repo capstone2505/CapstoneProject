@@ -1,12 +1,99 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Switch } from 'react-native';
+import { auth, db } from './Config';
+import { addDoc, getDoc, getDocs, ref, where, collection, doc, query, setDoc } from "firebase/firestore";
 
-export default function PaymentDetails() {
+
+export default function PaymentDetails({ navigation }) {
+
+  const [CardExpDate, setCardExpDate] = useState('')
+  const [CardExpYear, setCardExpYear] = useState('')
+  const [CardverfVal, setCardverfVal] = useState('')
   const [saveCardDetails, setSaveCardDetails] = useState(false);
+
+  const [cardNum, setCardNum] = useState('')
+  const [cardNumError, setCardNumError] = useState("")
+
+  const [payData, setPayData] = useState([]);
+
+  let userId = auth?.currentUser?.email;
+  console.log(userId);
+
+  const checkCardData = async () => {
+    console.log("dddddddddddddddddd");
+    const userInput = {
+      cardNumI: cardNum,
+      CardExpDateI: CardExpDate,
+      CardExpYearI: CardExpYear,
+    }
+
+    const docRef = doc(db, 'paymentDetails', userId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      setPayData(data);
+    }
+
+    cardNumError('')
+
+    let isValid = false;
+
+    querySnapshot.forEach((doc) => {
+      const cardData = doc.data();
+
+      // Perform validation checks
+      if (
+        userInput.cardNumberI === cardData.cardNo || userInput.cardNumberI === ''
+        // userInput.expirationDate === cardData.expirationDate &&
+        // userInput.cvv === cardData.cvv
+      ) {
+        // Card details match
+        isValid = true;
+      }
+    })
+if(!isValid) {
+  setCardNumError('Invalid card number')
+}else{
+  console.log("Ërrroorro");
+}
+    // console.log("fdfd");
+    // if (cardNum === '') {
+    //   console.log("dddddd");
+    //   setCardNumError('Enter your card number');
+    //   setCardNumFocused(true);
+    // } else if (payData.cardNo !== cardNum) {
+    //   setCardNumError('Invalid card number');
+    //   setCardNumFocused(true);
+    // }
+  }
 
   const handleSaveCardDetailsToggle = () => {
     setSaveCardDetails(!saveCardDetails);
   };
+
+  const [cardNumFocused, setCardNumFocused] = useState(false);
+
+
+  // useEffect(() => {
+  //   read();
+  // }, [userId])
+
+
+  // const read = async () => {
+  //   const docRef = doc(db, 'paymentDetails', userId);
+  //   const docSnap = await getDoc(docRef);
+  //   if (docSnap.exists()) {
+  //     const data = docSnap.data().cardNo;
+  //     setPayData(data);
+  //   }
+  // };
+  // console.log(payData);
+
+
+  const click = () => {
+    checkCardData()
+    // navigation.navigate("OrderedPlaced")
+  }
 
   return (
     <View style={styles.container}>
@@ -21,10 +108,20 @@ export default function PaymentDetails() {
           <View style={styles.divider} />
           <Text style={styles.subtitle}>Total Amount: 5000 QR</Text>
         </View>
+
         <Text style={styles.boldTextLarge}>Card Details</Text>
         <View style={styles.cardDetails}>
           <Text style={styles.label}>Card Number</Text>
-          <TextInput style={styles.input} placeholder="Card Number" />
+          <TextInput
+            // style={[styles.textInput, { borderBottomColor: (cardNum === '' && cardNumFocused === true) || cardNumFocused ? 'red' : 'grey' }]}
+            // style={styles.input} 
+            placeholder="Card Number"
+            onChangeText={text => setCardNum(text)}
+          />
+          {cardNumError ? <Text style={{ color: 'red' }}>{cardNumError}</Text> : null}
+          {/* {(cardNum === '' && cardNumFocused === true) || cardNumFocused ? <Text style={styles.error}>{cardNumError}</Text> : null} */}
+
+          {/* onChangeText={text => setCardNum(text)}  */}
           <Text style={styles.label}>Card expiry date</Text>
           <View style={styles.expiryContainer}>
             <TextInput style={[styles.input, styles.expiryInput]} placeholder="MM" />
@@ -41,13 +138,15 @@ export default function PaymentDetails() {
               value={saveCardDetails}
             />
             <Text style={styles.checkboxText}>For faster and more secure checkout save your card details</Text>
+            {/* onPress={add} */}
           </View>
         </View>
         <View style={styles.space} />
         <View style={styles.imageContainer}>
           <Image source={require('../assets/Images/payment.png')} style={styles.image} resizeMode="contain" />
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("OrderedPlaced")}>
+        <TouchableOpacity style={styles.button} onPress={click}>
+
           <Text style={styles.buttonText}>Pay now</Text>
         </TouchableOpacity>
         <View style={styles.space} />
@@ -143,4 +242,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  error: {
+    color: 'red',
+  },
+
 });
