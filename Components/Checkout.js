@@ -62,8 +62,7 @@ const Checkout = ({ navigation, route }) => {
   const [country, setCountry] = useState('1');
 
   ///////////// Date picker /////////////
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  
 
   useEffect(() => {
     // Do something with the selected date
@@ -109,12 +108,19 @@ const Checkout = ({ navigation, route }) => {
   const [streetNumber, setStreetNumber] = useState()
   const [streetName, setStreetName] = useState()
   const [buildingNumber, setBuildingNumber] = useState()
+  //const [Date, setdate] = useState(null)
+  //const [Time,setTime]=useState(null)
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const addAddress = async () => {
     const docRef = await addDoc(collection(db, "checkout"),{
       streetNumber:streetNumber,
       streetName:streetName,
       buildingNumber:buildingNumber,
+      email:email,
+      contact:contact
+
     });
    console.log("Document id from checkout " , docRef.id)
    console.log("hello from mnoosh checkout ", streetNumber,streetName,buildingNumber)
@@ -166,7 +172,7 @@ const Checkout = ({ navigation, route }) => {
         </View>
       </View>
 {/* the end of the address  */}
-      <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold', alignSelf: 'left' }}>Contact Info</Text>
+      <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold'}}>Contact Info</Text>
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
         <View style={[styles.txt, { flexDirection: 'row', marginBottom: 0 }]}>
           <Fontisto name='email' color={'#998184'} size={20} />
@@ -194,15 +200,18 @@ const Checkout = ({ navigation, route }) => {
             <Text style={styles.buttonText}>Select Date</Text>
           </Pressable>
           <DateTimePickerModal
-            isVisible={isDatePickerVisible}
+          //onPress={setSelectedDate}
+          onChangeText={txt => setSelectedDate(txt)}  
+          isVisible={isDatePickerVisible}
             mode="date"
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
             display={Platform.OS === 'ios' ? 'inline' : 'default'}
           />
           {selectedDate && (
-            <Text style={[styles.button, styles.txt, { color: '#998184', width: 240 }]}>Selected Date: {selectedDate.toLocaleDateString()}</Text>
+            <Text style={[styles.button, styles.txt, { color: '#998184', width: 240 }]}>Selected Date: {selectedDate.toLocaleDateString()} </Text>
           )}
+          
         </View>
 
         <View style={{ flexDirection: 'row' }}>
