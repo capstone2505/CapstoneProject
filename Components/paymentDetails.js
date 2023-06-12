@@ -21,11 +21,11 @@ export default function PaymentDetails({ navigation }) {
 
   const checkCardData = async () => {
     console.log("dddddddddddddddddd");
-    const userInput = {
-      cardNumI: cardNum,
-      CardExpDateI: CardExpDate,
-      CardExpYearI: CardExpYear,
-    }
+    // const userInput = {
+    //   cardNumI: cardNum,
+    //   CardExpDateI: CardExpDate,
+    //   CardExpYearI: CardExpYear,
+    // }
 
     const docRef = doc(db, 'paymentDetails', userId);
     const docSnap = await getDoc(docRef);
@@ -41,21 +41,21 @@ export default function PaymentDetails({ navigation }) {
     querySnapshot.forEach((doc) => {
       const cardData = doc.data();
 
-      // Perform validation checks
-      if (
-        userInput.cardNumberI === cardData.cardNo || userInput.cardNumberI === ''
-        // userInput.expirationDate === cardData.expirationDate &&
-        // userInput.cvv === cardData.cvv
-      ) {
-        // Card details match
-        isValid = true;
-      }
+      // // Perform validation checks
+      // if (
+      //   cardNum ===  || userInput.cardNumberI === ''
+      //   // userInput.expirationDate === cardData.expirationDate &&
+      //   // userInput.cvv === cardData.cvv
+      // ) {
+      //   // Card details match
+      //   isValid = true;
+      // }
     })
-if(!isValid) {
-  setCardNumError('Invalid card number')
-}else{
-  console.log("Ërrroorro");
-}
+    if (!isValid) {
+      setCardNumError('Invalid card number')
+    } else {
+      console.log("Ërrroorro");
+    }
     // console.log("fdfd");
     // if (cardNum === '') {
     //   console.log("dddddd");

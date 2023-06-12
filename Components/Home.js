@@ -135,7 +135,7 @@ const Home = () => {
               const icon = path ? path.path : null;
               const product = data.filter((item) => item.name === p.name);
               const m = product ? product : null;
-              console.log(product);
+              // console.log(product);
               return (
                 <View>
                   {product.map((x, i) => {

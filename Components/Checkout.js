@@ -164,7 +164,7 @@ const Checkout = ({ navigation }) => {
         </View>
       </View>
 {/* the end of the address  */}
-      <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold', alignSelf: 'left' }}>Contact Info</Text>
+      <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold'}}>Contact Info</Text>
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
         <View style={[styles.txt, { flexDirection: 'row', marginBottom: 0 }]}>
           <Fontisto name='email' color={'#998184'} size={20} />
