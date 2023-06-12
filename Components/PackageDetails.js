@@ -32,8 +32,7 @@ const PackageDetails = ({ route }) => {
   const [detailRequest, setDetailRequest] = useState('');
   const [selectedExtras, setSelectedExtras] = useState([]);
 
-  // console.log(selectedExtras);
-  // console.log(detailRequest);
+  const packageList = route.params.packageList
 
   let user = auth?.currentUser?.email;
   console.log(user);
@@ -60,29 +59,7 @@ const PackageDetails = ({ route }) => {
     }
   };
 
-  // const navigation = useNavigation();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const navigation = useNavigation();
-
-  const handleAddToCart = () => {
-    console.log("ffffffff");
-    navigation.navigate('MyCart', {
-      id: route.params.id,
-      details: detailsPackage,
-      imgDetails: route.params.imgDetails,
-      price: route.params.price,
-      extraPack: extra,
-      name: route.params.name,
-      cup: route.params.cup,
-      total: totalAmount,
-      quantity: quantity
-    });
-  };
-
-  // const handleLogin = () => {
-  //   console.log('ddddddddddd');
-  //   navigation.navigate('Login');
-  // };
 
   const add = async () => {
     console.log("blahhhhhhhhhhhh")
@@ -93,36 +70,56 @@ const PackageDetails = ({ route }) => {
     console.log("Document written with ID: ", docRef.id);
   };
 
-  const handleContinue = () => {
-    navigation.navigate("MyCart", {
-      id: route.params.id,
-      details: detailsPackage,
-      imgDetails: icon,
-      price: route.params.price,
-      extraPack: selectedExtras,
-      name: route.params.name,
-      cup: route.params.cup,
-      total: totalAmount,
-      quantity: quantity,
-      request: detailRequest,
-      compName: route.params.compName
-    });
-  };
+  // const handleContinue = () => {
+  //   navigation.navigate("MyCart", {
+  //     id: route.params.id,
+  //     details: detailsPackage,
+  //     imgDetails: icon,
+  //     price: route.params.price,
+  //     extraPack: selectedExtras,
+  //     name: route.params.name,
+  //     cup: route.params.cup,
+  //     total: totalAmount,
+  //     quantity: quantity,
+  //     request: detailRequest,
+  //     compName: route.params.compName,
+  //     packageList: packageList
+  //   });
+  // };
 
-  const handelBoth =()=>{
+  const handelBoth = () => {
     console.log("hii mnoosh from both ")
     add()
-    handleContinue()
+    press()
   }
+
+  const press = () => {
+    user === undefined ?
+      navigation.navigate("Login")
+      :
+      navigation.navigate("MyCart", {
+        id: route.params.id,
+        details: detailsPackage,
+        imgDetails: icon,
+        price: route.params.price,
+        extraPack: selectedExtras,
+        name: route.params.name,
+        cup: route.params.cup,
+        total: totalAmount,
+        quantity: quantity,
+        request: detailRequest,
+        compName: route.params.compName,
+        packageList: packageList
+      })
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-
         <Image source={icon} style={styles.image} />
-
         <View style={[styles.card, styles.shadowProp]}>
           <View style={{ flexDirection: 'row', marginBottom: 15 }}>
-            <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, width: 200 }}>
+            <View style={{ backgroundColor: '#D3B3B8', borderRadius: 20, width: 200 , margin: 10}}>
               <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', padding: 8 }}> Package {route.params.id} </Text>
             </View>
             <View style={{ width: 170, flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -205,28 +202,15 @@ const PackageDetails = ({ route }) => {
           </View>
           <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Pressable onPress={() => navigation.navigate({
-                name: 'MyCart', params: {
-                  id: route.params.id,
-                  details: detailsPackage,
-                  imgDetails: route.params.imgDetails,
-                  price: route.params.price,
-                  extraPack: extra,
-                  name: route.params.name,
-                  cup: route.params.cup,
-                  total: totalAmount, 
-                  quantity: quantity
-                }
-              })}>               
-               <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add to Cart </Text>
+              <Pressable onPress={press}>
+                <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add to Cart </Text>
               </Pressable>
             </View>
           </View>
         </View>
-  
-        {/* </View> */}
+
       </ScrollView >
-      
+
     </SafeAreaView>
   )
 }

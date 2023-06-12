@@ -1,17 +1,21 @@
 // Last update of my cart 06/10/2023
 
-import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView, ScrollView, Pressable, } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView, ScrollView, Pressable, Dimensions, } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 //DB work
 import { auth, db } from './Config';
 import { getDocs, collection, query, where, doc, setDoc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 
+const windowWidth = Dimensions.get("window").width;
+
 const MyCart = ({ navigation, route }) => {
+
 
     let userId = auth?.currentUser?.email;
     console.log(userId);
 
+    const packageList = route.params.packageList
     const [cartData, setCartData] = useState([]);
 
     const images = [
@@ -107,6 +111,7 @@ const MyCart = ({ navigation, route }) => {
     const total = route.params.total;
     const itemQuantity = route.params.quantity;
     const compName = route.params.compName;
+    const discountVal = route.params.discount
 
     const [cart, setCart] = useState()
 
@@ -156,7 +161,6 @@ const MyCart = ({ navigation, route }) => {
                     total: subAmount || 0,
                     quantity: quantity || 0,
                     compName: compName || ""
-
                 };
                 await setDoc(docRef, {
                     cartItem: [newItem],
@@ -298,21 +302,27 @@ const MyCart = ({ navigation, route }) => {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: 10 }}>
+        <SafeAreaView style={styles.container}>
             <ScrollView>
                 {
                     cartData.map((item, i) =>
-                        <View key={i} style={[styles.txt, { marginBottom: 5, backgroundColor: '#f5f5f5', width: 370, marginLeft: 10, marginRight: 20 }]}>
+                        <View key={i} style={{ margin: 10 }}>
                             {
                                 item.cartItem.map((x, index) => {
                                     const path = images.find((img) => img.name === x.imgDetails);
                                     const icon = path ? path.path : null;
                                     console.log(icon);
+                                    // <View style={[styles.txt, { marginBottom: 5, flexDirection: 'row', backgroundColor: '#f5f5f5', width: 390, marginLeft: 10, marginRight: 20 }]}>
+                                    // <Image style={{ width: 100, height: 100, borderRadius: 20, }} source={require('../assets/Images2/charger.webp')} />
+                                    // <View>                                             backgroundColor: '#D9D9D9',
+
                                     return (
-                                        <View key={index} style={{backgroundColor: 'pink'}}>
-                                            <Image style={{ width: 100, height: 100, borderRadius: 20, borderWidth: 1 }} source={icon} />
-                                            {/* <View> */}
-                                                <View style={{ flexDirection: 'row' }}>
+                                        <View key={index} style={[styles.productItem, { backgroundColor: '#D9D9D9', width: 370 }]}>
+                                            <View style={{}}>
+                                                <Image style={{ width: 100, height: 100, borderRadius: 20, borderWidth: 1 }} source={icon} />
+                                            </View>
+                                            <View style={{ width: 230 }}>
+                                                <View style={{ flexDirection: 'row', marginLeft: 5, height: 30 }}>
                                                     <Text style={styles.quantityTitle}>Package {x.packageId}</Text>
                                                     <View style={styles.quantityContainer}>
                                                         <TouchableOpacity style={styles.quantityButton} onPress={() => handleQuantityDecrease(userId, i)}>
@@ -324,20 +334,21 @@ const MyCart = ({ navigation, route }) => {
                                                         </TouchableOpacity>
                                                     </View>
                                                 </View>
-                                               
-                                                <Text style={{ color: 'black', margin: 10, fontSize: 15 }}> {x.price} QR </Text>
+                                                <Text style={{ color: 'black', fontSize: 15, paddingLeft: 10, }}> {x.price} QR </Text>
+                                            </View>
+                                            <View style={{ width: 25, margin: 3 }}>
                                                 <TouchableOpacity onPress={() => deleteRes(userId, i)} style={{ backgroundColor: 'red' }}>
-                                                    <Text style={{ color: 'black', margin: 10, fontSize: 30 }} >  X </Text>
+                                                    <Text style={{ color: 'black', fontSize: 20, height: 30 }}>  X </Text>
                                                 </TouchableOpacity>
-                                            {/* </View> */}
+                                            </View>
                                         </View>
                                     )
                                 })
                             }
                         </View>
+
                     )
                 }
-
 
                 <View style={{ margin: 15, width: 400 }}>
                     <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 5, marginLeft: 5 }}>Summary Payment</Text>
@@ -363,23 +374,26 @@ const MyCart = ({ navigation, route }) => {
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
-                        <Pressable onPress={() => navigation.navigate("Packages")}>
-                            <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add More </Text>
+                        <Pressable onPress={() => navigation.navigate({
+                            name: 'Packages', params: {
+                                packageList: packageList
+                            }
+                        })}>                            
+                        <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add More </Text>
                         </Pressable>
                     </View>
 
                     <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Pressable onPress={() => navigation.navigate({
-                                                name: 'Checkout', params: {
-                                                    total: subAmount, 
-                                                }
-                                            })}>
+                            <Pressable onPress={() => navigation.navigate({
+                                name: 'Checkout', params: {
+                                    total: subAmount,
+                                }
+                            })}>
                                 <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Checkout </Text>
                             </Pressable>
                         </View>
                     </View>
-
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -389,6 +403,12 @@ const MyCart = ({ navigation, route }) => {
 export default MyCart
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center",
+    },
     imgProfile: {
         width: 150,
         height: 150,
@@ -435,6 +455,16 @@ const styles = StyleSheet.create({
         width: 150,
         paddingLeft: 10,
         marginTop: 3
-    }
+    },
+    productItem: {
+        flexDirection: "row",
+        // width: 300,
+        borderRadius: 10,
+        // marginBottom: 5,
+        backgroundColor: "green",
+        elevation: 4,
+        padding: 8,
+        // flex:'wrap'
+    },
 })
 
