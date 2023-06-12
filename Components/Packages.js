@@ -18,7 +18,7 @@ export default function Packages({ navigation, route }) {
         { name: 'honu.png', path: require("../assets/Images/honu.png") },
         { name: 'exit55.png', path: require("../assets/Images/exit55.png") },
       ]
-
+    
     const [data, setData] = useState(route.params.packageList);
     console.log(data);
 
@@ -27,6 +27,8 @@ export default function Packages({ navigation, route }) {
 
     const [img, setImg] = useState(route.params.imgDetails) 
     const [extra, setExtra] = useState(route.params.extraPack) 
+    const [compName, setCompName] = useState(route.params.name)
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
@@ -54,7 +56,7 @@ export default function Packages({ navigation, route }) {
                                                     price: x.price,
                                                     id: x.id,
                                                     extraPack: extra,
-                                                    
+                                                    compName: compName
                                                 }
                                             })}>
                                                 <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>

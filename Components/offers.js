@@ -68,17 +68,12 @@ export default function Offers({ navigation }) {
 
   console.log("data, ,,,,,,");
 
-  // data.map((x, i) => console.log(x))
   useEffect(() => {
     readAll();
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <Pressable onPress={() => navigation.navigate('Home2')}>
-        <Text style={{ color: '#231154', textAlign: "center", fontWeight: 'bold', marginRight: 320 }}> ← Home </Text>
-      </Pressable> */}
-
       <View style={styles.topImageContainer}>
         <Image
           source={require("../assets/Images/offers.png")}
@@ -93,8 +88,8 @@ export default function Offers({ navigation }) {
             const icon = path ? path.path : null;
             const product = data.filter((item) => item.name === x.name);
             const m = product ? product : null;
-            console.log("");
-            console.log(m);
+            // console.log("");
+            // console.log(m);
             return (
               <View key={i} style={styles.offerItem}>
                 <View style={styles.imageContainer}>
