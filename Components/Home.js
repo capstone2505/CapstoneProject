@@ -186,11 +186,11 @@ const Home = () => {
             <View>
              {more.map((p, index) => {
                 const path = images.find((img) => img.name === p.image);
-                console.log(path);
+                // console.log(path);
                 const icon = path ? path.path : null;
                 const product = data.filter((item) => item.name === "Pows");
                 const m = product ? product : null;
-                console.log(product);
+                // console.log(product);
                 return (
                   <View key={index}>
                     {product.map((x, i) => {
