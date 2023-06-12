@@ -25,8 +25,11 @@ export default function Packages({ navigation, route }) {
     const path = images.find((img) => img.name === route.params.image);
     const icon = path ? path.path : null;
 
+
     const [img, setImg] = useState(route.params.imgDetails) 
     const [extra, setExtra] = useState(route.params.extraPack) 
+    const [compName , setCompName] = useState(route.params.name)
+    console.log(compName ,'package');
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
@@ -54,6 +57,7 @@ export default function Packages({ navigation, route }) {
                                                     price: x.price,
                                                     id: x.id,
                                                     extraPack: extra,
+                                                    compName: compName
                                                     
                                                 }
                                             })}>
