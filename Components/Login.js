@@ -105,7 +105,7 @@ export default function Login({ navigation }) {
           {(email === '' && emailFocused === true) || emailFocused ? <Text style={styles.error}>{emailError}</Text> : null}
           {(password === '' && passwordFocused === true) || passwordFocused ? <Text style={styles.error}>{passwordError}</Text> : null}
         </View>
-
+  
         <Pressable
           style={{
             alignItems: 'flex-end',

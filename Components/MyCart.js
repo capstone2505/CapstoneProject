@@ -28,7 +28,6 @@ const MyCart = ({ navigation, route }) => {
         { name: 'exit55table.png', path: require("../assets/Images/exit55table.png") },
     ]
 
-
     useEffect(() => {
         saveData();
     }, [])
@@ -103,7 +102,6 @@ const MyCart = ({ navigation, route }) => {
             console.log('New cart data:', cartData);
         }
     }, [cartDataUpdated, cartData])
-
 
     const itemId = route.params.id;
     const itemDetils = route.params.details;
