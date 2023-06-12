@@ -187,111 +187,51 @@ const Home = () => {
             </TouchableOpacity>
           </View>
 
-          {more.map((item, index) => {
-            const path = images.find((img) => img.name === item.image);
-            const icon = path ? path.path : null;
-            const product = data.filter((item) => item.name === item.name);
-            const m = product ? product : null;
-            console.log(product);
-            
-            return (
-              <View key={index} style={{ flexDirection: "row" }}>
-                {
-                  product.map((x, i) => {
-                    return(
-                      <Pressable key={i}
-                      onPress={() =>
-                        navigation.navigate({
-                          name: "Packages",
-                          params: {
-                            packageList: x.packages,
-                            name: x.name,
-                            image: x.image,
-                            pId: id,
-                            imgDetails: x.imgDetails,
-                            extraPack: x.extraPack,
-                          },
-                        })
-                      }
-                    > 
-                      <Image
-                    style={{
-                      width: 105,
-                      height: 100,
-                      alignSelf: "center",
-                      margin: 15,
-                      borderRadius: 20,
-                    }}
-                    source={icon}
-                  />
-                  </Pressable>
-                    )
-
-                    
-                  })
-                }
-                {/* <Pressable
-                  onPress={() =>
-                    navigation.navigate({
-                      name: "Packages",
-                      params: {
-                        packageList: x.packages,
-                        name: x.name,
-                        image: x.image,
-                        pId: id,
-                        imgDetails: x.imgDetails,
-                        extraPack: x.extraPack,
-                      },
-                    })
-                  }
-                >
-                  <Text style={styles.buttonText}>Click Here</Text>
-                </Pressable> */}
-
-              </View>
-            );
-          })}
-          {/* {more.map((x, i) => {
-            // const path = images.find((img) => img.name === x.image);
-            const path = images.find((img) => img.name === x.name);
-
-            const icon = path ? path.path : null;
-            const product = data.filter((item) => item.name === x.name);
-            const m = product ? product : null;
-            console.log("");
-            console.log(m);
-            return (
-              <View key={i} style={{ flexDirection: "row" }}>
-                <Pressable
-                onPress={() =>
-                  navigation.navigate({
-                    name: "Packages",
-                    params: {
-                      packageList: x.packages,
-                      name: x.name,
-                      image: x.image,
-                      pId: id,
-                      imgDetails: x.imgDetails,
-                      extraPack: x.extraPack,
-                    },
-                  })
-                }
-              > <Image
-              style={{
-                width: 105,
-                height: 100,
-                alignSelf: "center",
-                margin: 15,
-                borderRadius: 20,
-              }}
-              source={icon}
-            /></Pressable>
-                {/* <Image style={{ width: 105, height: 100, alignSelf: 'center', margin: 15, borderRadius: 20 }} source={require("../assets/Images2/charger.jpg")} />
-            <Image style={{ width: 105, height: 100, alignSelf: 'center', margin: 15, borderRadius: 20 }} source={require("../assets/Images2/cheatB.jpeg")} /> */}
-          {/* </View> */}
-          {/* );
-          })} */}
-
+          <View style={{ flexDirection: "row" }}>
+            {more.map((p, index) => {
+              const path = images.find((img) => img.name === p.image);
+              const icon = path ? path.path : null;
+              const product = data.filter((item) => item.name === p.name);
+              const m = product ? product : null;
+              console.log(product);
+              return (
+                <View>
+                  {product.map((x, i) => {
+                    return (
+                      <View key={i}>
+                        <Pressable
+                          onPress={() =>
+                            navigation.navigate({
+                              name: "Packages",
+                              params: {
+                                packageList: x.packages,
+                                name: x.name,
+                                image: x.image,
+                                pId: id,
+                                imgDetails: x.imgDetails,
+                                extraPack: x.extraPack,
+                              },
+                            })
+                          }
+                        >
+                          <Image
+                            style={{
+                              width: 105,
+                              height: 100,
+                              alignSelf: "center",
+                              margin: 15,
+                              borderRadius: 20,
+                            }}
+                            source={icon}
+                          />
+                        </Pressable>
+                      </View>
+                    );
+                  })}
+                </View>
+              );
+            })}
+          </View>
           <View
             style={{
               backgroundColor: "lavenderblush",
