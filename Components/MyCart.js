@@ -301,7 +301,10 @@ const MyCart = ({ navigation, route }) => {
         });
         updateAmountInDB(userId, totalAmount); // Call updateAmountInDB to update the cart amount
     };
-   
+    
+    const discountamount =()=>{
+        let itemName = route.params.name;
+    }
        
     return (
 

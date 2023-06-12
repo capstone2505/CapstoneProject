@@ -117,6 +117,7 @@ const Checkout = ({ navigation }) => {
    console.log("Document id from checkout " , docRef.id)
    console.log("hello from mnoosh checkout ", streetNumber,streetName,buildingNumber)
   }
+  
   return (
     <SafeAreaView style={styles.container}>
       <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold', alignSelf: 'left' }}>Add Address</Text>

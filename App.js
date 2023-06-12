@@ -50,7 +50,7 @@ export default function App() {
         <Stack.Screen name='ConfirmOrder' component={ConfirmOrder} options={{ headerShown: true }} />
         <Stack.Screen name='PaymentDetails' component={PaymentDetails} options={{ headerShown: true }} />
         <Stack.Screen name='OrderedPlaced' component={OrderedPlaced} />
-        <Stack.Screen name='TrackOrder' component={TrackOrder} />
+        <Stack.Screen name='TrackOrder' component={TrackOrder} options={{ headerShown: true }}/>
         <Stack.Screen name='Profile' component={Profile} />
         <Stack.Screen name='Checkout' component={Checkout} options={{ headerShown: true }} />
       </Stack.Navigator>
