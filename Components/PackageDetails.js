@@ -6,8 +6,9 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { CheckBox } from 'react-native-elements';
 import { auth, db } from './Config';
 import { addDoc, getDoc, getDocs, ref, where, collection, doc, query, setDoc } from "firebase/firestore";
+import { useNavigation } from '@react-navigation/native';
 
-const PackageDetails = ({ navigation, route }) => {
+const PackageDetails = ({ route }) => {
 
   const images = [
     { name: 'chargermode.png', path: require("../assets/Images/chargermode.png") },
@@ -58,6 +59,30 @@ const PackageDetails = ({ navigation, route }) => {
       setTotalAmount((quantity - 1) * route.params.price);
     }
   };
+
+  // const navigation = useNavigation();
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const navigation = useNavigation();
+
+  const handleAddToCart = () => {
+    console.log("ffffffff");
+    navigation.navigate('MyCart', {
+      id: route.params.id,
+      details: detailsPackage,
+      imgDetails: route.params.imgDetails,
+      price: route.params.price,
+      extraPack: extra,
+      name: route.params.name,
+      cup: route.params.cup,
+      total: totalAmount,
+      quantity: quantity
+    });
+  };
+
+  // const handleLogin = () => {
+  //   console.log('ddddddddddd');
+  //   navigation.navigate('Login');
+  // };
 
   const add = async () => {
     console.log("blahhhhhhhhhhhh")
@@ -178,15 +203,27 @@ const PackageDetails = ({ navigation, route }) => {
             <Text style={{ fontSize: 18 }}> Total Amount </Text>
             <Text style={{ fontSize: 18 }}>{totalAmount} QR</Text>
           </View>
-             <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
-             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Pressable onPress={handelBoth}>
-                <Text style={{ color: "white", marginTop: 5, fontSize: 20 }}>
-                  Add to Cart
-                </Text>
+          <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Pressable onPress={() => navigation.navigate({
+                name: 'MyCart', params: {
+                  id: route.params.id,
+                  details: detailsPackage,
+                  imgDetails: route.params.imgDetails,
+                  price: route.params.price,
+                  extraPack: extra,
+                  name: route.params.name,
+                  cup: route.params.cup,
+                  total: totalAmount, 
+                  quantity: quantity
+                }
+              })}>               
+               <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add to Cart </Text>
               </Pressable>
-          </View> 
+            </View>
           </View>
+        </View>
+  
         </View>
       </ScrollView >
     </SafeAreaView>
