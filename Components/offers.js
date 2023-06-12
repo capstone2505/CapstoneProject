@@ -115,6 +115,7 @@ export default function Offers({ navigation }) {
                                 pId: id,
                                 imgDetails: x.imgDetails,
                                 extraPack: x.extraPack,
+                                discount: x.persentage
                               },
                             })
                           }

@@ -1,35 +1,18 @@
 // Last update of my cart 06/10/2023
 
-import {
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-    Image,
-    SafeAreaView,
-    ScrollView,
-    Pressable,
-} from "react-native";
-import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView, ScrollView, Pressable, } from 'react-native'
+import React, { useEffect, useState } from 'react'
 
 //DB work
-import { auth, db } from "./Config";
-import {
-    getDocs,
-    collection,
-    query,
-    where,
-    doc,
-    setDoc,
-    getDoc,
-    updateDoc,
-    deleteDoc,
-} from "firebase/firestore";
+import { auth, db } from './Config';
+import { getDocs, collection, query, where, doc, setDoc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 
 const MyCart = ({ navigation, route }) => {
+
     let userId = auth?.currentUser?.email;
     console.log(userId);
 
+    const packageList = route.params.packageList
     const [cartData, setCartData] = useState([]);
 
     const images = [
@@ -142,6 +125,7 @@ const MyCart = ({ navigation, route }) => {
     const itemCup = route.params.cup;
     const total = route.params.total;
     const itemQuantity = route.params.quantity;
+    const compName = route.params.compName;
 
     const [cart, setCart] = useState();
 
@@ -189,6 +173,8 @@ const MyCart = ({ navigation, route }) => {
                     cup: itemCup || "",
                     total: subAmount || 0,
                     quantity: quantity || 0,
+                    compName: compName || ""
+
                 };
                 await setDoc(docRef, {
                     cartItem: [newItem],
@@ -373,101 +359,46 @@ const MyCart = ({ navigation, route }) => {
     };
 
     return (
-        <SafeAreaView
-            style={{
-                flex: 1,
-                justifyContent: "center",
-                backgroundColor: "white",
-                alignItems: "center",
-            }}
-        >
+        <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: 10 }}>
             <ScrollView>
-                <Text
-                    style={{
-                        fontSize: 20,
-                        fontWeight: "bold",
-                        textAlign: "left",
-                        marginBottom: 20,
-                    }}
-                >
-                    My Cart
-                </Text>
-                {cartData.map((item, i) => (
-                    <View
-                        key={i}
-                        style={[
-                            styles.txt,
+                {
+                    cartData.map((item, i) =>
+                        <View key={i} style={[styles.txt, { marginBottom: 5, backgroundColor: '#f5f5f5', width: 370, marginLeft: 10, marginRight: 20 }]}>
                             {
-                                marginBottom: 5,
-                                backgroundColor: "#f5f5f5",
-                                width: 350,
-                                marginLeft: 10,
-                                marginRight: 20,
-                            },
-                        ]}
-                    >
-                        {item.cartItem.map((x, i) => {
-                            const path = images.find((img) => img.name === x.imgDetails);
-                            const icon = path ? path.path : null;
-                            // const detailsPackage = x.details.split(',')
-                            return (
-                                <View key={i}>
-                                    <Image
-                                        style={{ width: 100, height: 100, borderRadius: 20 }}
-                                        source={icon}
-                                    />
-                                    <View>
-                                        <View style={{ flexDirection: "row" }}>
-                                            <Text style={styles.quantityTitle}>
-                                                Package {x.packageId}
-                                            </Text>
-                                            <View style={styles.quantityContainer}>
-                                                <TouchableOpacity
-                                                    style={styles.quantityButton}
-                                                    onPress={() => handleQuantityDecrease(userId, i)}
-                                                >
-                                                    <Text style={styles.quantityButtonText}>-</Text>
+                                item.cartItem.map((x, index) => {
+                                    const path = images.find((img) => img.name === x.imgDetails);
+                                    const icon = path ? path.path : null;
+                                    console.log(icon);
+                                    return (
+                                        <View key={index} style={{backgroundColor: 'pink'}}>
+                                            <Image style={{ width: 100, height: 100, borderRadius: 20, borderWidth: 1 }} source={icon} />
+                                            {/* <View> */}
+                                                <View style={{ flexDirection: 'row' }}>
+                                                    <Text style={styles.quantityTitle}>Package {x.packageId}</Text>
+                                                    <View style={styles.quantityContainer}>
+                                                        <TouchableOpacity style={styles.quantityButton} onPress={() => handleQuantityDecrease(userId, i)}>
+                                                            <Text style={styles.quantityButtonText}>-</Text>
+                                                        </TouchableOpacity>
+                                                        <Text style={styles.quantity}>{x.quantity}</Text>
+                                                        <TouchableOpacity style={styles.quantityButton} onPress={() => handleQuantityIncrease(userId, i)}>
+                                                            <Text style={styles.quantityButtonText}>+</Text>
+                                                        </TouchableOpacity>
+                                                    </View>
+                                                </View>
+                                               
+                                                <Text style={{ color: 'black', margin: 10, fontSize: 15 }}> {x.price} QR </Text>
+                                                <TouchableOpacity onPress={() => deleteRes(userId, i)} style={{ backgroundColor: 'red' }}>
+                                                    <Text style={{ color: 'black', margin: 10, fontSize: 30 }} >  X </Text>
                                                 </TouchableOpacity>
-
-                                                <Text style={styles.quantity}>{x.quantity}</Text>
-
-                                                <TouchableOpacity
-                                                    style={styles.quantityButton}
-                                                    onPress={() => handleQuantityIncrease(userId, i)}
-                                                >
-                                                    <Text style={styles.quantityButtonText}>+</Text>
-                                                </TouchableOpacity>
-                                            </View>
+                                            {/* </View> */}
                                         </View>
-                                        {/* 
-                                              <View style={{ marginLeft: 10 }}>
-                                                  {detailsPackage.map((x, i) => {
-                                                      return (<Text style={{ color: 'black', margin: 2, fontSize: 12 }}>{x}</Text>)
-                                                  })}
-                                              </View> */}
+                                    )
+                                })
+                            }
+                        </View>
+                    )
+                }
 
-                                        <Text style={{ color: "black", margin: 10, fontSize: 15 }}>
-                                            {" "}
-                                            {x.price} QR{" "}
-                                        </Text>
-
-                                        <TouchableOpacity
-                                            onPress={() => deleteRes(userId, i)}
-                                            style={{ backgroundColor: "red" }}
-                                        >
-                                            <Text
-                                                style={{ color: "black", margin: 10, fontSize: 30 }}
-                                            >
-                                                {" "}
-                                                X{" "}
-                                            </Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                            );
-                        })}
-                    </View>
-                ))}
 
                 <View style={{ margin: 15, width: 400 }}>
                     <Text
@@ -555,73 +486,21 @@ const MyCart = ({ navigation, route }) => {
                     </View>
                 </View>
 
-                <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                    <View
-                        style={{
-                            marginTop: 30,
-                            alignSelf: "center",
-                            alignItems: "center",
-                            backgroundColor: "#998184",
-                            width: 150,
-                            height: 50,
-                            borderRadius: 8,
-                            padding: 8,
-                        }}
-                    >
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                    <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
                         <Pressable onPress={() => navigation.navigate("Packages")}>
-                            <Text style={{ color: "white", marginTop: 5, fontSize: 20 }}>
-                                {" "}
-                                Add More{" "}
-                            </Text>
+                            <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add More </Text>
                         </Pressable>
                     </View>
-                    <View
-                        style={{
-                            marginTop: 30,
-                            alignSelf: "center",
-                            alignItems: "center",
-                            backgroundColor: "#998184",
-                            width: 150,
-                            height: 50,
-                            borderRadius: 8,
-                            padding: 8,
-                        }}
-                    >
-                        <View style={{ flexDirection: "row", alignItems: "center" }}>
-                            <Pressable
-                                onPress={() => navigation.navigate({
-                                    name: 'Checkout', params: {
-                                        discountValue: discountValue,
-                                        discountTotal: discountTotal,
-                                        subAmount: subAmount
-                                    }
-                                })}
-                                style={styles.button}>
-                                <Text style={{ color: "white", marginTop: 5, fontSize: 20 }}>
-                                    {" "}
-                                    Checkout{" "}
-                                </Text>
-                            </Pressable>
-                        </View>
-                    </View>
-                    <View
-                        style={{
-                            marginTop: 30,
-                            alignSelf: "center",
-                            alignItems: "center",
-                            backgroundColor: "#998184",
-                            width: 150,
-                            height: 50,
-                            borderRadius: 8,
-                            padding: 8,
-                        }}
-                    >
-                        <View style={{ flexDirection: "row", alignItems: "center" }}>
-                            <Pressable onPress={discountamount}>
-                                <Text style={{ color: "white", marginTop: 5, fontSize: 20 }}>
-                                    {" "}
-                                    discount{" "}
-                                </Text>
+
+                    <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Pressable onPress={() => navigation.navigate({
+                                                name: 'Checkout', params: {
+                                                    total: subAmount, 
+                                                }
+                                            })}>
+                                <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Checkout </Text>
                             </Pressable>
                         </View>
                     </View>
@@ -634,6 +513,12 @@ const MyCart = ({ navigation, route }) => {
 export default MyCart;
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center",
+    },
     imgProfile: {
         width: 150,
         height: 150,
@@ -679,6 +564,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         width: 150,
         paddingLeft: 10,
-        marginTop: 3,
-    },
-});
+        marginTop: 3
+    }
+})
+

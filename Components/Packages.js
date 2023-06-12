@@ -20,6 +20,7 @@ export default function Packages({ navigation, route }) {
       ]
     
     const [data, setData] = useState(route.params.packageList);
+    const packageList = route.params.packageList
     console.log(data);
 
     const path = images.find((img) => img.name === route.params.image);
@@ -28,6 +29,11 @@ export default function Packages({ navigation, route }) {
     const [img, setImg] = useState(route.params.imgDetails) 
     const [extra, setExtra] = useState(route.params.extraPack) 
     const [compName, setCompName] = useState(route.params.name)
+
+    const discount = route.params.discount
+
+    console.log("shjgsdsdds");
+    console.log(discount);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -56,7 +62,8 @@ export default function Packages({ navigation, route }) {
                                                     price: x.price,
                                                     id: x.id,
                                                     extraPack: extra,
-                                                    compName: compName
+                                                    compName: compName,
+                                                    packageList: packageList
                                                 }
                                             })}>
                                                 <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>
