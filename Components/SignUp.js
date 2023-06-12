@@ -181,6 +181,7 @@ const SignUp = ({ navigation }) => {
 
           <Text style={[styles.txtstyle]}>Password</Text>
           <TextInput
+            secureTextEntry
             placeholder="Password"
             style={[
               styles.textInput,
@@ -200,6 +201,7 @@ const SignUp = ({ navigation }) => {
 
           <Text style={[styles.txtstyle]}>Confirm Password</Text>
           <TextInput
+            secureTextEntry
             placeholder="Confirm Password"
             style={[
               styles.textInput,

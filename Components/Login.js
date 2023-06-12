@@ -28,54 +28,104 @@ export default function Login({ navigation }) {
           console.log("hi form login")
   }
   return (
-    <SafeAreaView style={{
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center', backgroundColor: 'white'
-    }}>
-
-      <Image style={{ width: 250, height: 200, borderRadius: 30, marginTop: 20 }} source={require("../assets/Images/choose.png")}/>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "white",
+      }}
+    >
+      <Image
+        style={{ width: 250, height: 200, borderRadius: 30, marginTop: 20 }}
+        source={require("../assets/Images/choose.png")}
+      />
       <Text>By Logining in you are agreeing our...</Text>
-      <Text style={{ color: 'blue' }}>Term and privacy policy</Text>
+      <Text style={{ color: "blue" }}>Term and privacy policy</Text>
       <View style={[styles.card, styles.shadowProp]}>
-        <TextInput placeholder='Email' style={{ borderWidth: 2, borderRadius: 20, padding: 15, width: 250, borderStyle: 'dashed', margin: 5 }} onChangeText={text => setEmail(text)}></TextInput>
-        <TextInput placeholder='Password' style={{ borderWidth: 2, borderRadius: 20, padding: 15, marginTop: 5, width: 250, borderStyle: 'dashed', margin: 5 }} onChangeText={text => setPassword(text)}></TextInput>
+        <TextInput
+          placeholder="Email"
+          style={{
+            borderWidth: 2,
+            borderRadius: 20,
+            padding: 15,
+            width: 250,
+            borderStyle: "dashed",
+            margin: 5,
+          }}
+          onChangeText={(text) => setEmail(text)}
+        ></TextInput>
+        <TextInput
+          placeholder="Password"
+          secureTextEntry
+          style={{
+            borderWidth: 2,
+            borderRadius: 20,
+            padding: 15,
+            marginTop: 5,
+            width: 250,
+            borderStyle: "dashed",
+            margin: 5,
+          }}
+          onChangeText={(text) => setPassword(text)}
+        ></TextInput>
         <Pressable
           style={{
-            alignItems: 'flex-end',
-            backgroundColor: '#998184',
+            alignItems: "flex-end",
+            backgroundColor: "#998184",
             // borderWidth: 2,
             borderRadius: 20,
-            margin: 15
+            margin: 15,
           }}
-         // onPress={() => navigation.navigate("Home")}
-         
+          // onPress={() => navigation.navigate("Home")}
         >
-          <Text style={{ color: 'white', alignSelf: 'center', margin: 10, width: 140, paddingLeft: 35, height: 30, fontSize: 20 }}   onPress={handleLogin} > 
-          <Feather name="log-in" size={15} color='white' />Login</Text>
+          <Text
+            style={{
+              color: "white",
+              alignSelf: "center",
+              margin: 10,
+              width: 140,
+              paddingLeft: 35,
+              height: 30,
+              fontSize: 20,
+            }}
+            onPress={handleLogin}
+          >
+            <Feather name="log-in" size={15} color="white" />
+            Login
+          </Text>
         </Pressable>
-        <Text style={{marginTop: 25, marginBottom: 8}}>No user account?</Text>
+        <Text style={{ marginTop: 25, marginBottom: 8 }}>No user account?</Text>
         <View
           style={{
-            alignItems: 'flex-end',
-            backgroundColor: '#998184',
+            alignItems: "flex-end",
+            backgroundColor: "#998184",
             // borderWidth: 2,
             borderRadius: 20,
             // margin: 15
           }}
-
         >
-          <Pressable  onPress={() => navigation.navigate("SignUp")}>
-          <Text style={{ color: 'white', alignSelf: 'center', margin: 10, width: 140, paddingLeft: 35, height: 30, fontSize: 20 }} > <Text />Sign Up</Text>
+          <Pressable onPress={() => navigation.navigate("SignUp")}>
+            <Text
+              style={{
+                color: "white",
+                alignSelf: "center",
+                margin: 10,
+                width: 140,
+                paddingLeft: 35,
+                height: 30,
+                fontSize: 20,
+              }}
+            >
+              {" "}
+              <Text />
+              Sign Up
+            </Text>
           </Pressable>
         </View>
-
       </View>
-
     </SafeAreaView>
-
-
-  )
+  );
 }
 const styles = StyleSheet.create({
 
