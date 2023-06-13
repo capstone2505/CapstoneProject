@@ -14,7 +14,7 @@ import { getDocs, collection, query, where } from "firebase/firestore";
 
 const Profile = ({ navigation }) => {
 
-  const [profile, setProfile] = useState()
+  const [profile, setProfile] = useState(null)
   let user = auth?.currentUser?.email;
   console.log(user);
 
@@ -35,6 +35,7 @@ const Profile = ({ navigation }) => {
   }
   console.log(profile);
 
+  
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white', alignItems: 'center' }}>
       <Text style={{ marginTop: 30, alignSelf: 'center', fontSize: 30 }}>Profile</Text>

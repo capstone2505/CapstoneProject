@@ -6,13 +6,13 @@ import React, { useEffect, useState } from 'react'
 //DB work
 import { auth, db } from './Config';
 import { getDocs, collection, query, where, doc, setDoc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
-
+import Ionicons from 'react-native-vector-icons/Ionicons'
 const MyCart = ({ navigation, route }) => {
 
     let userId = auth?.currentUser?.email;
     console.log(userId);
 
-    const packageList = route.params.packageList
+    // const packageList = route.params.packageList
     const [cartData, setCartData] = useState([]);
 
     const images = [
@@ -44,7 +44,7 @@ const MyCart = ({ navigation, route }) => {
 
     useEffect(() => {
         saveData();
-        discountamount();
+        // discountamount();
     }, []);
 
     const readCart = async () => {
@@ -62,7 +62,7 @@ const MyCart = ({ navigation, route }) => {
         }
     };
 
-    const [subAmount, setSubAmount] = useState(0);
+    const [subAmount, setSubAmount] = useState();
 
     useEffect(() => {
         if (cartData.length > 0) {
@@ -116,21 +116,22 @@ const MyCart = ({ navigation, route }) => {
         }
     }, [cartDataUpdated, cartData]);
 
-    const itemId = route.params.id;
-    const itemDetils = route.params.details;
-    const itemImgDetails = route.params.imgDetails;
-    const itemExtraPack = route.params.extraPack;
-    const itemPrice = route.params.price;
-    const itemName = route.params.name;
-    const itemCup = route.params.cup;
-    const total = route.params.total;
-    const itemQuantity = route.params.quantity;
-    const compName = route.params.compName;
 
     const [cart, setCart] = useState();
 
     const saveData = async () => {
         try {
+            const itemId = route.params.id;
+            const itemDetils = route.params.details;
+            const itemImgDetails = route.params.imgDetails;
+            const itemExtraPack = route.params.extraPack;
+            const itemPrice = route.params.price;
+            const itemName = route.params.name;
+            const itemCup = route.params.cup;
+            const total = route.params.total;
+            const itemQuantity = route.params.quantity;
+            const compName = route.params.compName;
+
             const docRef = doc(db, "cart", userId);
             const cartSnap = await getDoc(docRef);
 
@@ -157,7 +158,23 @@ const MyCart = ({ navigation, route }) => {
                         cup: itemCup,
                         total: subAmount,
                         quantity: quantity,
+                        compName: compName
                     });
+                    updatedItems = [
+                        ...updatedItems,
+                        {
+                            packageId: itemId,
+                            details: itemDetils,
+                            imgDetails: itemImgDetails,
+                            price: itemPrice,
+                            extraPack: itemExtraPack,
+                            name: itemName,
+                            cup: itemCup,
+                            total: subAmount,
+                            quantity: quantity,
+                            compName: compName
+                        },
+                    ];
                 }
                 await updateDoc(docRef, { cartItem: updatedItems });
                 setCart(updatedItems);
@@ -174,7 +191,6 @@ const MyCart = ({ navigation, route }) => {
                     total: subAmount || 0,
                     quantity: quantity || 0,
                     compName: compName || ""
-
                 };
                 await setDoc(docRef, {
                     cartItem: [newItem],
@@ -192,6 +208,7 @@ const MyCart = ({ navigation, route }) => {
                         cup: itemCup,
                         total: subAmount,
                         quantity: quantity,
+                        compName: compName
                     },
                 ]);
                 updateCartTotal();
@@ -240,18 +257,18 @@ const MyCart = ({ navigation, route }) => {
     };
 
     // quantity
-    const [quantity, setQuantity] = useState(route.params.quantity);
+    const [quantity, setQuantity] = useState();
 
     const handleQuantityIncrease = async (userId, cartItemId) => {
         console.log("jhnjkhljkhjkhjkhkhjk");
-        setQuantity(quantity + 1);
-        updateQuantityInDB(userId, cartItemId, quantity + 1);
+        setQuantity(route.params.quantity + 1);
+        updateQuantityInDB(userId, cartItemId, route.params.quantity + 1);
     };
 
     const handleQuantityDecrease = async (userId, cartItemId) => {
         if (quantity > 1) {
             setQuantity(quantity - 1);
-            updateQuantityInDB(userId, cartItemId, quantity - 1);
+            updateQuantityInDB(userId, cartItemId, route.params.quantity - 1);
         }
     };
 
@@ -319,78 +336,85 @@ const MyCart = ({ navigation, route }) => {
         updateAmountInDB(userId, totalAmount); // Call updateAmountInDB to update the cart amount
     };
 
-    const [discountTotal, setDiscountTotal] = useState([]);
+    
+    const [discountTotal, setDiscountTotal] = useState();
     const [discountValue, setDiscountValue] = useState();
-
+  
     const discountamount = () => {
-        let itemName = route.params.compName;
-        let itemTotal = route.params.total;
-        if (itemName == "Charger" && itemTotal >= 3000) {
-            console.log("yesss charger");
-            const discount = itemTotal * 0.20;
-            const discountedTotal = itemTotal - discount;
-            setDiscountTotal(discountedTotal)
-            setDiscountValue("20")
-            console.log(discountedTotal);
-        } else if (itemName == "Paws" && itemTotal >= 2300) {
-            const discount = itemTotal * 0.15;
-            const discountedTotal = itemTotal - discount;
-            setDiscountTotal(discountedTotal)
-            console.log(discountedTotal);
-            setDiscountValue("15")
-            console.log("noooo1 paws");
-        } else if (itemName == "Exit 55" && itemTotal >= 2000) {
-            const discount = itemTotal * 0.10;
-            const discountedTotal = itemTotal - discount;
-            setDiscountTotal(discountedTotal)
-            console.log(discountedTotal);
-            setDiscountValue("10")
-            console.log("noooo2 exit55");
-        } else if (itemName == "SALT" && itemTotal >= 2500) {
-            const discount = itemTotal * 0.05;
-            const discountedTotal = itemTotal - discount;
-            setDiscountTotal(discountedTotal)
-            console.log(discountedTotal);
-            setDiscountValue("5")
-            console.log("noooo3 salt");
-        } else {
-            return null;
-        }
+      let itemName = route.params.compName;
+      let itemTotal = route.params.total;
+      if (itemName == "Charger" && itemTotal >= 3000) {
+        console.log("yesss charger");
+        const discount = itemTotal * 0.2;
+        const discountedTotal = itemTotal - discount;
+        setDiscountTotal(discountedTotal);
+        setDiscountValue("20");
+        // console.log(discountedTotal);
+      } else if (itemName == "Paws" && itemTotal >= 2300) {
+        const discount = itemTotal * 0.15;
+        const discountedTotal = itemTotal - discount;
+        setDiscountTotal(discountedTotal);
+        // console.log(discountedTotal);
+        setDiscountValue("15");
+        console.log("noooo1 paws");
+      } else if (itemName == "Exit 55" && itemTotal >= 2000) {
+        const discount = itemTotal * 0.1;
+        const discountedTotal = itemTotal - discount;
+        setDiscountTotal(discountedTotal);
+        // console.log(discountedTotal);
+        setDiscountValue("10");
+        // console.log("noooo2 exit55");
+      } else if (itemName == "SALT" && itemTotal >= 2500) {
+        const discount = itemTotal * 0.05;
+        const discountedTotal = itemTotal - discount;
+        setDiscountTotal(discountedTotal);
+        console.log(discountedTotal);
+        setDiscountValue("5");
+        console.log("noooo3 salt");
+      } else {
+        setDiscountValue("0");
+        setDiscountTotal(subAmount)
+        // return null;
+      }
     };
+
 
     return (
         <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: 10 }}>
             <ScrollView>
                 {
                     cartData.map((item, i) =>
-                        <View key={i} style={[styles.txt, { marginBottom: 5, backgroundColor: '#f5f5f5', width: 370, marginLeft: 10, marginRight: 20 }]}>
+                        <View key={i} style={[styles.txt, { marginBottom: 5, backgroundColor: '#f5f5f5', width: 410, marginLeft: 10, marginRight: 20, borderWidt:1 }]}>
                             {
                                 item.cartItem.map((x, index) => {
                                     const path = images.find((img) => img.name === x.imgDetails);
                                     const icon = path ? path.path : null;
-                                    console.log(icon);
                                     return (
-                                        <View key={index} style={{backgroundColor: 'pink'}}>
-                                            <Image style={{ width: 100, height: 100, borderRadius: 20, borderWidth: 1 }} source={icon} />
-                                            {/* <View> */}
-                                                <View style={{ flexDirection: 'row' }}>
-                                                    <Text style={styles.quantityTitle}>Package {x.packageId}</Text>
-                                                    <View style={styles.quantityContainer}>
-                                                        <TouchableOpacity style={styles.quantityButton} onPress={() => handleQuantityDecrease(userId, i)}>
+                                        <View key={index} style={{ backgroundColor: 'lightgrey', flexDirection: 'row' }}>
+                                            <View>
+                                                <Image style={{ width: 100, height: 100, borderRadius: 20, borderWidth: 1, margin: 10 }} source={icon} />
+                                                <View style={[styles.quantityContainer, {margin: 3, alignItems: 'center', }]}>
+                                                    <TouchableOpacity style={styles.quantityButton} onPress={() => handleQuantityDecrease(userId, i)}>
+                                                        <View>
                                                             <Text style={styles.quantityButtonText}>-</Text>
-                                                        </TouchableOpacity>
-                                                        <Text style={styles.quantity}>{x.quantity}</Text>
-                                                        <TouchableOpacity style={styles.quantityButton} onPress={() => handleQuantityIncrease(userId, i)}>
-                                                            <Text style={styles.quantityButtonText}>+</Text>
-                                                        </TouchableOpacity>
-                                                    </View>
+                                                        </View>
+                                                    </TouchableOpacity>
+                                                    <Text style={styles.quantity}>{x.quantity}</Text>
+                                                    <TouchableOpacity style={styles.quantityButton} onPress={() => handleQuantityIncrease(userId, i)}>
+                                                        <Text style={styles.quantityButtonText}>+</Text>
+                                                    </TouchableOpacity>
                                                 </View>
-                                               
-                                                <Text style={{ color: 'black', margin: 10, fontSize: 15 }}> {x.price} QR </Text>
-                                                <TouchableOpacity onPress={() => deleteRes(userId, i)} style={{ backgroundColor: 'red' }}>
-                                                    <Text style={{ color: 'black', margin: 10, fontSize: 30 }} >  X </Text>
-                                                </TouchableOpacity>
-                                            {/* </View> */}
+                                            </View>
+                                            <View style={{ flexDirection: 'row' }}>
+                                                <Text style={styles.quantityTitle}>Package {x.packageId}</Text>
+                                    
+                                            </View>
+                                            <Text style={{ color: 'black', margin: 10, fontSize: 15 }}> {x.price} QR </Text>
+                                            <TouchableOpacity onPress={() => deleteRes(userId, i)} style={{ backgroundColor: 'green' }}>
+                                                <Text style={{ color: 'black', margin: 10, fontSize: 30 }} > 
+                                                <Ionicons name='trash' color={'black'} size={40} />
+                                                </Text>
+                                            </TouchableOpacity>
                                         </View>
                                     )
                                 })
@@ -400,91 +424,86 @@ const MyCart = ({ navigation, route }) => {
                 }
 
 
-                <View style={{ margin: 15, width: 400 }}>
-                    <Text
-                        style={{
-                            fontSize: 18,
-                            fontWeight: "bold",
-                            marginBottom: 5,
-                            marginLeft: 5,
-                        }}
-                    >
-                        Summary Payment
-                    </Text>
-                    <View
-                        style={[
-                            {
-                                flexDirection: "row",
-                                justifyContent: "space-between",
-                                marginLeft: 15,
-                            },
-                        ]}
-                    >
-                        <View
-                            style={[
-                                {
-                                    width: 320,
-                                    margin: 3,
-                                    flexDirection: "row",
-                                    justifyContent: "space-between",
-                                },
-                            ]}
-                        >
-                            <Text style={{ fontSize: 15 }}>Sub-Total</Text>
-                            <Text style={{ fontSize: 15 }}>{subAmount}QR</Text>
-                        </View>
-                    </View>
-                    <View
-                        style={[
-                            {
-                                marginBottom: 3,
-                                flexDirection: "row",
-                                justifyContent: "space-between",
-                            },
-                        ]}
-                    >
-                        <View
-                            style={[
-                                {
-                                    width: 320,
-                                    flexDirection: "row",
-                                    justifyContent: "space-between",
-                                    marginLeft: 15,
-                                },
-                            ]}
-                        >
-                            <Text style={{ margin: 5, fontSize: 15 }}>Discount</Text>
-                            <Text style={{ margin: 5, fontSize: 15 }}>{discountValue}%</Text>
-                        </View>
-                    </View>
-                    <View
-                        style={[
-                            {
-                                marginBottom: 3,
-                                flexDirection: "row",
-                                justifyContent: "space-between",
-                                borderTopWidth: 1,
-                                borderColor: "#d3d3d3",
-                                width: 350,
-                                marginLeft: 10,
-                            },
-                        ]}
-                    >
-                        <View
-                            style={[
-                                {
-                                    width: 320,
-                                    flexDirection: "row",
-                                    justifyContent: "space-between",
-                                    marginLeft: 15,
-                                },
-                            ]}
-                        >
-                            <Text style={{ margin: 5, fontSize: 15 }}>Total Amount</Text>
-                            <Text style={{ margin: 5, fontSize: 15 }}>{discountTotal}QR</Text>
-                        </View>
-                    </View>
-                </View>
+<View style={{ margin: 15, width: 400 }}>
+          <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 5,marginLeft: 5}}>
+            Summary Payment
+          </Text>
+          <View style={[{flexDirection: "row", justifyContent: "space-between", marginLeft: 15}]} >
+            <View
+              style={[
+                {
+                  width: 320,
+                  margin: 3,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                },
+              ]}
+            >
+              <Text style={{ fontSize: 15 }}>Sub-Total</Text>
+              <Text style={{ fontSize: 15 }}>{subAmount}QR</Text>
+            </View>
+          </View>
+          <View
+            style={[
+              {
+                marginBottom: 3,
+                flexDirection: "row",
+                justifyContent: "space-between",
+              },
+            ]}
+          >
+            <View
+              style={[
+                {
+                  width: 320,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  marginLeft: 15,
+                },
+              ]}
+            >
+              <Text style={{ margin: 5, fontSize: 15 }}>Discount</Text>
+              {/* <Text style={{ margin: 5, fontSize: 15 }}>{discountValue}%</Text> */}
+              {discountValue ? (
+                <Text style={{ margin: 3 }}>{discountValue} %</Text>
+              ) : (
+                <Text style={{ margin: 3 }}>0 %</Text>
+              )}
+            </View>
+          </View>
+          <View
+            style={[
+              {
+                marginBottom: 3,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                borderTopWidth: 1,
+                borderColor: "#d3d3d3",
+                width: 350,
+                marginLeft: 10,
+              },
+            ]}
+          >
+            <View
+              style={[
+                {
+                  width: 320,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  marginLeft: 15,
+                },
+              ]}
+            >
+              <Text style={{ margin: 5, fontSize: 15 }}>Total Amount</Text>
+              {discountValue ? (
+                <Text style={{ margin: 3 }}>{subAmount} QR</Text>
+              ) : (
+                <Text style={{ margin: 3 }}>{discountTotal} QR</Text>
+              )}
+              {/* <Text style={{ margin: 5, fontSize: 15 }}>{discountTotal}QR</Text> */}
+            </View>
+          </View>
+        </View>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
@@ -493,17 +512,25 @@ const MyCart = ({ navigation, route }) => {
                         </Pressable>
                     </View>
 
-                    <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Pressable onPress={() => navigation.navigate({
-                                                name: 'Checkout', params: {
-                                                    total: subAmount, 
-                                                }
-                                            })}>
-                                <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Checkout </Text>
-                            </Pressable>
-                        </View>
-                    </View>
+                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Pressable
+                onPress={() =>
+                  navigation.navigate({
+                    name: "Checkout",
+                    params: {
+                      subAmount: subAmount,
+                      discountTotal: discountTotal,
+                      discountValue: discountValue,
+                    },
+                  })
+                }
+              >
+                <Text style={{ color: "white", marginTop: 5, fontSize: 20 }}>
+                  {" "}
+                  Checkout{" "}
+                </Text>
+              </Pressable>
+            </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -539,7 +566,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 30,
         width: 90,
+        height: 30,
         backgroundColor: "white",
+        marginLeft: 10
     },
     quantityButton: {
         width: 40,
@@ -550,6 +579,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "bold",
         color: "#888",
+        borderWidth: 0.5,
+        borderRadius: 5,
+        borderColor: 'rosybrown'
     },
     quantity: {
         fontSize: 15,
@@ -567,4 +599,3 @@ const styles = StyleSheet.create({
         marginTop: 3
     }
 })
-

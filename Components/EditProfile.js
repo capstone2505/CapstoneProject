@@ -13,12 +13,15 @@ const EditProfile = ({ navigation, route }) => {
   const [name, setName] = useState()
   const [contact, setContact] = useState()
 
+
+
   let userId = auth?.currentUser?.email;
   console.log(userId);
 
+
   const updateProfile = async () => {
     const docRef = doc(db, "user", userId);
-    await updateDoc(docRef, { name: name, contact: contact })
+    await updateDoc(docRef, { name: name, contact: contact } ,{ merge: true })
       .then(() => {
         console.log("Data updated");
       })
@@ -30,22 +33,7 @@ const EditProfile = ({ navigation, route }) => {
   const save = () => {
     updateProfile()
     navigation.goBack();
-    // readAllWhere()
   }
-
-  // const readAllWhere = async () => {
-  //   const q = query(collection(db, "user"), where("email", "==", route.params.email));
-  //   const docs = await getDocs(q);
-  //   const profiles = [];
-  //   docs.forEach((doc) => {
-  //     console.log(doc.id, " => ", doc.data());
-  //     profiles.push(doc.data());
-  //     console.log(profiles);
-  //   });
-  //   setProfile(profiles); // Set the first profile in the array
-  // }
-  // console.log(profile);
-
 
 
   return (

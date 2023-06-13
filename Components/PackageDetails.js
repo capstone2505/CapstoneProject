@@ -100,7 +100,7 @@ const PackageDetails = ({ route }) => {
       navigation.navigate("MyCart", {
         id: route.params.id,
         details: detailsPackage,
-        imgDetails: icon,
+        imgDetails: route.params.imgDetails,
         price: route.params.price,
         extraPack: selectedExtras,
         name: route.params.name,
