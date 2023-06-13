@@ -19,6 +19,11 @@ const Checkout = ({ navigation, route }) => {
   const discountTotal = route.params.discountTotal
   const subAmount = route.params.subAmount
 
+
+  console.log("discountedTotal from Checkout", discountTotal);
+  console.log("discountValue from Checkout", discountValue);
+  console.log("subAmount from Checkout", subAmount);
+
   const [profile, setProfile] = useState()
   let userId = auth?.currentUser?.email;
   // const id = userId.toCase();
@@ -115,6 +120,7 @@ const Checkout = ({ navigation, route }) => {
   const handleConfirmButton =() =>{
     navigation.navigate({
       name: "ConfirmOrder", params: {
+        total:subAmount,
         discountValue: discountValue,
         discountTotal: discountTotal,
         subAmount: subAmount
@@ -129,26 +135,10 @@ const Checkout = ({ navigation, route }) => {
   const [streetName, setStreetName] = useState()
   const [buildingNumber, setBuildingNumber] = useState()
   const [city,setCity]=useState()
-  //const [Date, setdate] = useState(null)
-  //const [Time,setTime]=useState(null)
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const datestring = selectedDate.toLocaleDateString()
   const timestring = date.toLocaleTimeString()
-  // const addAddress = async () => {
-  //   const docRef = await addDoc(collection(db, "checkout"),{
-  //     streetNumber:streetNumber,
-  //     streetName:streetName,
-  //     buildingNumber:buildingNumber,
-  //     email:email,
-  //     contact:contact,
-  //     datestring:datestring
-
-  //   });
-  //  console.log("Document id from checkout " , docRef.id)
-  //  console.log("hello from mnoosh checkout ", streetNumber,streetName,buildingNumber)
-  // }
-
 
   const addAddress = async () => {
     const docRef = doc(db, "checkout", userId);
@@ -174,7 +164,7 @@ const Checkout = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold', alignSelf: 'left' }}>Add Address</Text>
+      <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold' }}>Add Address</Text>
       {/* address stuff  */}
       
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
