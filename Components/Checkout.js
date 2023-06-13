@@ -160,7 +160,7 @@ const Checkout = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold', alignSelf: 'left' }}>Add Address</Text>
+      <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold' }}>Add Address</Text>
       {/* address stuff  */}
       
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
