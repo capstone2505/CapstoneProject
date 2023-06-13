@@ -185,4 +185,3 @@ const styles = StyleSheet.create({
     margin: 5,
   }
 });
-

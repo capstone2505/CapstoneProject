@@ -3,14 +3,21 @@ import { StyleSheet, Text, View, Pressable, TextInput, SafeAreaView, Button } fr
 import { SelectCountry } from 'react-native-element-dropdown';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import Octicons from 'react-native-vector-icons/Octicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 //DB work
 import { auth, db } from './Config';
-import { getDocs, collection, query, where , doc, getDoc , addDoc } from "firebase/firestore";
+import { getDocs, collection, query, where , doc, getDoc , addDoc ,setDoc} from "firebase/firestore";
 
-const Checkout = ({ navigation }) => {
+const Checkout = ({ navigation, route }) => {
+  
+  const total = route.params.total
+  const discountValue = route.params.discountValue
+  const discountTotal = route.params.discountTotal
+  const subAmount = route.params.subAmount
 
   const [profile, setProfile] = useState()
   let userId = auth?.currentUser?.email;
@@ -60,8 +67,7 @@ const Checkout = ({ navigation }) => {
   const [country, setCountry] = useState('1');
 
   ///////////// Date picker /////////////
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  
 
   useEffect(() => {
     // Do something with the selected date
@@ -101,29 +107,80 @@ const Checkout = ({ navigation }) => {
     hidePicker();
   };
 
+ const ConfirmandSave = () => {
+  addAddress()
+  handleConfirmButton()
+  };
+
+  const handleConfirmButton =() =>{
+    navigation.navigate({
+      name: "ConfirmOrder", params: {
+        discountValue: discountValue,
+        discountTotal: discountTotal,
+        subAmount: subAmount
+      }
+    });
+    // navigation.navigate("ConfirmOrder")
+  }
 
   const [contact, setContact] = useState()
   const [email, setEmail] = useState()
   const [streetNumber, setStreetNumber] = useState()
   const [streetName, setStreetName] = useState()
   const [buildingNumber, setBuildingNumber] = useState()
+  const [city,setCity]=useState()
+  //const [Date, setdate] = useState(null)
+  //const [Time,setTime]=useState(null)
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const datestring = selectedDate.toLocaleDateString()
+  const timestring = date.toLocaleTimeString()
+  // const addAddress = async () => {
+  //   const docRef = await addDoc(collection(db, "checkout"),{
+  //     streetNumber:streetNumber,
+  //     streetName:streetName,
+  //     buildingNumber:buildingNumber,
+  //     email:email,
+  //     contact:contact,
+  //     datestring:datestring
+
+  //   });
+  //  console.log("Document id from checkout " , docRef.id)
+  //  console.log("hello from mnoosh checkout ", streetNumber,streetName,buildingNumber)
+  // }
+
 
   const addAddress = async () => {
-    const docRef = await addDoc(collection(db, "checkout"),{
+    const docRef = doc(db, "checkout", userId);
+    //console.log(email, password, name, contact);
+    await setDoc(docRef, {
       streetNumber:streetNumber,
-      streetName:streetName,
-      buildingNumber:buildingNumber,
-    });
-   console.log("Document id from checkout " , docRef.id)
-   console.log("hello from mnoosh checkout ", streetNumber,streetName,buildingNumber)
-  }
-  
+          streetName:streetName,
+          buildingNumber:buildingNumber,
+          email:email,
+          contact:contact,
+          datestring:datestring,
+          timestring:timestring,
+          city:city
+    })
+      .then(() => {
+        console.log("Data submitted successfully");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold', alignSelf: 'left' }}>Add Address</Text>
       {/* address stuff  */}
+      
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
+        
         <View style={[styles.txt, { flexDirection: 'row', marginBottom: 0 }]}>
+          <Octicons name='number' color={'#998184'} size={20} />
           <TextInput style={{ color: 'black' }}
             placeholder="  Street Number"
             value={streetNumber}
@@ -131,6 +188,7 @@ const Checkout = ({ navigation }) => {
           />
         </View>
         <View style={[styles.txt, { flexDirection: 'row', marginBottom: 0 }]}>
+        <MaterialIcons name='edit-road' color={'#998184'} size={20} />
           <TextInput style={{ color: 'black' }}
             placeholder="  Street Name"
             value={streetName}
@@ -138,34 +196,25 @@ const Checkout = ({ navigation }) => {
           />
         </View>
         <View style={[styles.txt, { flexDirection: 'row', marginBottom: 0 }]}>
+        <MaterialCommunityIcons name='office-building-marker-outline' color={'#998184'} size={20} /> 
           <TextInput style={{ color: 'black' }}
             placeholder="Building Number"
             value={buildingNumber}
             onChangeText={(txt) => setBuildingNumber(txt)}
           />
         </View>
+        
         <View style={[styles.txt, { flexDirection: 'row', marginBottom: 0 }]}>
-          <SelectCountry
-            style={styles.dropdown}
-            selectedTextStyle={styles.selectedTextStyle}
-            placeholderStyle={styles.placeholderStyle}
-            imageStyle={styles.imageStyle}
-            iconStyle={styles.iconStyle}
-            maxHeight={100}
-            value={country}
-            data={local_data}
-            valueField="value"
-            labelField="lable"
-            imageField="image"
-            placeholder="Select country"
-            onChange={e => {
-              setCountry(e.value);
-            }}
+          <FontAwesome5 name='city' color={'#998184'} size={20} />
+          <TextInput style={{ color: 'black' }}
+            placeholder="  Enter City"
+            value={city}
+            onChangeText={(txt) => setCity(txt)}
           />
         </View>
       </View>
 {/* the end of the address  */}
-      <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold', alignSelf: 'left' }}>Contact Info</Text>
+      <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold'}}>Contact Info</Text>
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
         <View style={[styles.txt, { flexDirection: 'row', marginBottom: 0 }]}>
           <Fontisto name='email' color={'#998184'} size={20} />
@@ -193,14 +242,16 @@ const Checkout = ({ navigation }) => {
             <Text style={styles.buttonText}>Select Date</Text>
           </Pressable>
           <DateTimePickerModal
-            isVisible={isDatePickerVisible}
+          //onPress={setSelectedDate}
+          onChangeText={txt => setSelectedDate(txt)}  
+          isVisible={isDatePickerVisible}
             mode="date"
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
             display={Platform.OS === 'ios' ? 'inline' : 'default'}
           />
           {selectedDate && (
-            <Text style={[styles.button, styles.txt, { color: '#998184', width: 240 }]}>Selected Date: {selectedDate.toLocaleDateString()}</Text>
+            <Text style={[styles.button, styles.txt, { color: '#998184', width: 240 }]}>Selected Date: {selectedDate.toLocaleDateString()} </Text>
           )}
         </View>
 
@@ -221,18 +272,18 @@ const Checkout = ({ navigation }) => {
 
       <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8, marginTop: 100 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Pressable onPress={() => navigation.navigate("ConfirmOrder")}>
+          <Pressable onPress={ConfirmandSave}>
             <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Confirm Order</Text>
           </Pressable>
         </View>
         </View>
-        <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8, marginTop: 100 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        {/* <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8, marginTop: 100 }}> */}
+        {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Pressable onPress={addAddress}>
             <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> add Order</Text>
           </Pressable>
-        </View>
-      </View>
+        </View> */}
+      {/* </View> */}
     </SafeAreaView>
   )
 }

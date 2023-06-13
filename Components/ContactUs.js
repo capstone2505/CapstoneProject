@@ -12,7 +12,8 @@ const ContactUs =({ navigation }) => {
   const [message,setMessage]= useState()
   //const [Confirmpassword, ConfirmsetPassword] = useState()
  // const [signedIn, setSignedIn] = useState(false)
-
+ let user = auth?.currentUser?.email;
+  console.log(user);
 
   const add = async () => {
     const docRef = await addDoc(collection(db, "contactUS"), {
@@ -26,7 +27,7 @@ const ContactUs =({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.contactUsText}>{"< Contact Us"}</Text>
+        <Text style={styles.contactUsText}>{""}</Text>
       </View>
       <View style={styles.content}>
         <Image style={styles.logo} source={require('../assets/Images/contact.png')} />
