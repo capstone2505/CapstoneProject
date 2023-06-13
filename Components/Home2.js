@@ -84,6 +84,7 @@ const Home = () => {
       .catch((error) => console.log("Error logging out: ", error));
   };
   useLayoutEffect(() => {
+
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
@@ -140,7 +141,7 @@ const Home = () => {
           </View>
           <Card.Image style={{ padding: 0, width: 435, height: 150, alignSelf: 'center' }} source={path} />
           <View>
-            <TouchableOpacity onPress={handleProductButtonPress}><Image style={{ width: 425, height: 150, alignSelf: 'center' }} source={require("../assets/Images2/start_order.jpg")} /></TouchableOpacity>
+            <TouchableOpacity onPress={handleProductButtonPress}><Image style={{ width: 425, height: 150, alignSelf: 'center' }} source={require("../assets/Images/startOrder.png")} /></TouchableOpacity>
           </View>
           <View style={{ flexDirection: "row" }}>
             {more.map((p, index) => {

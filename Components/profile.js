@@ -100,7 +100,6 @@ const Profile = ({ navigation }) => {
           null
       }
 
-
       <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Address</Text>
       <View style={[styles.txt, { marginBottom: 25 }]}>
         <Text style={{ color: '#998184', margin: 5 }}> City </Text>

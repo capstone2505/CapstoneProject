@@ -15,6 +15,8 @@ import { getDocs, collection, query, where , doc, getDoc , addDoc ,setDoc} from 
 const Checkout = ({ navigation, route }) => {
   
   const total = route.params.total
+  console.log("mbnm,gmhgkmgn");
+  console.log(total);
   const discountValue = route.params.discountValue
   const discountTotal = route.params.discountTotal
   const subAmount = route.params.subAmount
@@ -120,7 +122,6 @@ const Checkout = ({ navigation, route }) => {
         subAmount: subAmount
       }
     });
-    // navigation.navigate("ConfirmOrder")
   }
 
   const [contact, setContact] = useState()
@@ -129,30 +130,15 @@ const Checkout = ({ navigation, route }) => {
   const [streetName, setStreetName] = useState()
   const [buildingNumber, setBuildingNumber] = useState()
   const [city,setCity]=useState()
-  //const [Date, setdate] = useState(null)
-  //const [Time,setTime]=useState(null)
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const datestring = selectedDate.toLocaleDateString()
   const timestring = date.toLocaleTimeString()
-  // const addAddress = async () => {
-  //   const docRef = await addDoc(collection(db, "checkout"),{
-  //     streetNumber:streetNumber,
-  //     streetName:streetName,
-  //     buildingNumber:buildingNumber,
-  //     email:email,
-  //     contact:contact,
-  //     datestring:datestring
-
-  //   });
-  //  console.log("Document id from checkout " , docRef.id)
-  //  console.log("hello from mnoosh checkout ", streetNumber,streetName,buildingNumber)
-  // }
 
 
   const addAddress = async () => {
     const docRef = doc(db, "checkout", userId);
-    //console.log(email, password, name, contact);
     await setDoc(docRef, {
       streetNumber:streetNumber,
           streetName:streetName,

@@ -103,8 +103,6 @@ const Home = () => {
       temp.push(product);
       setData(temp);
     });
-    // console.log("data");
-    // console.log(data);
   };
 
   useEffect(() => {
@@ -127,7 +125,7 @@ const Home = () => {
           </View>
           <Card.Image style={{ padding: 0, width: 435, height: 150, alignSelf: 'center' }} source={path} />
           <View>
-            <TouchableOpacity onPress={handleOffersButtonPress}><Image style={{ width: 425, height: 150, alignSelf: 'center' }} source={require("../assets/Images2/start_order.jpg")} /></TouchableOpacity>
+            <TouchableOpacity onPress={handleProductButtonPress}><Image style={{ width: 425, height: 150, alignSelf: 'center' }} source={require("../assets/Images/startOrder.png")} /></TouchableOpacity>
           </View>
           <View style={{ flexDirection: "row" }}>
             {more.map((p, index) => {
@@ -135,7 +133,6 @@ const Home = () => {
               const icon = path ? path.path : null;
               const product = data.filter((item) => item.name === p.name);
               const m = product ? product : null;
-              // console.log(product);
               return (
                 <View>
                   {product.map((x, i) => {
@@ -183,53 +180,10 @@ const Home = () => {
           </View>
 
           <View style={{ flexDirection: 'row' }}>
-            {/* <View> */}
-            {/* {more.map((p, index) => {
-                const path = images.find((img) => img.name === p.image);
-                // console.log(path);
-                const icon = path ? path.path : null;
-                const product = data.filter((item) => item.name === "Pows");
-                const m = product ? product : null;
-                // console.log(product);
-                return (
-                  <View key={index}>
-                    {product.map((x, i) => {
-                      return (
-                        <View >
-                          <Pressable
-                            onPress={() =>
-                              navigation.navigate({
-                                name: "Packages",
-                                params: {
-                                  packageList: x.packages,
-                                  name: x.name,
-                                  image: x.image,
-                                  pId: id,
-                                  imgDetails: x.imgDetails,
-                                  extraPack: x.extraPack,
-                                },
-                              })
-                            }
-                          >
-                            <Image
-                              style={{
-                                width: 150, height: 200, borderRadius: 30, marginTop: 20
-                              }}
-                              source={icon}
-                            />
-                          </Pressable>
-                        </View>
-                      );
-                    })}
-                  </View>
-                );
-              })} */}
             <Image style={{
               width: 150, height: 200, borderRadius: 30, marginTop: 20
             }} source={require("../assets/Images/paws.jpg")} />
 
-
-            {/* </View> */}
 
             <View style={{ width: 230, height: 200, backgroundColor: 'lavenderblush', borderRadius: 10, margin: 20 }}>
               <View style={{ alignSelf: 'center', margin: 55 }}>
@@ -240,6 +194,7 @@ const Home = () => {
           </View>
         </SafeAreaView>
       </ScrollView>
+
       {/* Chat Live Icon */}
       <TouchableOpacity style={styles.chatIcon} onPress={handleChatIconPress}>
         <MaterialCommunityIcons name="chat-processing-outline" size={35} color='black' />
