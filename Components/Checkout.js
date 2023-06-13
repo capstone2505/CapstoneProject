@@ -157,7 +157,6 @@ const Checkout = ({ navigation, route }) => {
       });
   };
 
-
   return (
     <SafeAreaView style={styles.container}>
       <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold' }}>Add Address</Text>
