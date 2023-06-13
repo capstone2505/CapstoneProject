@@ -1,62 +1,126 @@
-import React from 'react';
-import { StatusBar, StyleSheet, View, Image, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, SafeAreaView, Pressable } from 'react-native';
+import Constants from 'expo-constants';
+
+const TrackOrder = ({ navigation }) => {
+  const [orderStatus, setOrderStatus] = useState('Completed');
+
+  const renderStep = (status, label, imageSource, index) => {
+    const stepStyles = [styles.step];
+    const circleStyles = [styles.circle];
+    const tickStyles = [styles.tick];
+    const dotStyles = [styles.dot];
 
 
-export default function App() {
+    if (orderStatus === status) {
+      circleStyles.push(styles.completed);
+      tickStyles.push(styles.show);
+    }
+    if (index !== 0) {
+      dotStyles.push(styles.dotPink);
+    }
+
+    return (
+      <SafeAreaView>
+        <View style={stepStyles} key={status}>
+          <Image style={styles.track1} source={imageSource} />
+          <Text>{label}</Text>
+          <View style={tickStyles}>
+            <Text>&#10003;</Text>
+          </View>
+        </View>
+      </SafeAreaView>
+
+    );
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Image style={styles.home} source={require('../assets/Images/home.png')} />
+    <View>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Pressable onPress={() => navigation.navigate("Home")}>
+            <Text style={styles.x}>{"X"}</Text>
+          </Pressable>
+          <Image style={styles.track} source={require('../assets/Images/Track1.png')} />
+          <Text style={{ color: 'Black', marginTop: 5, fontSize: 20 }}> Track Order </Text>
+        </View>
+      </SafeAreaView>
+
+      <View>
+        {renderStep('Completed', 'Completed', require('../assets/Images/Ordered.png'), 0)}
+        {renderStep('OnTheWay', 'On the way', require('../assets/Images/onTheway.png'), 1)}
+        {renderStep('Delivered', 'Delivered', require('../assets/Images/Delivered.png'), 2)}
       </View>
-      <View style={styles.content}>
-        <Image style={styles.track1} source={require('../assets/Images/Track1.png')} />
-      </View>
-       <View style={styles.content}>
-        <Image style={styles.ordered} source={require('../assets/Images/Ordered.png')} />
-      </View>
-      <View style={styles.content}>
-        <Image style={styles.onTheway} source={require('../assets/Images/onTheway.png')} />
-      </View>
-      <View style={styles.content}>
-        <Image style={styles.delivered} source={require('../assets/Images/Delivered.png')} />
-      </View>
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
+  step: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 6,
+    marginTop: 80,
   },
-  header: {
-    alignItems: 'flex-start',
-    padding: 16,
+  circle: {
+    width: 30,
+    height: 30,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    marginRight: 10,
   },
-  home: {
-    width: '15%',
-    height: 50,
-    marginBottom: 10,
+  completed: {
+    backgroundColor: 'green',
+    borderColor: 'green',
+  },
+  tick: {
+    width: 30,
+    height: 30,
+    borderRadius: 10,
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 4,
+  },
+  show: {
+    backgroundColor: 'pink',
   },
   track1: {
-    width: '40%',
-    height: 100,
-    marginBottom: 5,
+    width: 100,
+    height: 95,
+    marginRight: 35,
+    marginLeft: 60,
+
   },
-  ordered: {
+  x: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    alignItems: 'center',
+  },
+  dot: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    alignItems: 'center',
+  },
+  track: {
+    marginTop: 15,
     width: '100%',
-    height: 200,
-    marginBottom: 10,
+    height: 150,
+    marginBottom: -60,
   },
-  onTheway: {
-    width: '100%',
-    height: 200,
-    marginBottom: 10,
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: 'gray',
+    marginRight: 5,
   },
-  delivered: {
-    width: '104%',
-    height: 200,
-    marginBottom: 10,
+  dotPink: {
+    backgroundColor: 'pink',
   },
 });
+
+export default TrackOrder;

@@ -70,23 +70,6 @@ const PackageDetails = ({ route }) => {
     console.log("Document written with ID: ", docRef.id);
   };
 
-  // const handleContinue = () => {
-  //   navigation.navigate("MyCart", {
-  //     id: route.params.id,
-  //     details: detailsPackage,
-  //     imgDetails: icon,
-  //     price: route.params.price,
-  //     extraPack: selectedExtras,
-  //     name: route.params.name,
-  //     cup: route.params.cup,
-  //     total: totalAmount,
-  //     quantity: quantity,
-  //     request: detailRequest,
-  //     compName: route.params.compName,
-  //     packageList: packageList
-  //   });
-  // };
-
   const handelBoth = () => {
     console.log("hii mnoosh from both ")
     add()

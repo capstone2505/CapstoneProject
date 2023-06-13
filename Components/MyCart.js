@@ -12,7 +12,7 @@ const MyCart = ({ navigation, route }) => {
     let userId = auth?.currentUser?.email;
     console.log(userId);
 
-    // const packageList = route.params.packageList
+
     const [cartData, setCartData] = useState([]);
 
     const images = [
@@ -115,18 +115,6 @@ const MyCart = ({ navigation, route }) => {
     const [cart, setCart] = useState();
 
     const saveData = async () => {
-
-        const itemId = route.params.id;
-        const itemDetils = route.params.details;
-        const itemImgDetails = route.params.imgDetails;
-        const itemExtraPack = route.params.extraPack;
-        const itemPrice = route.params.price;
-        const itemName = route.params.name;
-        const itemCup = route.params.cup;
-        const total = route.params.total;
-        const itemQuantity = route.params.quantity;
-        const compName = route.params.compName;
-
         try {
 
             const docRef = doc(db, "cart", userId);
@@ -142,34 +130,36 @@ const MyCart = ({ navigation, route }) => {
                 );
                 if (existingItemIndex !== -1) {
                     // Item already exists, update its quantity
-                    updatedItems[existingItemIndex].quantity = itemQuantity;
+                    updatedItems[existingItemIndex].quantity = route.params.quantity;
                 } else {
                     // Item doesn't exist, add it to the cart
                     updatedItems.push({
-                        packageId: itemId,
-                        details: itemDetils,
-                        imgDetails: itemImgDetails,
-                        price: itemPrice,
-                        extraPack: itemExtraPack,
-                        name: itemName,
-                        cup: itemCup,
-                        total: subAmount,
-                        quantity: quantity,
-                        compName: compName
+                        packageId: route.params.id,
+                        details: route.params.details,
+                        imgDetails: route.params.imgDetails,
+                        price: route.params.price,
+                        extraPack: route.params.extraPack,
+                        name: route.params.name,
+                        cup: route.params.cup,
+                        total: route.params.total,
+                        quantity: route.params.quantity,
+                        compName: route.params.compName,
+                        request: route.params.request
                     });
                     updatedItems = [
                         ...updatedItems,
                         {
-                            packageId: itemId,
-                            details: itemDetils,
-                            imgDetails: itemImgDetails,
-                            price: itemPrice,
-                            extraPack: itemExtraPack,
-                            name: itemName,
-                            cup: itemCup,
-                            total: subAmount,
-                            quantity: quantity,
-                            compName: compName
+                            packageId: route.params.id,
+                            details: route.params.details,
+                            imgDetails: route.params.imgDetails,
+                            price: route.params.price,
+                            extraPack: route.params.extraPack,
+                            name: route.params.name,
+                            cup: route.params.cup,
+                            total: route.params.total,
+                            quantity: route.params.quantity,
+                            compName: route.params.compName,
+                            request: route.params.request
                         },
                     ];
                 }
@@ -178,34 +168,36 @@ const MyCart = ({ navigation, route }) => {
                 updateCartTotal();
             } else {
                 const newItem = {
-                    packageId: itemId,
-                    details: itemDetils || "",
-                    imgDetails: itemImgDetails || "",
-                    price: itemPrice || 0,
-                    extraPack: itemExtraPack || "",
-                    name: itemName || "",
-                    cup: itemCup || "",
+                    packageId: route.params.id,
+                    details: route.params.details || "",
+                    imgDetails: route.params.imgDetails || "",
+                    price: route.params.price || 0,
+                    extraPack: route.params.extraPack || "",
+                    name: route.params.name || "",
+                    cup: route.params.cup || "",
                     total: subAmount || 0,
-                    quantity: quantity || 0,
-                    compName: compName || ""
+                    quantity: route.params.quantity || 0,
+                    compName: route.params.compName || "",
+                    request: route.params.request || ""
                 };
                 await setDoc(docRef, {
                     cartItem: [newItem],
-                    total: total,
+                    total: route.params.total,
                     status: "unpaid",
                 });
                 setCart([
                     {
-                        packageId: itemId,
-                        details: itemDetils,
-                        imgDetails: itemImgDetails,
-                        price: itemPrice,
-                        extraPack: itemExtraPack,
-                        name: itemName,
-                        cup: itemCup,
+                        packageId: route.params.id,
+                        details: route.params.itemDetils,
+                        imgDetails: route.params.itemImgDetails,
+                        price: route.params.itemPrice,
+                        extraPack: route.params.itemExtraPack,
+                        name: route.params.itemName,
+                        cup: route.params.itemCup,
                         total: subAmount,
-                        quantity: quantity,
-                        compName: compName
+                        quantity: route.params.quantity,
+                        compName: route.params.compName,
+                        request: route.params.request
                     },
                 ]);
                 updateCartTotal();
@@ -235,13 +227,6 @@ const MyCart = ({ navigation, route }) => {
 
                 // Update the cartData state with the updated cart items
                 setCartData([updatedCartData]);
-
-                // Calculate the updated subtotal
-                // let amount = 0;
-                // updatedItems.forEach((x) => {
-                //     amount += x.quantity * x.price;
-                // });
-                // setSubAmount(amount);
                 updateCartTotal();
 
                 // Delete the item document from the cartItem subcollection
@@ -386,7 +371,10 @@ const MyCart = ({ navigation, route }) => {
                                     const icon = path ? path.path : null;
                                     return (
                                         <View key={index} style={{ backgroundColor: 'lightgrey', flexDirection: 'row' }}>
-                                            <View>
+
+                                            <View style={{ width: 205 }}>
+                                                <Text style={styles.quantityTitle}>Package {x.packageId}</Text>
+
                                                 <Image style={{ width: 100, height: 100, borderRadius: 20, borderWidth: 1, margin: 10 }} source={icon} />
                                                 <View style={[styles.quantityContainer, { margin: 3, alignItems: 'center', }]}>
                                                     <TouchableOpacity style={styles.quantityButton} onPress={() => handleQuantityDecrease(userId, i)}>
@@ -400,16 +388,30 @@ const MyCart = ({ navigation, route }) => {
                                                     </TouchableOpacity>
                                                 </View>
                                             </View>
-                                            <View style={{ flexDirection: 'row' }}>
-                                                <Text style={styles.quantityTitle}>Package {x.packageId}</Text>
+                                            <View style={{ width: 160 }}>
+                                                <View style={{ flexDirection: 'row' }}>
+                                                    <Text style={{ fontWeight: 'bold', color: 'black', margin: 10, fontSize: 15 }}>Price: </Text>
+                                                    <Text style={{ color: 'black', margin: 10, fontSize: 15 }}> {x.price} QR </Text>
+                                                </View>
+                                                <View style={{ marginTop: 10, width: 370, alignSelf: 'center', padding: 5 }}>
+                                                <Text style={{ fontWeight: 'bold', color: 'black', margin: 10, fontSize: 15 }}>Details: </Text>
+                                                    {x.details.map((x, i) => {
+                                                        return (<Text key={i} style={{ paddingLeft: 10, margin: 3, fontSize: 12 }}>{x}</Text>)
+                                                    })}
+                                                </View>
+                                                <View style={{ marginTop: 10, width: 370, alignSelf: 'center', padding: 5 }}>
+                                                <Text style={{ fontWeight: 'bold', color: 'black', margin: 10, fontSize: 15 }}>Request: </Text>
+                                                <Text style={{ color: 'black', margin: 10, fontSize: 15 }}>  {x.request}  </Text>
 
+                                               
+                                                </View>
                                             </View>
-                                            <Text style={{ color: 'black', margin: 10, fontSize: 15 }}> {x.price} QR </Text>
-                                            <TouchableOpacity onPress={() => deleteRes(userId, i)} style={{ backgroundColor: 'green' }}>
-                                                <Text style={{ color: 'black', margin: 10, fontSize: 30 }} >
-                                                    <Ionicons name='trash' color={'black'} size={40} />
+                                            <TouchableOpacity onPress={() => deleteRes(userId, i)} style={{ backgroundColor: 'green', width: 30 }}>
+                                                <Text style={{ color: 'black', margin: 5, fontSize: 30 }} >
+                                                    <Ionicons name='trash' color={'black'} size={20} />
                                                 </Text>
                                             </TouchableOpacity>
+
                                         </View>
                                     )
                                 })
@@ -502,7 +504,7 @@ const MyCart = ({ navigation, route }) => {
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
-                        <Pressable onPress={() => navigation.navigate("Packages")}>
+                    <Pressable onPress={() => navigation.navigate("Packages")}>
                             <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add More </Text>
                         </Pressable>
                     </View>
