@@ -112,7 +112,14 @@ const ConfirmOrder = ({ navigation, route }) => {
 
             <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 350, height: 50, borderRadius: 8, padding: 8 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Pressable onPress={() => navigation.navigate(checked === 'first' ? 'OrderedPlaced' : 'PaymentDetails')}>
+                    {/* <Pressable onPress={() => navigation.navigate(checked === 'first' ? 'OrderedPlaced' : 'PaymentDetails')}> */}
+                    <Pressable onPress={() => {
+                        const screenName = checked === 'first' ? 'OrderedPlaced' : 'PaymentDetails';
+                        const params = checked === 'first' ? {} : {  discountValue: discountValue,
+                            discountTotal: discountTotal,
+                            subAmount: subAmount };
+                        navigation.navigate(screenName, params);
+                    }}>
                         <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}>
                             {checked === 'first' ? 'Place Order' : 'Go to Payment'}
                         </Text>

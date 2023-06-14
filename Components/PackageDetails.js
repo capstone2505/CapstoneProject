@@ -22,6 +22,9 @@ const PackageDetails = ({ route }) => {
     { name: 'exit55table.png', path: require("../assets/Images/exit55table.png") },
   ]
 
+  const packageList = route.params.packageList
+  console.log('packageList from detailsPack',packageList);
+
   const path = images.find((img) => img.name === route.params.imgDetails);
   const icon = path ? path.path : null;
 
@@ -31,9 +34,7 @@ const PackageDetails = ({ route }) => {
   const [totalAmount, setTotalAmount] = useState(quantity * route.params.price);
   const [detailRequest, setDetailRequest] = useState('');
   const [selectedExtras, setSelectedExtras] = useState([]);
-
-  const packageList = route.params.packageList
-
+  
   let user = auth?.currentUser?.email;
   console.log(user);
 
@@ -75,7 +76,7 @@ const PackageDetails = ({ route }) => {
     add()
     press()
   }
-
+  
   const press = () => {
     user === undefined ?
       navigation.navigate("Login")
@@ -92,7 +93,7 @@ const PackageDetails = ({ route }) => {
         quantity: quantity,
         request: detailRequest,
         compName: route.params.compName,
-        packageList: packageList
+        // packageList: packageList
       })
   }
 

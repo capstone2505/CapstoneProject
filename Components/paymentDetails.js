@@ -22,7 +22,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 
-export default function PaymentDetails({ navigation }) {
+export default function PaymentDetails({ navigation, route }) {
   const [saveCardDetails, setSaveCardDetails] = useState(false);
 
   const [CardverfVal, setCardverfVal] = useState("");
@@ -135,6 +135,86 @@ export default function PaymentDetails({ navigation }) {
           <View style={styles.divider} />
           <Text style={styles.subtitle}>Total Amount: 5000 QR</Text>
         </View>
+
+        <View style={{ margin: 15, width: 400 }}>
+                    <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 5, marginLeft: 5 }}>
+                        Summary Payment
+                    </Text>
+                    <View style={[{ flexDirection: "row", justifyContent: "space-between", marginLeft: 15 }]} >
+                        <View
+                            style={[
+                                {
+                                    width: 320,
+                                    margin: 3,
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                },
+                            ]}
+                        >
+                            <Text style={{ fontSize: 15 }}>Sub-Total</Text>
+                            <Text style={{ fontSize: 15 }}>{route.params.subAmount}QR</Text>
+                        </View>
+                    </View>
+                    <View
+                        style={[
+                            {
+                                marginBottom: 3,
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                            },
+                        ]}
+                    >
+                        <View
+                            style={[
+                                {
+                                    width: 320,
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    marginLeft: 15,
+                                },
+                            ]}
+                        >
+                            <Text style={{ margin: 5, fontSize: 15 }}>Discount</Text>
+                            {route.params.discountValue ? (
+                                <Text style={{ margin: 3 }}>{route.params.discountValue} %</Text>
+                            ) : (
+                                <Text style={{ margin: 3 }}>0 %</Text>
+                            )}
+                        </View>
+                    </View>
+                    <View
+                        style={[
+                            {
+                                marginBottom: 3,
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                borderTopWidth: 1,
+                                borderColor: "#d3d3d3",
+                                width: 350,
+                                marginLeft: 10,
+                            },
+                        ]}
+                    >
+                        <View
+                            style={[
+                                {
+                                    width: 320,
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    marginLeft: 15,
+                                },
+                            ]}
+                        >
+                            <Text style={{ margin: 5, fontSize: 15 }}>Total Amount</Text>
+                            {route.params.discountValue ? (
+                                <Text style={{ margin: 3 }}>{route.params.subAmount} QR</Text>
+                            ) : (
+                                <Text style={{ margin: 3 }}>{route.params.discountTotal} QR</Text>
+                            )}
+                            {/* <Text style={{ margin: 5, fontSize: 15 }}>{discountTotal}QR</Text> */}
+                        </View>
+                    </View>
+                </View>
 
         <Text style={styles.boldTextLarge}>Card Details</Text>
         <View style={styles.cardDetails}>

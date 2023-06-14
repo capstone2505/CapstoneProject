@@ -13,6 +13,8 @@ const MyCart = ({ navigation, route }) => {
     console.log(userId);
 
 
+    const packageList = route.params.packageList
+    // console.log('packageList from cart', packageList);
     const [cartData, setCartData] = useState([]);
 
     const images = [
@@ -44,7 +46,7 @@ const MyCart = ({ navigation, route }) => {
 
     useEffect(() => {
         saveData();
-        // discountamount();
+        discountamount();
     }, []);
 
     const readCart = async () => {
@@ -111,7 +113,6 @@ const MyCart = ({ navigation, route }) => {
         }
     }, [cartDataUpdated, cartData]);
 
-
     const [cart, setCart] = useState();
 
     const saveData = async () => {
@@ -125,8 +126,8 @@ const MyCart = ({ navigation, route }) => {
                 let updatedItems = [...existingItems];
 
                 // Check if the item already exists in the cart
-                const existingItemIndex = existingItems.findIndex(
-                    (item) => item.packageId === itemId
+                const existingItemIndex = existingItems.findIndex( 
+                    (item) => item.packageId === route.params.id
                 );
                 if (existingItemIndex !== -1) {
                     // Item already exists, update its quantity
@@ -323,6 +324,7 @@ const MyCart = ({ navigation, route }) => {
 
     const discountamount = () => {
         let itemName = route.params.compName;
+        console.log(itemName);
         let itemTotal = route.params.total;
         if (itemName == "Charger" && itemTotal >= 3000) {
             console.log("yesss charger");
@@ -358,7 +360,6 @@ const MyCart = ({ navigation, route }) => {
         }
     };
 
-
     return (
         <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white', marginTop: 10 }}>
             <ScrollView>
@@ -376,7 +377,7 @@ const MyCart = ({ navigation, route }) => {
                                                 <Text style={styles.quantityTitle}>Package {x.packageId}</Text>
 
                                                 <Image style={{ width: 100, height: 100, borderRadius: 20, borderWidth: 1, margin: 10 }} source={icon} />
-                                                <View style={[styles.quantityContainer, { margin: 3, alignItems: 'center', }]}>
+                                                <View style={[styles.quantityContainer, { marginLeft: 16, alignItems: 'center', }]}>
                                                     <TouchableOpacity style={styles.quantityButton} onPress={() => handleQuantityDecrease(userId, i)}>
                                                         <View>
                                                             <Text style={styles.quantityButtonText}>-</Text>
@@ -394,19 +395,19 @@ const MyCart = ({ navigation, route }) => {
                                                     <Text style={{ color: 'black', margin: 10, fontSize: 15 }}> {x.price} QR </Text>
                                                 </View>
                                                 <View style={{ marginTop: 10, width: 370, alignSelf: 'center', padding: 5 }}>
-                                                <Text style={{ fontWeight: 'bold', color: 'black', margin: 10, fontSize: 15 }}>Details: </Text>
+                                                    <Text style={{ fontWeight: 'bold', color: 'black', margin: 10, fontSize: 15 }}>Details: </Text>
                                                     {x.details.map((x, i) => {
                                                         return (<Text key={i} style={{ paddingLeft: 10, margin: 3, fontSize: 12 }}>{x}</Text>)
                                                     })}
                                                 </View>
                                                 <View style={{ marginTop: 10, width: 370, alignSelf: 'center', padding: 5 }}>
-                                                <Text style={{ fontWeight: 'bold', color: 'black', margin: 10, fontSize: 15 }}>Request: </Text>
-                                                <Text style={{ color: 'black', margin: 10, fontSize: 15 }}>  {x.request}  </Text>
+                                                    <Text style={{ fontWeight: 'bold', color: 'black', margin: 10, fontSize: 15 }}>Request: </Text>
+                                                    <Text style={{ color: 'black', margin: 10, fontSize: 15 }}>  {x.request}  </Text>
 
-                                               
+
                                                 </View>
                                             </View>
-                                            <TouchableOpacity onPress={() => deleteRes(userId, i)} style={{ backgroundColor: 'green', width: 30 }}>
+                                            <TouchableOpacity onPress={() => deleteRes(userId, i)} style={{ backgroundColor: '#F7EBED', width: 30 }}>
                                                 <Text style={{ color: 'black', margin: 5, fontSize: 30 }} >
                                                     <Ionicons name='trash' color={'black'} size={20} />
                                                 </Text>
@@ -460,7 +461,6 @@ const MyCart = ({ navigation, route }) => {
                             ]}
                         >
                             <Text style={{ margin: 5, fontSize: 15 }}>Discount</Text>
-                            {/* <Text style={{ margin: 5, fontSize: 15 }}>{discountValue}%</Text> */}
                             {discountValue ? (
                                 <Text style={{ margin: 3 }}>{discountValue} %</Text>
                             ) : (
@@ -504,7 +504,18 @@ const MyCart = ({ navigation, route }) => {
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
-                    <Pressable onPress={() => navigation.navigate("Packages")}>
+                    <Pressable
+                          onPress={() =>
+                            navigation.navigate({
+                              name: "Packages",
+                              params: {
+                                packageList: packageList,
+                               
+                              },
+                            })
+                          }
+                        >
+                                              
                             <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add More </Text>
                         </Pressable>
                     </View>
@@ -576,7 +587,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "bold",
         color: "#888",
-        borderWidth: 0.5,
+        // borderWidth: 0.5,
         borderRadius: 5,
         borderColor: 'rosybrown'
     },

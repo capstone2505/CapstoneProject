@@ -20,8 +20,9 @@ export default function Packages({ navigation, route }) {
       ]
     
     const [data, setData] = useState(route.params.packageList);
-    const packageList = route.params.packageList
-    console.log(data);
+    // const packageList = route.params.packageList
+
+    console.log('packageList from packages',data);
 
     const path = images.find((img) => img.name === route.params.image);
     const icon = path ? path.path : null;
@@ -32,8 +33,8 @@ export default function Packages({ navigation, route }) {
 
     const discount = route.params.discount
 
-    console.log("shjgsdsdds");
-    console.log(discount);
+    // console.log("shjgsdsdds");
+    // console.log(discount);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -63,7 +64,7 @@ export default function Packages({ navigation, route }) {
                                                     id: x.id,
                                                     extraPack: extra,
                                                     compName: compName,
-                                                    packageList: packageList
+                                                    // packageList: data
                                                 }
                                             })}>
                                                 <Text style={{ color: '#D3B3B8', fontWeight: 'bold', margin: 3 }}>

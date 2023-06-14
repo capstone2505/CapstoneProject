@@ -219,7 +219,7 @@ const Checkout = ({ navigation, route }) => {
         </View>
       </View>
 
-      <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold', alignSelf: 'left' }}>Select Event Date and Time</Text>
+      <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold'}}>Select Event Date and Time</Text>
       <View style={{ alignItems: 'center', marginBottom: 20 , marginTop: 10 }}>
 
         <View style={{ flexDirection: 'row' }}>

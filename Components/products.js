@@ -92,6 +92,7 @@ export default function Products({ navigation }) {
                 {data.map((item, index) => {
                     const path = images.find((img) => img.name === item.image);
                     const icon = path ? path.path : null;
+                    console.log('packages from products',item.packages);
                     return (
                         <View key={index} style={styles.squareContainer}>
                             <Image source={icon} style={styles.image} />
