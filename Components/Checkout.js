@@ -1,3 +1,4 @@
+// Checkout Done 
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable, TextInput, SafeAreaView, Button } from 'react-native'
 import { SelectCountry } from 'react-native-element-dropdown';
@@ -15,14 +16,11 @@ import { getDocs, collection, query, where , doc, getDoc , addDoc ,setDoc} from 
 const Checkout = ({ navigation, route }) => {
   
   const total = route.params.total
+  console.log("mbnm,gmhgkmgn");
+  console.log(total);
   const discountValue = route.params.discountValue
   const discountTotal = route.params.discountTotal
   const subAmount = route.params.subAmount
-
-
-  console.log("discountedTotal from Checkout", discountTotal);
-  console.log("discountValue from Checkout", discountValue);
-  console.log("subAmount from Checkout", subAmount);
 
   const [profile, setProfile] = useState()
   let userId = auth?.currentUser?.email;
@@ -112,37 +110,21 @@ const Checkout = ({ navigation, route }) => {
     hidePicker();
   };
 
- const ConfirmandSave = () => {
-  addAddress()
-  handleConfirmButton()
-  };
-
-  const handleConfirmButton =() =>{
-    navigation.navigate({
-      name: "ConfirmOrder", params: {
-        total:subAmount,
-        discountValue: discountValue,
-        discountTotal: discountTotal,
-        subAmount: subAmount
-      }
-    });
-    // navigation.navigate("ConfirmOrder")
-  }
-
   const [contact, setContact] = useState()
   const [email, setEmail] = useState()
   const [streetNumber, setStreetNumber] = useState()
   const [streetName, setStreetName] = useState()
   const [buildingNumber, setBuildingNumber] = useState()
   const [city,setCity]=useState()
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const datestring = selectedDate.toLocaleDateString()
   const timestring = date.toLocaleTimeString()
+  const [errorMessage, setErrorMessage] = useState("");
 
   const addAddress = async () => {
     const docRef = doc(db, "checkout", userId);
-    //console.log(email, password, name, contact);
     await setDoc(docRef, {
       streetNumber:streetNumber,
           streetName:streetName,
@@ -159,9 +141,54 @@ const Checkout = ({ navigation, route }) => {
       .catch((error) => {
         console.log(error.message);
       });
+
+
+      const docRef2 = doc(db, "user", userId);
+      await setDoc(docRef2, {
+        address:{
+          streetName:streetName,
+            buidingNum:buildingNumber,
+            city:city,
+            streetNum:streetNumber
+        },
+      },{merge:true})
+        .then(() => {
+          console.log("Data submitted successfully");
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
   };
+// ...
 
+const handleConfirmButton = () => {
+  if (!streetNumber || !streetName || !buildingNumber || !city || !contact || !email || !selectedDate || !date) {
+    // Display an error message or perform any desired action
+    const errorMessage = "Please fill All the Fields !!!";
+    setErrorMessage(errorMessage);
+    return;
+  }
 
+  navigation.navigate({
+    name: "ConfirmOrder",
+    params: {
+      discountValue: discountValue,
+      discountTotal: discountTotal,
+      subAmount: subAmount,
+    }
+  });
+}
+
+// ...
+
+const ConfirmandSave = () => {
+  addAddress();
+  handleConfirmButton();
+};
+
+// ...
+
+  
   return (
     <SafeAreaView style={styles.container}>
       <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold' }}>Add Address</Text>
@@ -224,7 +251,7 @@ const Checkout = ({ navigation, route }) => {
         </View>
       </View>
 
-      <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold', alignSelf: 'left' }}>Select Event Date and Time</Text>
+      <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold'}}>Select Event Date and Time</Text>
       <View style={{ alignItems: 'center', marginBottom: 20 , marginTop: 10 }}>
 
         <View style={{ flexDirection: 'row' }}>
@@ -259,6 +286,9 @@ const Checkout = ({ navigation, route }) => {
         </View>
       </View>
             
+      {errorMessage ? (
+        <Text style={styles.errorText}>{errorMessage}</Text>
+      ) : null}
 
       <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8, marginTop: 100 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -267,13 +297,6 @@ const Checkout = ({ navigation, route }) => {
           </Pressable>
         </View>
         </View>
-        {/* <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8, marginTop: 100 }}> */}
-        {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Pressable onPress={addAddress}>
-            <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> add Order</Text>
-          </Pressable>
-        </View> */}
-      {/* </View> */}
     </SafeAreaView>
   )
 }
@@ -331,4 +354,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'white',
   },
+  errorText:{color: "red", fontSize:20}
 });

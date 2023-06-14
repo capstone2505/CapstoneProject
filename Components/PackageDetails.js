@@ -105,6 +105,7 @@ const PackageDetails = ({ navigation, route }) => {
 
   const compName = route.params.compName;
   console.log(compName, "details");
+  console.log("totalAmount",totalAmount)
   const handleContinue = () => {
     navigation.navigate("MyCart", {
       id: route.params.id,
