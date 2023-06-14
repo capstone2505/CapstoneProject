@@ -1,5 +1,5 @@
 
-import { StyleSheet, Text, View, SafeAreaView, Pressable, Image } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Pressable, Image, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { RadioButton } from 'react-native-paper';
 import { auth, db } from './Config';
@@ -17,7 +17,34 @@ const ConfirmOrder = ({ navigation, route }) => {
 
     useEffect(() => {
         checkCardData();
+        readCart();
     }, [userId]);
+    const images = [
+        {
+            name: "chargermode.png",
+            path: require("../assets/Images/chargermode.png"),
+        },
+        { name: "pawsbooth.png", path: require("../assets/Images/pawsbooth.png") },
+        { name: "hounbooth.png", path: require("../assets/Images/hounbooth.png") },
+        {
+            name: "exit55table.png",
+            path: require("../assets/Images/exit55table.png"),
+        },
+        { name: "saltbooth.png", path: require("../assets/Images/saltbooth.png") },
+        { name: "origin.png", path: require("../assets/Images/origin.png") },
+        {
+            name: "cheatBurgerStory.png",
+            path: require("../assets/Images/cheatBurgerStory.png"),
+        },
+        {
+            name: "rosemarybooth.png",
+            path: require("../assets/Images/rosemarybooth.png"),
+        },
+        {
+            name: "exit55table.png",
+            path: require("../assets/Images/exit55table.png"),
+        },
+    ];
 
     let userId = auth?.currentUser?.email;
     console.log(userId);
@@ -37,9 +64,28 @@ const ConfirmOrder = ({ navigation, route }) => {
     console.log("fgsdfgfsdgsfgdgf");
     console.log(dataC)
 
+    const [cartData, setCartData] = useState([])
+    const readCart = async () => {
+        try {
+            const docRef = doc(db, "cart", userId);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                setCartData([data]);
+            } else {
+                console.log("No such document!");
+            }
+        } catch (error) {
+            console.error("Error reading cart:", error);
+        }
+    };
+
+    console.log( 'Conform Data',cartData);
     return (
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center', marginLeft: 20 }}>
+        
+        <SafeAreaView style={{ flex: 1, justifyContent: 'center', marginLeft: 20 }}><ScrollView>
             <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 20 }}>Confirm Order</Text>
+            <Image style={{ width: 300, height: 200 ,alignItems:'center'}} source={require("../assets/Images/confirm.png")} />
             {
                 <>
                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Address</Text>
@@ -57,6 +103,7 @@ const ConfirmOrder = ({ navigation, route }) => {
                     </View>
 
                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Order Details</Text>
+{/*               
                     <View style={[styles.txt, { marginBottom: 30, flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#f5f5f5' }]}>
                         <View>
                             <Text style={{ color: 'black', margin: 2, fontSize: 20 }}> Details </Text>
@@ -65,7 +112,52 @@ const ConfirmOrder = ({ navigation, route }) => {
                         <View style={{ height: 60, width: 60 }}>
                             <Image style={{ width: 80, height: 80, borderRadius: 20 }} source={require('../assets/Images/charger.png')} />
                         </View>
-                    </View>
+                    </View> */}
+                                    {
+                    cartData.map((item, i) =>
+                        <View key={i} style={[styles.txt, { marginBottom: 5, backgroundColor: '#f5f5f5', width: 410, marginLeft: 10, marginRight: 20, borderWidt: 1 }]}>
+                            {
+                                item.cartItem.map((x, index) => {
+                                    const path = images.find((img) => img.name === x.imgDetails);
+                                    const icon = path ? path.path : null;
+                                    return (
+                                        <View key={index} style={{ flexDirection: 'row' }}>
+
+                                            <View style={{ width: 205 }}>
+                                                <Text style={styles.quantityTitle}>Package {x.packageId}</Text>
+                                                {/* <Image style={{ width: 100, height: 100, borderRadius: 20, borderWidth: 1, margin: 10 }} source={icon} /> */}
+                                                </View>
+                                            <View style={{ width: 160 }}>
+                                                <View style={{ flexDirection: 'row' }}>
+                                                    <Text style={{ fontWeight: 'bold', color: 'black', margin: 10, fontSize: 15 }}>Price: </Text>
+                                                    <Text style={{ color: 'black', margin: 10, fontSize: 15 }}> {x.price} QR </Text>
+                                                    
+                                                </View>
+                                            
+                                                <View style={{  width: 370, alignSelf: 'center', padding: 5,marginRight:250}}>
+                                                    <Text style={{ fontWeight: 'bold', color: 'black', margin: 10, fontSize: 15 }}>Details: </Text>
+                                                    {x.details.map((x, i) => {
+                                                        return (<Text key={i} style={{ paddingLeft: 10, margin: 3, fontSize: 12 }}>{x}</Text>)
+                                                    })}
+                                                </View>
+                                                {x.request?<View style={{ marginTop: 10, width: 370, alignSelf: 'center', padding: 5 ,marginLeft:202}}>
+                                                    
+                                                    <Text style={{ fontWeight: 'bold', color: 'black', margin: 10, fontSize: 15 }}>Request: </Text>
+                                                    <Text style={{ color: 'black', margin: 10, fontSize: 15 }}>  {x.request}  </Text>
+
+
+                                                </View>: null}
+                                             
+                                            </View>
+                                      
+
+                                        </View>
+                                    )
+                                })
+                            }
+                        </View>
+                    )
+                }
 
                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Summary Payment</Text>
                     <View style={[{ flexDirection: 'row', justifyContent: 'space-between' }]}>
@@ -90,8 +182,10 @@ const ConfirmOrder = ({ navigation, route }) => {
             }
 
             <Text style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}>Payment Method</Text>
-            <View>
+            <View> 
+                <Text style={{color:'red',fontWeight:'bold'}}> Select your payment type below </Text>
                 <View style={[{ width: 320, flexDirection: 'row', }]}>
+                   
                     <RadioButton
                         value="first"
                         status={checked === 'first' ? 'checked' : 'unchecked'}
@@ -115,9 +209,11 @@ const ConfirmOrder = ({ navigation, route }) => {
                     {/* <Pressable onPress={() => navigation.navigate(checked === 'first' ? 'OrderedPlaced' : 'PaymentDetails')}> */}
                     <Pressable onPress={() => {
                         const screenName = checked === 'first' ? 'OrderedPlaced' : 'PaymentDetails';
-                        const params = checked === 'first' ? {} : {  discountValue: discountValue,
+                        const params = checked === 'first' ? {} : {
+                            discountValue: discountValue,
                             discountTotal: discountTotal,
-                            subAmount: subAmount };
+                            subAmount: subAmount
+                        };
                         navigation.navigate(screenName, params);
                     }}>
                         <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}>
@@ -126,7 +222,9 @@ const ConfirmOrder = ({ navigation, route }) => {
                     </Pressable>
                 </View>
             </View>
+            </ScrollView>
         </SafeAreaView>
+        
     );
 }
 

@@ -10,8 +10,7 @@ const TrackOrder = ({ navigation }) => {
     const circleStyles = [styles.circle];
     const tickStyles = [styles.tick];
     const dotStyles = [styles.dot];
-
-
+    
     if (orderStatus === status) {
       circleStyles.push(styles.completed);
       tickStyles.push(styles.show);
@@ -35,23 +34,31 @@ const TrackOrder = ({ navigation }) => {
   };
 
   return (
-    <View>
-      <SafeAreaView style={styles.container}>
+    <SafeAreaView>
+      <View style={styles.container}>
         <View style={styles.header}>
-          <Pressable onPress={() => navigation.navigate("Home")}>
+          {/* <Pressable onPress={() => navigation.navigate("Home")}>
             <Text style={styles.x}>{"X"}</Text>
-          </Pressable>
+          </Pressable> */}
           <Image style={styles.track} source={require('../assets/Images/Track1.png')} />
           <Text style={{ color: 'Black', marginTop: 5, fontSize: 20 }}> Track Order </Text>
         </View>
-      </SafeAreaView>
+      </View>
 
       <View>
         {renderStep('Completed', 'Completed', require('../assets/Images/Ordered.png'), 0)}
         {renderStep('OnTheWay', 'On the way', require('../assets/Images/onTheway.png'), 1)}
         {renderStep('Delivered', 'Delivered', require('../assets/Images/Delivered.png'), 2)}
       </View>
-    </View>
+
+      <View style={{ marginBottom: 5, marginTop: 5, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8, marginTop: 100 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Pressable onPress={() => navigation.navigate("Home")}>
+            <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Done</Text>
+          </Pressable>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -60,7 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 6,
-    marginTop: 80,
+    marginTop: 50,
   },
   circle: {
     width: 30,

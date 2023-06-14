@@ -12,8 +12,7 @@ const MyCart = ({ navigation, route }) => {
     let userId = auth?.currentUser?.email;
     console.log(userId);
 
-
-    const packageList = route.params.packageList
+    // const packageList = route.params.packageList
     // console.log('packageList from cart', packageList);
     const [cartData, setCartData] = useState([]);
 
@@ -46,7 +45,7 @@ const MyCart = ({ navigation, route }) => {
 
     useEffect(() => {
         saveData();
-        discountamount();
+        route.params != undefined ? discountamount(): null
     }, []);
 
     const readCart = async () => {
@@ -126,7 +125,7 @@ const MyCart = ({ navigation, route }) => {
                 let updatedItems = [...existingItems];
 
                 // Check if the item already exists in the cart
-                const existingItemIndex = existingItems.findIndex( 
+                const existingItemIndex = existingItems.findIndex(
                     (item) => item.packageId === route.params.id
                 );
                 if (existingItemIndex !== -1) {
@@ -134,19 +133,19 @@ const MyCart = ({ navigation, route }) => {
                     updatedItems[existingItemIndex].quantity = route.params.quantity;
                 } else {
                     // Item doesn't exist, add it to the cart
-                    updatedItems.push({
-                        packageId: route.params.id,
-                        details: route.params.details,
-                        imgDetails: route.params.imgDetails,
-                        price: route.params.price,
-                        extraPack: route.params.extraPack,
-                        name: route.params.name,
-                        cup: route.params.cup,
-                        total: route.params.total,
-                        quantity: route.params.quantity,
-                        compName: route.params.compName,
-                        request: route.params.request
-                    });
+                    // updatedItems.push({
+                    //     packageId: route.params.id,
+                    //     details: route.params.details,
+                    //     imgDetails: route.params.imgDetails,
+                    //     price: route.params.price,
+                    //     extraPack: route.params.extraPack,
+                    //     name: route.params.name,
+                    //     cup: route.params.cup,
+                    //     total: route.params.total,
+                    //     quantity: route.params.quantity,
+                    //     compName: route.params.compName,
+                    //     request: route.params.request
+                    // });
                     updatedItems = [
                         ...updatedItems,
                         {
@@ -323,41 +322,42 @@ const MyCart = ({ navigation, route }) => {
     const [discountValue, setDiscountValue] = useState();
 
     const discountamount = () => {
-        let itemName = route.params.compName;
-        console.log(itemName);
-        let itemTotal = route.params.total;
-        if (itemName == "Charger" && itemTotal >= 3000) {
+        // let itemName = route.params.compName;
+        // console.log(itemName);
+        // let itemTotal = route.params.total;
+        if (route.params.compName == "Charger" && route.params.total >= 3000) {
             console.log("yesss charger");
-            const discount = itemTotal * 0.2;
-            const discountedTotal = itemTotal - discount;
+            const discount = route.params.total * 0.2;
+            const discountedTotal = route.params.total - discount;
             setDiscountTotal(discountedTotal);
             setDiscountValue("20");
-            // console.log(discountedTotal);
-        } else if (itemName == "Paws" && itemTotal >= 2300) {
-            const discount = itemTotal * 0.15;
-            const discountedTotal = itemTotal - discount;
-            setDiscountTotal(discountedTotal);
-            // console.log(discountedTotal);
-            setDiscountValue("15");
-            console.log("noooo1 paws");
-        } else if (itemName == "Exit 55" && itemTotal >= 2000) {
-            const discount = itemTotal * 0.1;
-            const discountedTotal = itemTotal - discount;
-            setDiscountTotal(discountedTotal);
-            // console.log(discountedTotal);
-            setDiscountValue("10");
-            // console.log("noooo2 exit55");
-        } else if (itemName == "SALT" && itemTotal >= 2500) {
-            const discount = itemTotal * 0.05;
-            const discountedTotal = itemTotal - discount;
-            setDiscountTotal(discountedTotal);
             console.log(discountedTotal);
-            setDiscountValue("5");
-            console.log("noooo3 salt");
-        } else {
-            setDiscountValue("0");
-            setDiscountTotal(subAmount)
         }
+        //  else if (itemName == "Paws" && itemTotal >= 2300) {
+        //     const discount = itemTotal * 0.15; 
+        //     const discountedTotal = itemTotal - discount;
+        //     setDiscountTotal(discountedTotal);
+        //     // console.log(discountedTotal);
+        //     setDiscountValue("15");
+        //     console.log("noooo1 paws");
+        // } else if (itemName == "Exit 55" && itemTotal >= 2000) {
+        //     const discount = itemTotal * 0.1;
+        //     const discountedTotal = itemTotal - discount;
+        //     setDiscountTotal(discountedTotal);
+        //     // console.log(discountedTotal);
+        //     setDiscountValue("10");
+        //     // console.log("noooo2 exit55");
+        // } else if (itemName == "SALT" && itemTotal >= 2500) {
+        //     const discount = itemTotal * 0.05;
+        //     const discountedTotal = itemTotal - discount;
+        //     setDiscountTotal(discountedTotal);
+        //     console.log(discountedTotal);
+        //     setDiscountValue("5");
+        //     console.log("noooo3 salt");
+        // } else {
+        //     setDiscountValue("0");
+        //     setDiscountTotal(subAmount)
+        // }
     };
 
     return (
@@ -371,7 +371,7 @@ const MyCart = ({ navigation, route }) => {
                                     const path = images.find((img) => img.name === x.imgDetails);
                                     const icon = path ? path.path : null;
                                     return (
-                                        <View key={index} style={{ backgroundColor: 'lightgrey', flexDirection: 'row' }}>
+                                        <View key={index} style={{ flexDirection: 'row' }}>
 
                                             <View style={{ width: 205 }}>
                                                 <Text style={styles.quantityTitle}>Package {x.packageId}</Text>
@@ -393,25 +393,29 @@ const MyCart = ({ navigation, route }) => {
                                                 <View style={{ flexDirection: 'row' }}>
                                                     <Text style={{ fontWeight: 'bold', color: 'black', margin: 10, fontSize: 15 }}>Price: </Text>
                                                     <Text style={{ color: 'black', margin: 10, fontSize: 15 }}> {x.price} QR </Text>
+                                                    <TouchableOpacity onPress={() => deleteRes(userId, i)} style={{ backgroundColor: '#D3B3B8', width: 30 ,height:30,borderRadius:10}}>
+                                                <Text style={{ color: 'black', margin: 5, fontSize: 30 }} >
+                                                    <Ionicons name='trash' color={'black'} size={20} />
+                                                </Text>
+                                            </TouchableOpacity>
                                                 </View>
+                                            
                                                 <View style={{ marginTop: 10, width: 370, alignSelf: 'center', padding: 5 }}>
                                                     <Text style={{ fontWeight: 'bold', color: 'black', margin: 10, fontSize: 15 }}>Details: </Text>
                                                     {x.details.map((x, i) => {
                                                         return (<Text key={i} style={{ paddingLeft: 10, margin: 3, fontSize: 12 }}>{x}</Text>)
                                                     })}
                                                 </View>
-                                                <View style={{ marginTop: 10, width: 370, alignSelf: 'center', padding: 5 }}>
+                                                {x.request?<View style={{ marginTop: 10, width: 370, alignSelf: 'center', padding: 5 }}>
+                                                    
                                                     <Text style={{ fontWeight: 'bold', color: 'black', margin: 10, fontSize: 15 }}>Request: </Text>
                                                     <Text style={{ color: 'black', margin: 10, fontSize: 15 }}>  {x.request}  </Text>
 
 
-                                                </View>
+                                                </View>: null}
+                                             
                                             </View>
-                                            <TouchableOpacity onPress={() => deleteRes(userId, i)} style={{ backgroundColor: '#F7EBED', width: 30 }}>
-                                                <Text style={{ color: 'black', margin: 5, fontSize: 30 }} >
-                                                    <Ionicons name='trash' color={'black'} size={20} />
-                                                </Text>
-                                            </TouchableOpacity>
+                                      
 
                                         </View>
                                     )
@@ -504,18 +508,18 @@ const MyCart = ({ navigation, route }) => {
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View style={{ marginTop: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 150, height: 50, borderRadius: 8, padding: 8 }}>
-                    <Pressable
-                          onPress={() =>
-                            navigation.navigate({
-                              name: "Packages",
-                              params: {
-                                packageList: packageList,
-                               
-                              },
-                            })
-                          }
+                        <Pressable
+                            onPress={() =>
+                                navigation.navigate({
+                                    name: "Packages",
+                                    params: {
+                                        packageList: route.params.packageList,
+
+                                    },
+                                })
+                            }
                         >
-                                              
+
                             <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Add More </Text>
                         </Pressable>
                     </View>
@@ -529,6 +533,7 @@ const MyCart = ({ navigation, route }) => {
                                         subAmount: subAmount,
                                         discountTotal: discountTotal,
                                         discountValue: discountValue,
+                                        details : route.params.details ,
                                     },
                                 })
                             }

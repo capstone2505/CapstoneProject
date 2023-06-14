@@ -93,19 +93,21 @@ import { getDocs, collection, query, where , doc, getDoc } from "firebase/firest
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigation() {
-  const [userId, setUserId] = useState(null);
+  // const [userId, setUserId] = useState(null);
+  let userId = auth?.currentUser?.email;
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        setUserId(user.uid); // Set the user's UID as userId
-      } else {
-        setUserId(null);
-      }
-    });
 
-    return () => unsubscribe(); // Unsubscribe from the auth state changes when component unmounts
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged(user => {
+  //     if (user) {
+  //       setUserId(user.uid); // Set the user's UID as userId
+  //     } else {
+  //       setUserId(null);
+  //     }
+  //   });
+
+  //   return () => unsubscribe(); // Unsubscribe from the auth state changes when component unmounts
+  // }, []);
 
   return (
     <Tab.Navigator>

@@ -109,21 +109,6 @@ const Checkout = ({ navigation, route }) => {
     hidePicker();
   };
 
- const ConfirmandSave = () => {
-  addAddress()
-  handleConfirmButton()
-  };
-
-  const handleConfirmButton =() =>{
-    navigation.navigate({
-      name: "ConfirmOrder", params: {
-        discountValue: discountValue,
-        discountTotal: discountTotal,
-        subAmount: subAmount
-      }
-    });
-  }
-
   const [contact, setContact] = useState()
   const [email, setEmail] = useState()
   const [streetNumber, setStreetNumber] = useState()
@@ -135,7 +120,7 @@ const Checkout = ({ navigation, route }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const datestring = selectedDate.toLocaleDateString()
   const timestring = date.toLocaleTimeString()
-
+  const [errorMessage, setErrorMessage] = useState("");
 
   const addAddress = async () => {
     const docRef = doc(db, "checkout", userId);
@@ -156,7 +141,36 @@ const Checkout = ({ navigation, route }) => {
         console.log(error.message);
       });
   };
+// ...
 
+const handleConfirmButton = () => {
+  if (!streetNumber || !streetName || !buildingNumber || !city || !contact || !email || !selectedDate || !date) {
+    // Display an error message or perform any desired action
+    const errorMessage = "Please fill All the Fields !!!";
+    setErrorMessage(errorMessage);
+    return;
+  }
+
+  navigation.navigate({
+    name: "ConfirmOrder",
+    params: {
+      discountValue: discountValue,
+      discountTotal: discountTotal,
+      subAmount: subAmount,
+    }
+  });
+}
+
+// ...
+
+const ConfirmandSave = () => {
+  addAddress();
+  handleConfirmButton();
+};
+
+// ...
+
+  
   return (
     <SafeAreaView style={styles.container}>
       <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: 'bold' }}>Add Address</Text>
@@ -254,6 +268,9 @@ const Checkout = ({ navigation, route }) => {
         </View>
       </View>
             
+      {errorMessage ? (
+        <Text style={styles.errorText}>{errorMessage}</Text>
+      ) : null}
 
       <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8, marginTop: 100 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -261,7 +278,7 @@ const Checkout = ({ navigation, route }) => {
             <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Confirm Order</Text>
           </Pressable>
         </View>
-        </View>
+      </View>
         {/* <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8, marginTop: 100 }}> */}
         {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Pressable onPress={addAddress}>
@@ -326,4 +343,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'white',
   },
+  errorText:{color: "red", fontSize:20}
 });

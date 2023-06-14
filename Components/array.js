@@ -300,11 +300,8 @@ const products = [
   ];
   
 
-<<<<<<< HEAD
 // 01 array of object fro charger packaging 
-=======
-// 01 array of object fro charger packaging ....
->>>>>>> ca9581713dc955c641f1b5b904ca825a1da194c8
+
 const charger =[
     {
       id:0,
