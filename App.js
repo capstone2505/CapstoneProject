@@ -38,7 +38,7 @@ export default function App() {
         <Stack.Screen name='Home' component={TabNavigation} />
         <Stack.Screen name='Home2' component={TabNavigation2} />
         <Stack.Screen name='Login' component={Login} />
-        <Stack.Screen name='SignUp' component={SignUp} />
+        <Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: true }}/>
         <Stack.Screen name='Products' component={Products} options={{ headerShown: true }} />
         <Stack.Screen name='ContactUs' component={ContactUs} />
         <Stack.Screen name='AboutUs' component={AboutUs} />

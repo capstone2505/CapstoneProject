@@ -493,10 +493,10 @@ const MyCart = ({ navigation, route }) => {
                             ]}
                         >
                             <Text style={{ margin: 5, fontSize: 15 }}>Total Amount</Text>
-                            {discountValue ? (
-                                <Text style={{ margin: 3 }}>{subAmount} QR</Text>
-                            ) : (
+                            {discountTotal ? (
                                 <Text style={{ margin: 3 }}>{discountTotal} QR</Text>
+                            ) : (
+                                <Text style={{ margin: 3 }}>{subAmount} QR</Text>
                             )}
                             {/* <Text style={{ margin: 5, fontSize: 15 }}>{discountTotal}QR</Text> */}
                         </View>
@@ -530,7 +530,7 @@ const MyCart = ({ navigation, route }) => {
                                         subAmount: subAmount,
                                         discountTotal: discountTotal,
                                         discountValue: discountValue,
-                                        details : route.params.details ,
+                                        details : route.params != undefined ? route.params.details: null,
                                     },
                                 })
                             }

@@ -170,7 +170,7 @@ const ConfirmOrder = ({ navigation, route }) => {
 
                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Payment Method</Text>
                     <View>
-                        <Text style={{ color: 'red', fontWeight: 'bold' }}> Select your payment type below </Text>
+                        <Text style={{ color: '#998184', fontWeight: 'bold' }}> Select your payment type below </Text>
                         <View style={[{ width: 320, flexDirection: 'row', }]}>
 
                             <RadioButton
