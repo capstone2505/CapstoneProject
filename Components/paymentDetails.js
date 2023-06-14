@@ -126,7 +126,7 @@ export default function PaymentDetails({ navigation }) {
     <View style={styles.container}>
       <View style={styles.space} />
       <Text style={styles.title}>Card Payment</Text>
-      <View style={styles.content}>
+      {/* <View style={styles.conten t}> */}
         <View style={styles.space} />
         <Text style={styles.boldTextLarge}>Summary Payment</Text>
         <View style={styles.paymentDetails}>
@@ -203,7 +203,7 @@ export default function PaymentDetails({ navigation }) {
           <Text style={styles.buttonText}>Pay now</Text>
         </Pressable>
         <View style={styles.space} />
-      </View>
+      {/* </View>  */}
       <View style={styles.space} />
     </View>
   );
