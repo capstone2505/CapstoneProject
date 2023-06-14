@@ -1,3 +1,4 @@
+// card Payment Done 
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -107,7 +108,7 @@ export default function PaymentDetails({ navigation, route }) {
 
     console.log("Document id from checkout ", docRef.id);
     console.log(
-      "hello from mnoosh payment ",
+      "hello from  payment ",
       CardExpDate,
       CardExpYear,
       CardverfVal,
@@ -118,7 +119,7 @@ export default function PaymentDetails({ navigation, route }) {
  
 
   const handelBoth = () => {
-    console.log("hii mnoosh from both payment ");
+    console.log("hii  from both payment ");
     add();
   };
 
@@ -127,14 +128,6 @@ export default function PaymentDetails({ navigation, route }) {
       <View style={styles.space} />
       <Text style={styles.title}>Card Payment</Text>
       <View style={styles.content}>
-        <View style={styles.space} />
-        <Text style={styles.boldTextLarge}>Summary Payment</Text>
-        <View style={styles.paymentDetails}>
-          <Text style={styles.subtitle}>Sub-total: 5000 QR</Text>
-          <Text style={styles.subtitle}>Discount: 0%</Text>
-          <View style={styles.divider} />
-          <Text style={styles.subtitle}>Total Amount: 5000 QR</Text>
-        </View>
 
         <View style={{ margin: 15, width: 400 }}>
                     <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 5, marginLeft: 5 }}>
@@ -221,6 +214,7 @@ export default function PaymentDetails({ navigation, route }) {
           <Text style={styles.label}>Card Number</Text>
           <TextInput
             placeholder="Card Number"
+            style={styles.input}
             onChangeText={(text) => setCardNum(text)}
           />
           {(cardNum === "" && cardNumFocused === true) || cardNumFocused ? (

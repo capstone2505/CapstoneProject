@@ -1,3 +1,4 @@
+// Details Done 
 import {
   StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, TextInput, Pressable
 } from 'react-native'

@@ -1,4 +1,4 @@
-// Last update of my cart 06/10/2023
+// MyCart Done 
 
 import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView, ScrollView, Pressable, } from 'react-native'
 import React, { useEffect, useState } from 'react'
@@ -322,42 +322,39 @@ const MyCart = ({ navigation, route }) => {
     const [discountValue, setDiscountValue] = useState();
 
     const discountamount = () => {
-        // let itemName = route.params.compName;
-        // console.log(itemName);
-        // let itemTotal = route.params.total;
         if (route.params.compName == "Charger" && route.params.total >= 3000) {
-            console.log("yesss charger");
+            // console.log("yesss charger");
             const discount = route.params.total * 0.2;
             const discountedTotal = route.params.total - discount;
             setDiscountTotal(discountedTotal);
             setDiscountValue("20");
-            console.log(discountedTotal);
+            // console.log(discountedTotal);
         }
-        //  else if (itemName == "Paws" && itemTotal >= 2300) {
-        //     const discount = itemTotal * 0.15; 
-        //     const discountedTotal = itemTotal - discount;
-        //     setDiscountTotal(discountedTotal);
-        //     // console.log(discountedTotal);
-        //     setDiscountValue("15");
-        //     console.log("noooo1 paws");
-        // } else if (itemName == "Exit 55" && itemTotal >= 2000) {
-        //     const discount = itemTotal * 0.1;
-        //     const discountedTotal = itemTotal - discount;
-        //     setDiscountTotal(discountedTotal);
-        //     // console.log(discountedTotal);
-        //     setDiscountValue("10");
-        //     // console.log("noooo2 exit55");
-        // } else if (itemName == "SALT" && itemTotal >= 2500) {
-        //     const discount = itemTotal * 0.05;
-        //     const discountedTotal = itemTotal - discount;
-        //     setDiscountTotal(discountedTotal);
-        //     console.log(discountedTotal);
-        //     setDiscountValue("5");
-        //     console.log("noooo3 salt");
-        // } else {
-        //     setDiscountValue("0");
-        //     setDiscountTotal(subAmount)
-        // }
+         else if (route.params.compName == "Paws" && route.params.total >= 2300) {
+            const discount = itemTotal * 0.15; 
+            const discountedTotal = itemTotal - discount;
+            setDiscountTotal(discountedTotal);
+            // console.log(discountedTotal);
+            setDiscountValue("15");
+            console.log("noooo1 paws");
+        } else if (route.params.compName == "Exit 55" && route.params.total >= 2000) {
+            const discount = itemTotal * 0.1;
+            const discountedTotal = itemTotal - discount;
+            setDiscountTotal(discountedTotal);
+            // console.log(discountedTotal);
+            setDiscountValue("10");
+            // console.log("noooo2 exit55");
+        } else if (route.params.compName == "SALT" && route.params.total >= 2500) {
+            const discount = itemTotal * 0.05;
+            const discountedTotal = itemTotal - discount;
+            setDiscountTotal(discountedTotal);
+            // console.log(discountedTotal);
+            setDiscountValue("5");
+            // console.log("noooo3 salt");
+        } else {
+            setDiscountValue("0");
+            setDiscountTotal(subAmount)
+        }
     };
 
     return (

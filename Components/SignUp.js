@@ -1,3 +1,4 @@
+// Singup Done 
 import {
   View,
   Text,
@@ -118,10 +119,10 @@ const SignUp = ({ navigation }) => {
   };
 
   const submitUserData = async () => {
-    const docRef = doc(db, "user", email);
+    const docRef = doc(db, "user", email.toLocaleLowerCase());
     console.log(email, password, name, contact);
     await setDoc(docRef, {
-      email: email,
+      email: email.toLocaleLowerCase(),
       name: name,
       contact: contact,
       address: { city: "", streetNum: "", streetName: "", buidingNum: "" },

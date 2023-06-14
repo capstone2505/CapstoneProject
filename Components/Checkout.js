@@ -1,3 +1,4 @@
+// Checkout Done 
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable, TextInput, SafeAreaView, Button } from 'react-native'
 import { SelectCountry } from 'react-native-element-dropdown';
@@ -140,6 +141,23 @@ const Checkout = ({ navigation, route }) => {
       .catch((error) => {
         console.log(error.message);
       });
+
+
+      const docRef2 = doc(db, "user", userId);
+      await setDoc(docRef2, {
+        address:{
+          streetName:streetName,
+            buidingNum:buildingNumber,
+            city:city,
+            streetNum:streetNumber
+        },
+      },{merge:true})
+        .then(() => {
+          console.log("Data submitted successfully");
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
   };
 // ...
 
@@ -278,14 +296,7 @@ const ConfirmandSave = () => {
             <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Confirm Order</Text>
           </Pressable>
         </View>
-      </View>
-        {/* <View style={{ marginBottom: 30, marginTop: 10, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8, marginTop: 100 }}> */}
-        {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Pressable onPress={addAddress}>
-            <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> add Order</Text>
-          </Pressable>
-        </View> */}
-      {/* </View> */}
+        </View>
     </SafeAreaView>
   )
 }

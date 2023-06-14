@@ -1,6 +1,7 @@
+// Track oreder Done 
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, SafeAreaView, Pressable } from 'react-native';
-import Constants from 'expo-constants';
+
 
 const TrackOrder = ({ navigation }) => {
   const [orderStatus, setOrderStatus] = useState('Completed');
@@ -37,11 +38,8 @@ const TrackOrder = ({ navigation }) => {
     <SafeAreaView>
       <View style={styles.container}>
         <View style={styles.header}>
-          {/* <Pressable onPress={() => navigation.navigate("Home")}>
-            <Text style={styles.x}>{"X"}</Text>
-          </Pressable> */}
           <Image style={styles.track} source={require('../assets/Images/Track1.png')} />
-          <Text style={{ color: 'Black', marginTop: 5, fontSize: 20 }}> Track Order </Text>
+          <Text style={{ color: 'black', marginTop: 5, fontSize: 20 }}> Track Order </Text>
         </View>
       </View>
 

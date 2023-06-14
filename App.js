@@ -1,3 +1,4 @@
+// Done 
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -20,14 +21,13 @@ import ConfirmOrder from './Components/ConfirmOrder'
 import PaymentDetails from './Components/paymentDetails'
 import OrderedPlaced from './Components/OrderedPlaced'
 import TrackOrder from './Components/TrackOrder'
-// import Profile from './Components/EditProfile';
 import Checkout from './Components/Checkout';
 import Home2 from './Components/Home2';
 import TabNavigation2 from './Navigation/TabNavigation2';
 
 
 
-// import Try from './Components/Try'
+
 //installation for nav - npm install @react-navigation/native
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator();

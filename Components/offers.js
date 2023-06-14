@@ -1,3 +1,4 @@
+// Offers Done 
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
@@ -88,8 +89,7 @@ export default function Offers({ navigation }) {
             const icon = path ? path.path : null;
             const product = data.filter((item) => item.name === x.name);
             const m = product ? product : null;
-            // console.log("");
-            // console.log(m);
+        
             return (
               <View key={i} style={styles.offerItem}>
                 <View style={styles.imageContainer}>

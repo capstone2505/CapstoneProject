@@ -1,3 +1,4 @@
+// Product Done 
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Image, Dimensions, SafeAreaView, ScrollView, TouchableOpacity, Pressable} from 'react-native';
 import { Searchbar } from "react-native-paper";
@@ -59,10 +60,7 @@ export default function Products({ navigation }) {
     }
   };
 
- 
 
-  // console.log('All Products');
-  //   console.log(data.map( (item, index) => {console.log(item[3]);}));
   return (
     <SafeAreaView style={styles.container}>
       <View>

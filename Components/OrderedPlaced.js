@@ -1,13 +1,8 @@
+// Orderplace Done 
 import * as React from 'react';
 import { StatusBar, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView , Pressable } from 'react-native';
 import Constants from 'expo-constants';
 
-// You can import from local files
-// import AssetExample from './components/AssetExample';
-
-
-// or any pure javascript modules available in npm
-// import { Card } from 'react-native-paper';
 
 export default function OrderedPlaced({navigation}) {
   return (
@@ -20,10 +15,7 @@ export default function OrderedPlaced({navigation}) {
       </View>
       {/* <View style={styles.content}> */}
         <Image style={styles.thankYou} source={require('../assets/Images/ThankYou.png')} />
-        {/* <TouchableOpacity style={styles.trackButton}>
-          <Text style={styles.trackButtonText}>Track Order</Text>
-        </TouchableOpacity> */}
-      {/* </View> */}
+        
       <View style={{ marginBottom: 30, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8 }}>
             
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>

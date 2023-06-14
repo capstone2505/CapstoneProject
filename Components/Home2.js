@@ -1,3 +1,4 @@
+// // Home2 Done 
 import React, { useState, useEffect,useLayoutEffect } from 'react';
 import { View, Text, Pressable, Image, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, Modal, TextInput, Dimensions } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';

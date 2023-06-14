@@ -1,8 +1,6 @@
+// Packages Done 
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView, Pressable } from 'react-native'
-// import { useState, useEffect } from 'react'
-import { db } from "./Config";
-import { getDocs, collection } from "firebase/firestore";
 
 
 export default function Packages({ navigation, route }) {
@@ -33,8 +31,7 @@ export default function Packages({ navigation, route }) {
 
     const discount = route.params.discount
 
-    // console.log("shjgsdsdds");
-    // console.log(discount);
+
 
     return (
         <SafeAreaView style={styles.container}>

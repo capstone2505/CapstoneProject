@@ -1,3 +1,4 @@
+// Contact us Done 
 import React ,{ useState }  from 'react';
 import { StatusBar, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, SafeAreaView, Pressable } from 'react-native';
 
@@ -10,8 +11,7 @@ const ContactUs =({ navigation }) => {
   const [contact, setContact] = useState()
   const [email, setEmail] = useState()
   const [message,setMessage]= useState()
-  //const [Confirmpassword, ConfirmsetPassword] = useState()
- // const [signedIn, setSignedIn] = useState(false)
+
  let user = auth?.currentUser?.email;
   console.log(user);
 

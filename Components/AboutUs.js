@@ -1,3 +1,4 @@
+// About us Done 
 import React, { useState } from 'react';
 import { StatusBar, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
