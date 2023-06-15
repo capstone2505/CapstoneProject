@@ -7,12 +7,12 @@ import Constants from 'expo-constants';
 export default function OrderedPlaced({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-      <Pressable  onPress={() => navigation.navigate("Home")}>
+      {/* <View style={styles.header}>
+      <Pressable  onPress={() => navigation.navigate("Home2")}>
       <Text style={styles.x}>{"X"}</Text>
                 </Pressable>
        
-      </View>
+      </View> */}
       {/* <View style={styles.content}> */}
         <Image style={styles.thankYou} source={require('../assets/Images/ThankYou.png')} />
         

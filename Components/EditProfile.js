@@ -107,7 +107,7 @@ const EditProfile = ({ navigation, route }) => {
       <View style={{ alignItems: "center" }}>
         <View style={styles.imgProfile}>
           <Text style={{ fontSize: 40 }}>
-          {profile.email?.charAt(0).toUpperCase()}</Text>
+          {email?.charAt(0).toUpperCase()}</Text>
         </View>
       </View>
 

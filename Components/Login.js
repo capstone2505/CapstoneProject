@@ -48,7 +48,7 @@ export default function Login({ navigation }) {
       setPasswordFocused(false);
     }
     if (invaildMassage === 'auth/invalid-email') {
-      setEmailError('invalid-email!!');
+      // setEmailError('invalid-email!!');
       setEmailFocused(true);
       setPasswordlError('');
       setPasswordFocused(false);

@@ -51,7 +51,7 @@ const TrackOrder = ({ navigation }) => {
 
       <View style={{ marginBottom: 5, marginTop: 5, alignSelf: 'center', alignItems: 'center', backgroundColor: '#998184', width: 300, height: 50, borderRadius: 8, padding: 8, marginTop: 100 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Pressable onPress={() => navigation.navigate("Home")}>
+          <Pressable onPress={() => navigation.navigate("Home2")}>
             <Text style={{ color: 'white', marginTop: 5, fontSize: 20 }}> Done</Text>
           </Pressable>
         </View>

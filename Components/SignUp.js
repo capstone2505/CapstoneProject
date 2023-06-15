@@ -47,10 +47,10 @@ const SignUp = ({ navigation }) => {
       setEmailError("Enter your email!!");
       setEmailFocused(true);
     } else if (email !== "" && invalidMessage === "auth/email-already-in-use") {
-      setEmailError("This Email already in use!");
+      // setEmailError("This Email already in use!");
       setEmailFocused(true);
     } else if (email !== "" && invalidMessage === "auth/invalid-email") {
-      setEmailError("Invalid email format!");
+      // setEmailError("Invalid email format!");
       setEmailFocused(true);
     } else {
       setEmailError("");

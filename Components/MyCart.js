@@ -331,22 +331,22 @@ const MyCart = ({ navigation, route }) => {
             // console.log(discountedTotal);
         }
          else if (route.params.compName == "Paws" && route.params.total >= 2300) {
-            const discount = itemTotal * 0.15; 
-            const discountedTotal = itemTotal - discount;
+            const discount = route.params.total * 0.15; 
+            const discountedTotal = route.params.total - discount;
             setDiscountTotal(discountedTotal);
             // console.log(discountedTotal);
             setDiscountValue("15");
             console.log("noooo1 paws");
         } else if (route.params.compName == "Exit 55" && route.params.total >= 2000) {
-            const discount = itemTotal * 0.1;
-            const discountedTotal = itemTotal - discount;
+            const discount = route.params.total * 0.1;
+            const discountedTotal = route.params.total - discount;
             setDiscountTotal(discountedTotal);
             // console.log(discountedTotal);
             setDiscountValue("10");
             // console.log("noooo2 exit55");
         } else if (route.params.compName == "SALT" && route.params.total >= 2500) {
-            const discount = itemTotal * 0.05;
-            const discountedTotal = itemTotal - discount;
+            const discount = route.params.total * 0.05;
+            const discountedTotal = route.params.total - discount;
             setDiscountTotal(discountedTotal);
             // console.log(discountedTotal);
             setDiscountValue("5");
